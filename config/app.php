@@ -159,6 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Collective\Remote\RemoteServiceProvider::class,
 
+        Barryvdh\Queue\AsyncServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
     ],
 

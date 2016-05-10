@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'web'], function () {
 	Route::resource('tasks', 'TasksController');
+	Route::get('tasks/{id}/run', 'TasksController@run');
 });

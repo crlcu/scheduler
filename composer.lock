@@ -4,9 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "722a3abfb5cde289e908ab323c6f0ffc",
-    "content-hash": "18d39d83f6ded314ee653ec11471a38a",
+    "hash": "2ef71177285ac6b9c8c43a84b2d6f238",
+    "content-hash": "df7620ddec41e40bbf53ef1b76590b7c",
     "packages": [
+        {
+            "name": "barryvdh/laravel-async-queue",
+            "version": "v0.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-async-queue.git",
+                "reference": "218e8b04834cdef5f15fd9c5229baa9c7e095652"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-async-queue/zipball/218e8b04834cdef5f15fd9c5229baa9c7e095652",
+                "reference": "218e8b04834cdef5f15fd9c5229baa9c7e095652",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.0.x|5.1.x|5.2.x",
+                "illuminate/support": "5.0.x|5.1.x|5.2.x",
+                "php": ">=5.4.0",
+                "symfony/process": "~2.6|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Queue\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Async Queue Driver for Laravel (Push to background)",
+            "keywords": [
+                "async",
+                "background",
+                "laravel",
+                "queue"
+            ],
+            "time": "2016-02-29 09:06:07"
+        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v2.2.0",
@@ -548,12 +598,12 @@
             "version": "v5.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/crlcu/remote.git",
+                "url": "https://github.com/LaravelCollective/remote.git",
                 "reference": "ebc0bec69a0649c5bee885634f5ad31bfa0b8b31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crlcu/remote/zipball/ebc0bec69a0649c5bee885634f5ad31bfa0b8b31",
+                "url": "https://api.github.com/repos/LaravelCollective/remote/zipball/ebc0bec69a0649c5bee885634f5ad31bfa0b8b31",
                 "reference": "ebc0bec69a0649c5bee885634f5ad31bfa0b8b31",
                 "shasum": ""
             },

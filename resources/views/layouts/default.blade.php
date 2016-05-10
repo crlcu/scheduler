@@ -11,9 +11,13 @@
         {!! Html::style('//fonts.googleapis.com/icon?family=Material+Icons') !!}
         {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css') !!}
     @show
+
+    {!! Html::style('css/style.min.css') !!}
 </head>
 <body>
     <div class="page-wrap">
+        @include('elements.navbar')
+        
         <div id="page">
             @yield('content')
         </div>
@@ -29,6 +33,8 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         
+        {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js') !!}
+        {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js') !!}
     @show
 </body>
 </html>

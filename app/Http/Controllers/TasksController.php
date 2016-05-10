@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Auth;
+use Artisan;
 use App\Models\Task;
 
 class TasksController extends Controller
@@ -31,7 +33,11 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        $task = new Task();
+
+        return view('tasks.create', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -42,7 +48,19 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = new Task($request->input('Task'));
+        $task->user_id = 1;//Auth::id();
+
+        if ($request->input('Task.viaSSH'))
+        {
+            $task->fill([
+                'jsonSSH' => json_encode($request->input('SSH'))
+            ]);            
+        }
+
+        $task->save();
+
+        return redirect()->action('TasksController@index');
     }
 
     /**
@@ -53,7 +71,26 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::with('executions')->find($id);
+
+        return view('tasks.show', [
+            'task' => $task,
+        ]);
+    }
+
+    /**
+     * Run the task
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function run($id)
+    {
+        $task = Task::find($id);
+
+        Artisan::queue('run:task', ['task' => $id]);
+        
+        return redirect()->action('TasksController@show', $id);
     }
 
     /**
@@ -64,7 +101,11 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+
+        return view('tasks.edit', [
+            'task' => $task,
+        ]);
     }
 
     /**
@@ -76,7 +117,19 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->fill($request->input('Task'));
+
+        if ($request->input('Task.viaSSH'))
+        {
+            $task->fill([
+                'jsonSSH' => json_encode($request->input('SSH'))
+            ]);            
+        }
+
+        $task->save();
+
+        return redirect()->action('TasksController@index');
     }
 
     /**

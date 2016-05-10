@@ -9,6 +9,7 @@ class Task extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = ['name', 'start_at', 'viaSSH', 'jsonSSH', 'command', 'is_enabled'];
     protected $appends = ['average', 'ssh'];
 
 
@@ -17,6 +18,11 @@ class Task extends Model
      */
     public function getAverageAttribute($value)
     {
+        if (!$this->executions->count())
+        {
+            return '0';
+        }
+
         $total = $this->executions->sum(function($execution) {
             return $execution->updated_at->diffInSeconds($execution->created_at);
         });
@@ -32,6 +38,15 @@ class Task extends Model
     public function getTypeAttribute($value)
     {
         return $this->viaSSH ? 'ssh' : 'process';
+    }
+
+
+    /**
+     * Scopes
+     */
+    public function scopeEnabled($query)
+    {
+        return $query->where('is_enabled', '=', 1);
     }
 
 

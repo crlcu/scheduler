@@ -1,32 +1,16 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Run;
 
 use Illuminate\Console\Command;
 
-use Carbon\Carbon;
 use Symfony\Component\Process\Process;
 use SSH;
 
-use App\Models\Task;
 use App\Models\TaskExecution;
 
-class Runner extends Command
+class Base extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'run:tasks';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Run tasks';
-
     /**
      * The last execution object-
      *
@@ -40,38 +24,6 @@ class Runner extends Command
      * @var string
      */
     protected $outputString;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        $tasks = Task::all();
-
-        foreach ($tasks as $task)
-        {
-            if ($this->process($task))
-            {
-                $this->info('OK');
-            }
-            else 
-            {
-                $this->error('FAILED');
-            }
-        }
-    }
 
     protected function process($task)
     {
@@ -150,5 +102,7 @@ class Runner extends Command
             'status'    => 'completed',
             'result'    => $output,
         ]);
+
+        $this->info($output);
     }
 }
