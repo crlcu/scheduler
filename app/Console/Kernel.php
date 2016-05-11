@@ -25,10 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        /*
         $schedule->command('run:tasks')
             ->name('Run tasks')
             ->everyMinute();
-        */
     }
 }

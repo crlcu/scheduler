@@ -8,12 +8,21 @@
         @endif
     </div>
 
-    <div class="input-field col s12 m5">
-        {!! Form::label('Task[start_at]', 'Start at') !!}
-        {!! Form::text('Task[start_at]', $task['start_at'], ['provide' => 'datetimepicker', 'required' => true]) !!}
+    <div class="input-field col s12 m3">
+        {!! Form::label('Task[cron_expression]', 'Cron expression') !!}
+        {!! Form::text('Task[cron_expression]', $task['cron_expression'], ['placeholder' => '* * * * * *', 'required' => true]) !!}
 
-        @if ($errors->has('Task.start_at'))
-            <span class="red-text">{{ $errors->first('Task.start_at') }}</span>
+        @if ($errors->has('Task.cron_expression'))
+            <span class="red-text">{{ $errors->first('Task.cron_expression') }}</span>
+        @endif
+    </div>
+
+    <div class="input-field col s12 m2">
+        {!! Form::label('Task[next_due]', 'Next due') !!}
+        {!! Form::text('Task[next_due]', $task['next_due'], ['placeholder' => 'yyyy-mm-dd hh:mm:ss', 'provide' => 'datetimepicker', 'required' => true]) !!}
+
+        @if ($errors->has('Task.next_due'))
+            <span class="red-text">{{ $errors->first('Task.next_due') }}</span>
         @endif
     </div>
 

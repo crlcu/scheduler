@@ -43,7 +43,7 @@ class Single extends Command
         
         if (!is_a($task, 'App\Models\Task'))
         {
-            $task = Task::enabled()->findOrFail($this->argument('task'));
+            $task = Task::findOrFail($this->argument('task'));
         }
 
         if ($this->process($task))

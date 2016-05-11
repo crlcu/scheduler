@@ -40,7 +40,7 @@ class Multiple extends Command
      */
     public function handle()
     {
-        $tasks = Task::enabled()->get();
+        $tasks = Task::enabled()->isDue()->get();
 
         foreach ($tasks as $task)
         {

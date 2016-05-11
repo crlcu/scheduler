@@ -8,7 +8,9 @@ use App\Http\Requests;
 
 use Auth;
 use Artisan;
+
 use App\Models\Task;
+use App\Models\TaskExecution;
 
 class TasksController extends Controller
 {
@@ -71,10 +73,14 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $task = Task::with('executions')->find($id);
+        $task = Task::find($id);
+        $executions = TaskExecution::where('task_id', '=', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('tasks.show', [
-            'task' => $task,
+            'task'          => $task,
+            'executions'    => $executions
         ]);
     }
 

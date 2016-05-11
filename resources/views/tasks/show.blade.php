@@ -1,9 +1,9 @@
 @extends('layouts.default')
 
-@section('content')
-    <a href="{{ action('TasksController@run', $task['id']) }}" title="Run"><i class="material-icons green-text text-accent-3">launch</i></a>
-    
-    <table class="bordered striped highlight">
+@section('content')  
+    @include('tasks.card', ['task' => $task])
+
+    <table class="bordered highlight condensed">
         <thead>
             <tr>
                 <th>Status</th>
@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($task['executions'] as $execution)
+            @foreach ($executions as $execution)
                 <tr class="{{ $execution['status'] == 'failed' ? 'red lighten-5' : '' }}">
                     <td>{{ $execution['status'] }}</td>
                     <td>{!! nl2br($execution['result']) !!}</td>
@@ -37,4 +37,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {!! $executions->links() !!}
 @endsection

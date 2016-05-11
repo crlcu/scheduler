@@ -10,6 +10,7 @@
     @section('styles')
         {!! Html::style('//fonts.googleapis.com/icon?family=Material+Icons') !!}
         {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css') !!}
+        {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/jquery.datetimepicker.min.css') !!}
     @show
 
     {!! Html::style('css/style.min.css') !!}
@@ -18,7 +19,7 @@
     <div class="page-wrap">
         @include('elements.navbar')
         
-        <div id="page">
+        <div id="page" class="container">
             @yield('content')
         </div>
 
@@ -35,6 +36,9 @@
         
         {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js') !!}
         {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js') !!}
+        {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.3/build/jquery.datetimepicker.full.min.js') !!}
+
+        {{ Html::script('js/app.min.js') }}
     @show
 </body>
 </html>

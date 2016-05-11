@@ -39,12 +39,14 @@ class Base extends Command
     {
         $this->startExecution($task);
 
-        SSH::connect($task->ssh)->run($task->command, function($line)
+        $stream = SSH::connect($task->ssh)->run($task->command, function($buffer)
         {
-            $this->addOutput($line);
+            $this->addOutput($buffer);
         });
 
         $this->executionCompleted($this->outputString);
+
+        dd($stream);
 
         return true;
     }
@@ -57,11 +59,10 @@ class Base extends Command
 
         $this->startExecution($task, $process->getPid());
 
-        while ($process->isRunning()) {
-            // waiting for process to finish
-        }
+        $process->wait(function ($type, $buffer) {
+            $this->addOutput($buffer);
+        });
 
-        // executes after the command finishes
         if (!$process->isSuccessful()) {
             $this->executionFailed($process->getErrorOutput());
 
@@ -76,10 +77,16 @@ class Base extends Command
     protected function addOutput($output)
     {
         $this->outputString .= $output;
+
+        $this->execution->update([
+            'result' => $this->outputString,
+        ]);
     }
 
     protected function startExecution($task, $pid = 'n/a')
     {
+        $task->updateNextDue();
+        
         $this->execution = TaskExecution::create([
             'task_id'   => $task->id,
             'status'    => 'running'
