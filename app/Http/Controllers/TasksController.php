@@ -50,6 +50,14 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'Task.name'             => 'required',
+            'Task.cron_expression'  => 'cron_expression',
+            'Task.next_due'         => 'date_format:Y-m-d H:i:s',
+            'Task.command'          => 'required',
+            'SSH.host'              => 'required_if:Task.viaSSH,1',
+        ]);
+
         $task = new Task($request->input('Task'));
         $task->user_id = 1;//Auth::id();
 
@@ -82,6 +90,38 @@ class TasksController extends Controller
             'task'          => $task,
             'executions'    => $executions
         ]);
+    }
+
+    /**
+     * Enable the task
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function enable($id)
+    {
+        $task = Task::find($id);
+
+        # enable
+        $task->update(['is_enabled' => 1]);
+        
+        return redirect()->action('TasksController@index');
+    }
+
+    /**
+     * Disable the task
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function disable($id)
+    {
+        $task = Task::find($id);
+
+        # disable
+        $task->update(['is_enabled' => 0]);
+        
+        return redirect()->action('TasksController@index');
     }
 
     /**
@@ -123,6 +163,14 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'Task.name'             => 'required',
+            'Task.cron_expression'  => 'cron_expression',
+            'Task.next_due'         => 'date_format:Y-m-d H:i:s',
+            'Task.command'          => 'required',
+            'SSH.host'              => 'required_if:Task.viaSSH,1',
+        ]);
+
         $task = Task::find($id);
         $task->fill($request->input('Task'));
 

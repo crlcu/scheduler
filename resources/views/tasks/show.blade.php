@@ -1,12 +1,12 @@
 @extends('layouts.default')
 
-@section('content')  
+@section('content')
     @include('tasks.card', ['task' => $task])
 
     <table class="bordered highlight condensed">
         <thead>
             <tr>
-                <th>Status</th>
+                <th width="45px"></th>
                 <th>Result</th>
                 <th>Started at</th>
                 <th>Done at</th>
@@ -16,19 +16,36 @@
         <tbody>
             @foreach ($executions as $execution)
                 <tr class="{{ $execution['status'] == 'failed' ? 'red lighten-5' : '' }}">
-                    <td>{{ $execution['status'] }}</td>
-                    <td>{!! nl2br($execution['result']) !!}</td>
+                    <td class="center-align">{!! $execution['status_icon'] !!}</td>
+                    <td>
+                        @if (strlen($execution['result']) > 100)
+                            <!-- Modal Trigger -->
+                            <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit($execution['result'], 100)) !!}</a>
+
+                            <!-- Modal Structure -->
+                            <div id="result{{ $execution['id'] }}" class="modal modal-fixed-footer">
+                                <div class="modal-content">
+                                    <p>{!! nl2br($execution['result']) !!}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                </div>
+                            </div>
+                        @else
+                            {!! nl2br($execution['result']) !!}
+                        @endif
+                    </td>
                     <td>{{ $execution['created_at'] }}</td>
                     <td>
                         @if ($execution['is_running'])
-                            <i class="material-icons" title="Running">autorenew</i>
+                            -
                         @else
                             {{ $execution['updated_at'] }}
                         @endif
                     </td>
                     <td>
                         @if ($execution['is_running'])
-                            <i class="material-icons" title="Running">autorenew</i>
+                            -
                         @else
                             {{ $execution['duration'] }}
                         @endif

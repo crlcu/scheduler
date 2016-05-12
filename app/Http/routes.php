@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'web'], function () {
+#Route::group(['middleware' => 'web'], function () {
 	Route::resource('tasks', 'TasksController');
+
+	Route::get('tasks/{id}/enable', 'TasksController@enable');
+	Route::get('tasks/{id}/disable', 'TasksController@disable');
 	Route::get('tasks/{id}/run', 'TasksController@run');
-});
+#});

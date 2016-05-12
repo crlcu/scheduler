@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div id="ssh" class="row {{ $task['viaSSH'] ? '' : 'hide' }}">
+<div id="ssh" class="row {{ $task['viaSSH'] || old('Task.viaSSH') ? '' : 'hide' }}">
     <p><b>SSH Details</b></p>
 
     <div class="input-field col s12">

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55f8cafa23997069dca9830c28600599",
-    "content-hash": "4573c8cec4cd0bb9e23793f1d1854f22",
+    "hash": "4ff845caa311458047f62873651b0694",
+    "content-hash": "d3be3f02355ab969a66247ff44a6ceb6",
     "packages": [
         {
             "name": "barryvdh/laravel-async-queue",
@@ -59,16 +59,16 @@
         },
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v2.2.0",
+            "version": "v2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "13b7058d2120c8d5af7f1ada21b7c44dd87b666a"
+                "reference": "c291e58d0a13953e0f68d99182ee77ebc693edc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/13b7058d2120c8d5af7f1ada21b7c44dd87b666a",
-                "reference": "13b7058d2120c8d5af7f1ada21b7c44dd87b666a",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c291e58d0a13953e0f68d99182ee77ebc693edc0",
+                "reference": "c291e58d0a13953e0f68d99182ee77ebc693edc0",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2016-02-17 08:32:21"
+            "time": "2016-05-11 13:54:43"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -595,16 +595,16 @@
         },
         {
             "name": "laravelcollective/remote",
-            "version": "v5.2.2",
+            "version": "5.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/remote.git",
-                "reference": "ebc0bec69a0649c5bee885634f5ad31bfa0b8b31"
+                "reference": "d42dfd9ffa5b2774455cb6e929c68cb37cd2675f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/remote/zipball/ebc0bec69a0649c5bee885634f5ad31bfa0b8b31",
-                "reference": "ebc0bec69a0649c5bee885634f5ad31bfa0b8b31",
+                "url": "https://api.github.com/repos/LaravelCollective/remote/zipball/d42dfd9ffa5b2774455cb6e929c68cb37cd2675f",
+                "reference": "d42dfd9ffa5b2774455cb6e929c68cb37cd2675f",
                 "shasum": ""
             },
             "require": {
@@ -640,7 +640,7 @@
             ],
             "description": "Remote for The Laravel Framework.",
             "homepage": "http://laravelcollective.com",
-            "time": "2016-01-11 22:42:01"
+            "time": "2016-05-12 08:23:19"
         },
         {
             "name": "league/flysystem",
@@ -3360,7 +3360,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravelcollective/remote": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

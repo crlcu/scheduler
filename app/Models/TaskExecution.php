@@ -8,7 +8,7 @@ class TaskExecution extends Model
 {
 	protected $dates = ['created_at', 'updated_at'];
 	protected $fillable = ['task_id', 'status', 'result'];
-    protected $appends = ['duration', 'is_running'];
+    protected $appends = ['duration', 'is_running', 'status_icon'];
 
 
     /**
@@ -22,6 +22,17 @@ class TaskExecution extends Model
     public function getIsRunningAttribute($value)
     {
         return $this->status == 'running';
+    }
+
+    public function getStatusIconAttribute($value)
+    {
+        $icons = [
+            'running'   => '<i class="material-icons orange-text">query_builder</i>',
+            'completed' => '<i class="material-icons green-text">done</i>',
+            'failed'    => '<i class="material-icons red-text">error</i>',
+        ];
+
+        return $icons[$this->status];
     }
 
 

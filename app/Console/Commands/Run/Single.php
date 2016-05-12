@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Run;
 
-use App\Console\Commands\Run\Base as Command;
+use Illuminate\Console\Command;
 
 use App\Models\Task;
 
@@ -46,7 +46,9 @@ class Single extends Command
             $task = Task::findOrFail($this->argument('task'));
         }
 
-        if ($this->process($task))
+        $this->info(sprintf('Running %s (%s)', $task->name, $task->command));
+
+        if ($task->run())
         {
             $this->info('OK');
         }

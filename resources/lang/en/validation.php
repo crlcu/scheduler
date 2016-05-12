@@ -80,6 +80,8 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
 
+    'cron_expression'       => 'The :attribute format is invalid.',
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

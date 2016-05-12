@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Run;
 
-use App\Console\Commands\Run\Base as Command;
+use Illuminate\Console\Command;
 
 use Artisan;
 use App\Models\Task;

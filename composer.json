@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
-        "laravelcollective/remote": "5.2.*",
+        "laravelcollective/remote": "5.2.x-dev",
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-async-queue": "0.4.x",
         "mtdowling/cron-expression": "^1.1"

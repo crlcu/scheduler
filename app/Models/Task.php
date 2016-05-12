@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Carbon\Carbon;
 use Cron\CronExpression;
+use Symfony\Component\Process\Process;
+use SSH;
 
 class Task extends Model
 {
@@ -15,6 +17,7 @@ class Task extends Model
     protected $fillable = ['name', 'command', 'cron_expression', 'next_due', 'viaSSH', 'jsonSSH', 'is_enabled'];
     protected $appends = ['average', 'details', 'ssh'];
 
+    protected $execution;
 
     /**
      * Accessors & Mutators
@@ -75,10 +78,75 @@ class Task extends Model
     /**
      * Methods
      */
-    public function updateNextDue()
+    public function run()
     {
-        $cron = CronExpression::factory($this->cron_expression);
+        if ($this->viaSSH)
+        {
+            return $this->runViaSSH();
+        }
 
-        return $this->update(['next_due' => $cron->getNextRunDate()->format('Y-m-d H:i:s')]);
+        return $this->runViaProcess();
+    }
+
+    protected function runViaSSH()
+    {
+        $this->running();
+
+        $stream = SSH::connect($task->ssh)->run($task->command, function($buffer)
+        {
+            $this->execution->result .= $buffer;
+        });
+
+        $this->done();
+
+        return true;
+    }
+
+    protected function runViaProcess()
+    {
+        $this->running();
+
+        $process = new Process($this->command);
+        $process->start();
+
+        $process->wait(function ($type, $buffer) {
+            $this->execution->result .= $buffer;
+        });
+
+        if (!$process->isSuccessful()) {
+            $this->failed($process->getErrorOutput());
+
+            return false;
+        }
+
+        $this->done();
+
+        return true;
+    }
+
+    protected function running()
+    {
+        // Update next due date
+        $cron = CronExpression::factory($this->cron_expression);
+        $this->update(['next_due' => $cron->getNextRunDate()->format('Y-m-d H:i:s')]);
+
+        $this->execution = TaskExecution::create([
+            'task_id'   => $this->id,
+            'status'    => 'running'
+        ]);
+    }
+
+    protected function done()
+    {
+        $this->execution->update([
+            'status' => 'completed',
+        ]);
+    }
+
+    protected function failed()
+    {
+        $this->execution->update([
+            'status' => 'failed',
+        ]);
     }
 }
