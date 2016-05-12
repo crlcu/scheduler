@@ -21,7 +21,9 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('executions')->get();
+        $tasks = Task::with('executions')
+            ->orderBy('next_due')
+            ->get();
 
         return view('tasks.search', [
             'tasks' => $tasks,
