@@ -183,7 +183,7 @@ class TasksController extends Controller
 
         $task->save();
 
-        return redirect()->action('TasksController@index');
+        return redirect()->action('TasksController@show', $id);
     }
 
     /**
@@ -194,6 +194,9 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+
+        return redirect()->action('TasksController@index');
     }
 }

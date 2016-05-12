@@ -8,9 +8,9 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th>Average</th>
-                <th>Next due</th>                
-                <th class="center-align" width="70px">
-                    <a href="{{ action('TasksController@create') }}" class="btn-floating waves-effect waves-light green" title="Add">
+                <th width="150px">
+                    Next due
+                    <a href="{{ action('TasksController@create') }}" class="btn-floating waves-effect waves-light green right" title="Add">
                         <i class="material-icons">add</i>
                     </a>
                 </th>
@@ -38,14 +38,6 @@
                     <td>{{ $task['type'] }}</td>
                     <td>{{ $task['average'] }} seconds</td>
                     <td>{{ $task['next_due'] }}</td>
-                    <td class="center-align">
-                        <a href="{{ action('TasksController@edit', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light blue" title="Edit">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        <a href="{{ action('TasksController@edit', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Remove">
-                            <i class="material-icons">delete</i>
-                        </a>
-                    </td>
                 </tr>
             @endforeach
         </tbody>
