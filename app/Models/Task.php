@@ -165,7 +165,7 @@ class Task extends Model
 
         $task = $this;
         $user = $this->user;
-        
+
         Mail::send('emails.tasks.execution', ['task' => $task], function ($mail) use($task, $user) {
             $mail->to($user->email, $user->name)
                 ->subject(sprintf('Result for "%s" task - %s', $task->name, $task->execution->status));
