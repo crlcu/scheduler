@@ -28,7 +28,7 @@
         @endif
     </div>
 
-    <div class="col s12 m2">
+    <div class="col s6 m2">
         <p>
             {!! Form::hidden('Task[is_one_time_only]', 0) !!}
             {!! Form::checkbox('Task[is_one_time_only]', 1, $task['is_one_time_only'], ['id' => 'Task[is_one_time_only]']) !!}
@@ -36,7 +36,7 @@
         </p>
     </div>
 
-    <div class="col s12 m2">
+    <div class="col s6 m2">
         <p>
             {!! Form::hidden('Task[is_via_ssh]', 0) !!}
             {!! Form::checkbox('Task[is_via_ssh]', 1, $task['is_via_ssh'], ['id' => 'Task[is_via_ssh]']) !!}

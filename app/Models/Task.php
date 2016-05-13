@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Auth;
 use Carbon\Carbon;
 use Cron\CronExpression;
 use Symfony\Component\Process\Process;
@@ -55,6 +56,11 @@ class Task extends Model
     /**
      * Scopes
      */
+    public function scopeForCurrentUser($query)
+    {
+        return $query->where('user_id', '=', Auth::id());
+    }
+
     public function scopeEnabled($query)
     {
         return $query->where('is_enabled', '=', 1);
@@ -114,7 +120,9 @@ class Task extends Model
         });
 
         if (!$process->isSuccessful()) {
-            $this->failed($process->getErrorOutput());
+            $this->execution->result = $process->getErrorOutput();
+
+            $this->done('failed');
 
             return false;
         }
@@ -141,17 +149,10 @@ class Task extends Model
         ]);
     }
 
-    protected function done()
+    protected function done($status = 'completed')
     {
         $this->execution->update([
-            'status' => 'completed',
-        ]);
-    }
-
-    protected function failed()
-    {
-        $this->execution->update([
-            'status' => 'failed',
+            'status' => $status,
         ]);
     }
 }

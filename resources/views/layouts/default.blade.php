@@ -17,7 +17,9 @@
 </head>
 <body>
     <div class="page-wrap">
-        @include('elements.navbar')
+        @if (Auth::user())
+            @include('elements.navbar')
+        @endif
         
         <div id="page" class="container">
             @yield('content')

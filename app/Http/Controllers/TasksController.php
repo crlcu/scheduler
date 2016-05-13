@@ -21,7 +21,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('executions')
+        $tasks = Task::forCurrentUser()
+            ->with('executions')
             ->orderBy('is_enabled', 'desc')
             ->orderBy('next_due')
             ->get();
@@ -62,7 +63,6 @@ class TasksController extends Controller
         ]);
 
         $task = new Task($request->input('Task'));
-        $task->user_id = 1;//Auth::id();
 
         if ($request->input('Task.is_via_ssh'))
         {

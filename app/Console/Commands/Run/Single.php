@@ -3,7 +3,8 @@
 namespace App\Console\Commands\Run;
 
 use Illuminate\Console\Command;
-
+use Mail;
+use Log;
 use App\Models\Task;
 
 class Single extends Command

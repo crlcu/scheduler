@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Auth;
 use Cron\CronExpression;
 
 use App\Models\Task;
@@ -24,6 +25,8 @@ class ModelsEventsServiceProvider extends ServiceProvider
                 $cron = CronExpression::factory($task->cron_expression);
                 $task->next_due = $cron->getNextRunDate()->format('Y-m-d H:i:s');
             }
+
+            $task->user_id = Auth::id();
 
             return true;
         });
