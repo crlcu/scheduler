@@ -137,7 +137,7 @@ class TasksController extends Controller
     {
         $task = Task::find($id);
 
-        Artisan::queue('run:task', ['task' => $id]);
+        Artisan::call('run:task', ['task' => $id]);
         
         return redirect()->action('TasksController@show', $id);
     }

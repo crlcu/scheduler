@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 use Carbon\Carbon;
 use Cron\CronExpression;
+use Mail;
 use Symfony\Component\Process\Process;
 use SSH;
 
@@ -75,6 +76,11 @@ class Task extends Model
     /**
      * Relations
      */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function executions()
     {
         return $this->hasMany('App\Models\TaskExecution');
@@ -113,6 +119,8 @@ class Task extends Model
         $this->running();
 
         $process = new Process($this->command);
+        $process->setTimeout(3600);
+        
         $process->start();
 
         $process->wait(function ($type, $buffer) {
@@ -154,5 +162,13 @@ class Task extends Model
         $this->execution->update([
             'status' => $status,
         ]);
+
+        $task = $this;
+        $user = $this->user;
+        
+        Mail::send('emails.tasks.execution', ['task' => $task], function ($mail) use($task, $user) {
+            $mail->to($user->email, $user->name)
+                ->subject(sprintf('Result for "%s" task - %s', $task->name, $task->execution->status));
+        });
     }
 }
