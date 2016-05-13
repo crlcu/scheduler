@@ -131,6 +131,8 @@ class Task extends Model
             // Update next due date
             $cron = CronExpression::factory($this->cron_expression);
             $this->update(['next_due' => $cron->getNextRunDate()->format('Y-m-d H:i:s')]);
+        } elseif ($this->is_one_time_only && $this->next_due <= Carbon::now()) {
+            $this->update(['is_enabled' => 0]);
         }
 
         $this->execution = TaskExecution::create([
