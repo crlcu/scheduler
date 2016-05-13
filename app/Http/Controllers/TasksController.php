@@ -55,19 +55,19 @@ class TasksController extends Controller
     {
         $this->validate($request, [
             'Task.name'             => 'required',
-            'Task.cron_expression'  => 'cron_expression',
-            'Task.next_due'         => 'date_format:Y-m-d H:i:s',
+            'Task.cron_expression'  => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
+            'Task.next_due'         => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
             'Task.command'          => 'required',
-            'SSH.host'              => 'required_if:Task.viaSSH,1',
+            'SSH.host'              => 'required_if:Task.is_via_ssh,1',
         ]);
 
         $task = new Task($request->input('Task'));
         $task->user_id = 1;//Auth::id();
 
-        if ($request->input('Task.viaSSH'))
+        if ($request->input('Task.is_via_ssh'))
         {
             $task->fill([
-                'jsonSSH' => json_encode($request->input('SSH'))
+                'ssh_config_json' => json_encode($request->input('SSH'))
             ]);            
         }
 
@@ -168,19 +168,19 @@ class TasksController extends Controller
     {
         $this->validate($request, [
             'Task.name'             => 'required',
-            'Task.cron_expression'  => 'cron_expression',
-            'Task.next_due'         => 'date_format:Y-m-d H:i:s',
+            'Task.cron_expression'  => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
+            'Task.next_due'         => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
             'Task.command'          => 'required',
-            'SSH.host'              => 'required_if:Task.viaSSH,1',
+            'SSH.host'              => 'required_if:Task.is_via_ssh,1',
         ]);
 
         $task = Task::find($id);
         $task->fill($request->input('Task'));
 
-        if ($request->input('Task.viaSSH'))
+        if ($request->input('Task.is_via_ssh'))
         {
             $task->fill([
-                'jsonSSH' => json_encode($request->input('SSH'))
+                'ssh_config_json' => json_encode($request->input('SSH'))
             ]);            
         }
 

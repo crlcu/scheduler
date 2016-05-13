@@ -14,7 +14,7 @@ class Task extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'command', 'cron_expression', 'next_due', 'viaSSH', 'jsonSSH', 'is_enabled'];
+    protected $fillable = ['name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_enabled'];
     protected $appends = ['average', 'details', 'ssh'];
 
     protected $execution;
@@ -38,17 +38,17 @@ class Task extends Model
 
     public function getDetailsAttribute($value)
     {
-        return $this->viaSSH ? json_decode($this->jsonSSH, true) : ['run' => 'localy'];
+        return $this->is_via_ssh ? json_decode($this->ssh_config_json, true) : ['run' => 'localy'];
     }
 
     public function getSshAttribute($value)
     {
-        return json_decode($this->jsonSSH ? : '[]', true);
+        return json_decode($this->ssh_config_json ? : '[]', true);
     }
 
     public function getTypeAttribute($value)
     {
-        return $this->viaSSH ? 'ssh' : 'process';
+        return $this->is_via_ssh ? 'ssh' : 'process';
     }
 
 
@@ -80,15 +80,15 @@ class Task extends Model
      */
     public function run()
     {
-        if ($this->viaSSH)
+        if ($this->is_via_ssh)
         {
-            return $this->runViaSSH();
+            return $this->runis_via_ssh();
         }
 
         return $this->runViaProcess();
     }
 
-    protected function runViaSSH()
+    protected function runis_via_ssh()
     {
         $this->running();
 

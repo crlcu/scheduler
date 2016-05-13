@@ -1,5 +1,7 @@
+<h4 class="header">Task Details</h4>
+
 <div class="row">
-    <div class="input-field col s12 m5">
+    <div class="input-field col s12 m4">
         {!! Form::label('Task[name]', 'Name') !!}
         {!! Form::text('Task[name]', $task['name'], ['required' => true, 'autofocus']) !!}
 
@@ -8,7 +10,7 @@
         @endif
     </div>
 
-    <div class="input-field col s12 m3">
+    <div class="input-field col s12 m2 {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? 'hide' : '' }}">
         {!! Form::label('Task[cron_expression]', 'Cron expression') !!}
         {!! Form::text('Task[cron_expression]', $task['cron_expression'], ['placeholder' => '* * * * * *', 'required' => true]) !!}
 
@@ -16,8 +18,8 @@
             <span class="red-text">{{ $errors->first('Task.cron_expression') }}</span>
         @endif
     </div>
-
-    <div class="input-field col s12 m2">
+    
+    <div class="input-field col s12 m2 {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? '' : 'hide' }}">
         {!! Form::label('Task[next_due]', 'Next due') !!}
         {!! Form::text('Task[next_due]', $task['next_due'], ['placeholder' => 'yyyy-mm-dd hh:mm:ss', 'provide' => 'datetimepicker', 'required' => true]) !!}
 
@@ -28,16 +30,41 @@
 
     <div class="col s12 m2">
         <p>
-            {!! Form::hidden('Task[viaSSH]', 0) !!}
-            {!! Form::checkbox('Task[viaSSH]', 1, $task['viaSSH'], ['id' => 'Task[viaSSH]']) !!}
-            {!! Form::label('Task[viaSSH]', 'Via SSH') !!}
+            {!! Form::hidden('Task[is_one_time_only]', 0) !!}
+            {!! Form::checkbox('Task[is_one_time_only]', 1, $task['is_one_time_only'], ['id' => 'Task[is_one_time_only]']) !!}
+            {!! Form::label('Task[is_one_time_only]', 'One time only') !!}
         </p>
+    </div>
+
+    <div class="col s12 m2">
+        <p>
+            {!! Form::hidden('Task[is_via_ssh]', 0) !!}
+            {!! Form::checkbox('Task[is_via_ssh]', 1, $task['is_via_ssh'], ['id' => 'Task[is_via_ssh]']) !!}
+            {!! Form::label('Task[is_via_ssh]', 'Via SSH') !!}
+        </p>
+    </div>
+
+    <div class="col s12 m2">
+        <p>
+            {!! Form::hidden('Task[is_enabled]', 0) !!}
+            {!! Form::checkbox('Task[is_enabled]', 1, $task['is_enabled'], ['id' => 'Task[is_enabled]']) !!}
+            {!! Form::label('Task[is_enabled]', 'Enabled') !!}
+        </p>
+    </div>
+
+    <div class="input-field col s12">
+        {!! Form::label('Task[command]', 'Command') !!}
+        {!! Form::textarea('Task[command]', $task['command'], ['class' => 'materialize-textarea', 'required' => true]) !!}
+
+        @if ($errors->has('Task.command'))
+            <span class="red-text">{{ $errors->first('Task.command') }}</span>
+        @endif
     </div>
 </div>
 
-<div id="ssh" class="row {{ $task['viaSSH'] || old('Task.viaSSH') ? '' : 'hide' }}">
-    <p><b>SSH Details</b></p>
+<h4 class="header ssh {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">SSH Details</h4>
 
+<div class="row ssh {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">
     <div class="input-field col s12">
         {!! Form::label('SSH[host]', 'Host') !!}
         {!! Form::text('SSH[host]', isset($task['ssh']['host']) ? $task['ssh']['host'] : '') !!}
@@ -99,27 +126,6 @@
         @if ($errors->has('SSH.timeout'))
             <span class="red-text">{{ $errors->first('SSH.timeout') }}</span>
         @endif
-    </div>
-</div>
-
-<div class="row">
-    <div class="input-field col s12">
-        {!! Form::label('Task[command]', 'Command') !!}
-        {!! Form::textarea('Task[command]', $task['command'], ['class' => 'materialize-textarea', 'required' => true]) !!}
-
-        @if ($errors->has('Task.command'))
-            <span class="red-text">{{ $errors->first('Task.command') }}</span>
-        @endif
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s12">
-        <p>
-            {!! Form::hidden('Task[is_enabled]', 0) !!}
-            {!! Form::checkbox('Task[is_enabled]', 1, $task['is_enabled'], ['id' => 'Task[is_enabled]']) !!}
-            {!! Form::label('Task[is_enabled]', 'Enabled') !!}
-        </p>
     </div>
 </div>
 
