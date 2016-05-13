@@ -126,9 +126,12 @@ class Task extends Model
 
     protected function running()
     {
-        // Update next due date
-        $cron = CronExpression::factory($this->cron_expression);
-        $this->update(['next_due' => $cron->getNextRunDate()->format('Y-m-d H:i:s')]);
+        if (!$this->is_one_time_only)
+        {
+            // Update next due date
+            $cron = CronExpression::factory($this->cron_expression);
+            $this->update(['next_due' => $cron->getNextRunDate()->format('Y-m-d H:i:s')]);
+        }
 
         $this->execution = TaskExecution::create([
             'task_id'   => $this->id,
