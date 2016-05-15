@@ -85,6 +85,7 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+
         $executions = TaskExecution::where('task_id', '=', $id)
             ->orderBy('created_at', 'desc')
             ->paginate(10);

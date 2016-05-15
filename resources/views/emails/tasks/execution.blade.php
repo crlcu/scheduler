@@ -10,7 +10,7 @@
 
             <p><em>{!! nl2br($task['command']) !!}</em></p>
 
-            <p>{!! nl2br($task['execution']['result']) !!}</p>
+            <p>{!! nl2br($task['last_run']['result']) !!}</p>
         </td>
     </tr>
     </tbody>

@@ -11,7 +11,8 @@
         "laravelcollective/remote": "5.2.x-dev",
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-async-queue": "0.4.x",
-        "mtdowling/cron-expression": "^1.1"
+        "mtdowling/cron-expression": "^1.1",
+        "jenssegers/rollbar": "^1.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

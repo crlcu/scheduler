@@ -81,6 +81,12 @@ class Task extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function last_run()
+    {
+        return $this->hasOne('App\Models\TaskExecution')
+            ->orderBy('id', 'desc');
+    }
+    
     public function executions()
     {
         return $this->hasMany('App\Models\TaskExecution');
