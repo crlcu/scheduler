@@ -13,9 +13,7 @@
 
 Route::auth();
 
-Route::any('register', function () {
-    return redirect()->action('Auth\AuthController@login');
-});
+Route::any('register', 'Auth\AuthController@login');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'TasksController@index');
