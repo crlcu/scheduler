@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="content">
-        <em>{!! nl2br($task['command']) !!}</em>
+        <pre class="prettyprint">{{ $task['command'] }}</pre>
 
         <div id="chart"></div>
     </div>
@@ -25,7 +25,7 @@
                 </a>
             </div>
             <div class="right">
-                <a href="{{ action('TasksController@run', $task['id']) }}" class="btn waves-effect waves-light green" title="Run now">
+                <a href="{{ action('TasksController@run', $task['id']) }}" class="btn waves-effect waves-light green" title="Run now" onclick="return confirm('Confirm?')">
                     <i class="material-icons left">launch</i> Run now
                 </a>
             </div>
@@ -36,6 +36,7 @@
 @section('scripts')
 @parent
 
+{!! Html::script('//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js') !!}
 {!! Html::script('//www.gstatic.com/charts/loader.js') !!}
 
 <script type="text/javascript">
@@ -45,22 +46,27 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Started at', 'Seconds'],
-        @foreach ($executions as $execution)
-            ['{{ $execution['created_at'] }}', {{ $execution['duration'] }}],
+        @foreach ($executions->reverse() as $execution)
+            ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
         @endforeach
     ]);
 
     var options = {
         chartArea: {
             top: 10,
-            right: 0,
-            bottom: 30,
-            left: 30,
+            right: 20,
+            bottom: 50,
+            left: 50,
         },
-        vAxis: {minValue: 0},
+        vAxis: {
+            minValue: 0
+        },
         legend: 'none',
         pointSize: 5,
-        pointShape: { type: 'circle', rotation: 180 }
+        pointShape: {
+            type: 'circle',
+            rotation: 180
+        }
     };
 
     var chart = new google.visualization.AreaChart(document.getElementById('chart'));
