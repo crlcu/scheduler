@@ -8,13 +8,18 @@ class TaskExecution extends Model
 {
 	protected $dates = ['created_at', 'updated_at'];
 	protected $fillable = ['task_id', 'status', 'result'];
-    protected $appends = ['duration', 'is_running', 'status_icon'];
+    protected $appends = ['duration', 'duration_for_humans', 'is_running', 'status_icon'];
 
 
     /**
      * Accessors & Mutators
      */
     public function getDurationAttribute($value)
+    {
+        return $this->updated_at->diffInSeconds($this->created_at);
+    }
+
+    public function getDurationForHumansAttribute($value)
     {
         return $this->updated_at->diffForHumans($this->created_at);
     }

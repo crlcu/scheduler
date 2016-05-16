@@ -47,7 +47,7 @@
                         @if ($execution['is_running'])
                             -
                         @else
-                            {{ $execution['duration'] }}
+                            {{ $execution['duration_for_humans'] }}
                         @endif
                     </td>
                 </tr>

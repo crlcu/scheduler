@@ -13,6 +13,10 @@ return [
     | to have a conventional place to find your various credentials.
     |
     */
+    'rollbar' => [
+        'access_token'  => env('ROLLBAR_TOKEN'),
+        'level'         => env('ROLLBAR_LEVEL'),
+    ],
 
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),

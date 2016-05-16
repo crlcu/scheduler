@@ -9,9 +9,8 @@
             <h1>{{ $task['name'] }}</h1>
 
             <p><em>{!! nl2br($task['command']) !!}</em></p>
-            <p>Done in <em>{{ $task['last_run']['duration_for_humans'] }}</em></p>
 
-            <p>{!! nl2br($task['last_run']['result']) !!}</p>
+            <p>Started to run on {{ $task['last_run']['created_at'] }}</p>
         </td>
     </tr>
     </tbody>

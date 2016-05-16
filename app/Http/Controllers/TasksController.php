@@ -11,6 +11,7 @@ use Artisan;
 
 use App\Models\Task;
 use App\Models\TaskExecution;
+use App\Models\TaskNotification;
 
 class TasksController extends Controller
 {
@@ -55,11 +56,15 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'Task.name'             => 'required',
-            'Task.cron_expression'  => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
-            'Task.next_due'         => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
-            'Task.command'          => 'required',
-            'SSH.host'              => 'required_if:Task.is_via_ssh,1',
+            'Task.name'                     => 'required',
+            'Task.cron_expression'          => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
+            'Task.next_due'                 => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
+            'Task.command'                  => 'required',
+            'SSH.host'                      => 'required_if:Task.is_via_ssh,1',
+            'Notification[]'                => 'required_if:Task.has_notifications,1',
+            'Notification.running.email'    => 'email',
+            'Notification.failed.email'     => 'email',
+            'Notification.completed.email'  => 'email',
         ]);
 
         $task = new Task($request->input('Task'));
@@ -85,9 +90,10 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
+
         $executions = TaskExecution::where('task_id', '=', $id)
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(100);
 
         return view('tasks.show', [
             'task'          => $task,
@@ -167,11 +173,15 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'Task.name'             => 'required',
-            'Task.cron_expression'  => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
-            'Task.next_due'         => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
-            'Task.command'          => 'required',
-            'SSH.host'              => 'required_if:Task.is_via_ssh,1',
+            'Task.name'                     => 'required',
+            'Task.cron_expression'          => ['required_if:Task.is_one_time_only,0', 'cron_expression'],
+            'Task.next_due'                 => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
+            'Task.command'                  => 'required',
+            'SSH.host'                      => 'required_if:Task.is_via_ssh,1',
+            //'Notification[]'                => 'required_if:Task.has_notifications,1',
+            'Notification.running.email'    => 'email',
+            'Notification.failed.email'     => 'email',
+            'Notification.completed.email'  => 'email',
         ]);
 
         $task = Task::find($id);
@@ -184,7 +194,33 @@ class TasksController extends Controller
             ]);            
         }
 
-        $task->save();
+        $notifications = [];
+
+        if ($request->input('Task.has_notifications'))
+        {
+            foreach ($request->input('Notification') as $status => $notification)
+            {
+                if ($notification['email'])
+                {
+                    $notifications[] = TaskNotification::firstOrNew(['task_id' => $task->id, 'status' => $status, 'email' => $notification['email']]);
+                }
+                else
+                {
+                    $task->notifications()->where('status', '=', $status)
+                        ->delete();
+                }
+            }
+        }
+        else
+        {
+            $task->notifications()
+                ->delete();
+        }
+
+        if ($task->save())
+        {
+            $task->notifications()->saveMany($notifications);
+        }
 
         return redirect()->action('TasksController@show', $id);
     }

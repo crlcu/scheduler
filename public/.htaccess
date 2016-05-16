@@ -18,3 +18,20 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+<IfModule pagespeed_module>
+    ModPagespeed off
+
+    ModPagespeedEnableFilters combine_javascript
+    ModPagespeedEnableFilters combine_css
+
+    ModPagespeedEnableFilters defer_javascript
+    ModPagespeedEnableFilters prioritize_critical_css
+
+    ModPagespeedEnableFilters lazyload_images
+    ModPagespeedEnableFilters rewrite_images
+
+    ModPagespeedEnableFilters insert_dns_prefetch
+
+    ModPagespeedEnableFilters collapse_whitespace
+</IfModule>

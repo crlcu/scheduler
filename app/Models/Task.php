@@ -8,16 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 use Carbon\Carbon;
 use Cron\CronExpression;
-use Mail;
+use Event;
 use Symfony\Component\Process\Process;
 use SSH;
+
+use App\Events\TaskRunning;
+use App\Events\TaskFailed;
+use App\Events\TaskCompleted;
 
 class Task extends Model
 {
     use SoftDeletes;
 
     protected $fillable = ['name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_enabled'];
-    protected $appends = ['average', 'details', 'ssh'];
+    protected $appends = ['average', 'details', 'ssh', 'has_notifications'];
 
     protected $execution;
 
@@ -53,6 +57,10 @@ class Task extends Model
         return $this->is_via_ssh ? 'ssh' : 'process';
     }
 
+    public function getHasNotificationsAttribute($value)
+    {
+        return $this->notifications->count() > 0;
+    }
 
     /**
      * Scopes
@@ -81,9 +89,38 @@ class Task extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function last_run()
+    {
+        return $this->hasOne('App\Models\TaskExecution')
+            ->orderBy('id', 'desc');
+    }
+    
     public function executions()
     {
         return $this->hasMany('App\Models\TaskExecution');
+    }
+
+    public function running_notification()
+    {
+        return $this->hasOne('App\Models\TaskNotification')
+            ->where('status', '=', 'running');
+    }
+
+    public function failed_notification()
+    {
+        return $this->hasOne('App\Models\TaskNotification')
+            ->where('status', '=', 'failed');
+    }
+
+    public function completed_notification()
+    {
+        return $this->hasOne('App\Models\TaskNotification')
+            ->where('status', '=', 'completed');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\TaskNotification');
     }
 
 
@@ -94,13 +131,13 @@ class Task extends Model
     {
         if ($this->is_via_ssh)
         {
-            return $this->runis_via_ssh();
+            return $this->runViaSSH();
         }
 
         return $this->runViaProcess();
     }
 
-    protected function runis_via_ssh()
+    protected function runViaSSH()
     {
         $this->running();
 
@@ -155,6 +192,8 @@ class Task extends Model
             'task_id'   => $this->id,
             'status'    => 'running'
         ]);
+        
+        Event::fire(new TaskRunning($this));
     }
 
     protected function done($status = 'completed')
@@ -163,12 +202,13 @@ class Task extends Model
             'status' => $status,
         ]);
 
-        $task = $this;
-        $user = $this->user;
-
-        Mail::send('emails.tasks.execution', ['task' => $task], function ($mail) use($task, $user) {
-            $mail->to($user->email, $user->name)
-                ->subject(sprintf('Result for "%s" task - %s', $task->name, $task->execution->status));
-        });
+        if ($status == 'completed')
+        {
+            Event::fire(new TaskCompleted($this));
+        }
+        else
+        {
+            Event::fire(new TaskFailed($this));
+        }
     }
 }
