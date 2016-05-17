@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div class="widget ssh {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">
+<div id="ssh" class="widget {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">
     <div class="header indigo lighten-5">
         <span class="title">SSH Details</span>
     </div>
@@ -184,7 +184,7 @@
 @parent
 <script type="text/javascript">
 $(document).ready(function($) {
-    var $ssh_details = $('.ssh');
+    var $ssh_details = $('#ssh');
     var $notifications_details = $('.notifications');
 
     $('[name="Task[is_one_time_only]"]').on('change', function() {

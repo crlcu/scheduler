@@ -7,6 +7,9 @@
 @task('deploy', ['on' => $on])
     cd {{ $path }}
     git pull origin master
-    composer update
+    composer install
     php artisan migrate
+    php artisan cache:clear
+    php artisan view:clear
+    php artisan route:cache
 @endtask

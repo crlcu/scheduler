@@ -20,8 +20,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('tasks', 'TasksController');
 
+	Route::get('tasks/{id}/notifications', 'TasksController@notifications');
+	Route::get('tasks/{id}/run', 'TasksController@run');
 	Route::get('tasks/{id}/enable', 'TasksController@enable');
 	Route::get('tasks/{id}/disable', 'TasksController@disable');
-	Route::get('tasks/{id}/run', 'TasksController@run');
 	Route::get('tasks/{id}/clear', 'TasksController@clear');
+
+	Route::resource('notifications', 'NotificationsController');
 });

@@ -35,7 +35,7 @@ class TaskExecution extends Model
     public function getStatusIconAttribute($value)
     {
         $icons = [
-            'running'   => '<i class="material-icons orange-text">query_builder</i>',
+            'running'   => '<i class="material-icons orange-text">sync</i>',
             'completed' => '<i class="material-icons green-text">done</i>',
             'failed'    => '<i class="material-icons red-text">error</i>',
         ];

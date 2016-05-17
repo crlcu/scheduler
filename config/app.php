@@ -159,9 +159,10 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Collective\Remote\RemoteServiceProvider::class,
-        Jenssegers\Rollbar\RollbarServiceProvider::class,
-
         Barryvdh\Queue\AsyncServiceProvider::class,
+        Jenssegers\Rollbar\RollbarServiceProvider::class,
+        Maknz\Slack\SlackServiceProvider::class,
+
         Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
@@ -212,6 +213,8 @@ return [
         'Form'      => Collective\Html\FormFacade::class,
         'Html'      => Collective\Html\HtmlFacade::class,
         'SSH'       => Collective\Remote\RemoteFacade::class,
+
+        'Slack'     => Maknz\Slack\Facades\Slack::class,
 
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
     ],

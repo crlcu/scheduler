@@ -103,41 +103,23 @@ class TasksController extends Controller
     }
 
     /**
-     * Enable the task
+     * Display notifications for specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function enable($id)
+    public function notifications($id)
     {
         $task = Task::forCurrentUser()
             ->findOrFail($id);
 
-        # enable
-        $task->update(['is_enabled' => 1]);
-        
-        return redirect()->action('TasksController@index');
+        return view('tasks.notifications', [
+            'task' => $task,
+        ]);
     }
 
     /**
-     * Disable the task
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function disable($id)
-    {
-        $task = Task::forCurrentUser()
-            ->findOrFail($id);
-
-        # disable
-        $task->update(['is_enabled' => 0]);
-        
-        return redirect()->action('TasksController@index');
-    }
-
-    /**
-     * Run the task
+     * Run the task.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -166,6 +148,40 @@ class TasksController extends Controller
         return view('tasks.edit', [
             'task' => $task,
         ]);
+    }
+
+    /**
+     * Enable the task.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function enable($id)
+    {
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
+        # enable
+        $task->update(['is_enabled' => 1]);
+        
+        return redirect()->action('TasksController@index');
+    }
+
+    /**
+     * Disable the task.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function disable($id)
+    {
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
+        # disable
+        $task->update(['is_enabled' => 0]);
+        
+        return redirect()->action('TasksController@index');
     }
 
     /**

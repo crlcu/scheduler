@@ -100,24 +100,6 @@ class Task extends Model
         return $this->hasMany('App\Models\TaskExecution');
     }
 
-    public function running_notification()
-    {
-        return $this->hasOne('App\Models\TaskNotification')
-            ->where('status', '=', 'running');
-    }
-
-    public function failed_notification()
-    {
-        return $this->hasOne('App\Models\TaskNotification')
-            ->where('status', '=', 'failed');
-    }
-
-    public function completed_notification()
-    {
-        return $this->hasOne('App\Models\TaskNotification')
-            ->where('status', '=', 'completed');
-    }
-
     public function notifications()
     {
         return $this->hasMany('App\Models\TaskNotification');

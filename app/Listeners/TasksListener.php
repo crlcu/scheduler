@@ -6,9 +6,6 @@ use App\Events\TaskRunning;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use Log;
-use Mail;
-
 class TasksListener implements ShouldQueue
 {
     public function subscribe($events)
@@ -34,14 +31,12 @@ class TasksListener implements ShouldQueue
      */ 
     public function onTaskRunning($event)
     {
-        if ($event->task->running_notification)
-        {
-            $task = $event->task;
+        $task = $event->task;
+        $notifications = $task->notifications->where('status', 'running');
 
-            Mail::queue('emails.tasks.running', ['task' => $task], function ($mail) use($task) {
-                $mail->to($task->running_notification->email)
-                    ->subject(sprintf('"%s" has started to run', $task->name));
-            });
+        foreach ($notifications as $notification)
+        {
+            $notification->send();
         }
     }
 
@@ -50,14 +45,12 @@ class TasksListener implements ShouldQueue
      */ 
     public function onTaskFailed($event)
     {
-        if ($event->task->failed_notification)
-        {
-            $task = $event->task;
+        $task = $event->task;
+        $notifications = $task->notifications->where('status', 'failed');
 
-            Mail::queue('emails.tasks.execution', ['task' => $task], function ($mail) use($task) {
-                $mail->to($task->failed_notification->email)
-                    ->subject(sprintf('Result for "%s" task - %s', $task->name, $task->last_run->status));
-            });
+        foreach ($notifications as $notification)
+        {
+            $notification->send();
         }
     }
 
@@ -66,14 +59,12 @@ class TasksListener implements ShouldQueue
      */ 
     public function onTaskCompleted($event)
     {
-        if ($event->task->completed_notification)
-        {
-            $task = $event->task;
+        $task = $event->task;
+        $notifications = $task->notifications->where('status', 'completed');
 
-            Mail::queue('emails.tasks.execution', ['task' => $task], function ($mail) use($task) {
-                $mail->to($task->completed_notification->email)
-                    ->subject(sprintf('Result for "%s" task - %s', $task->name, $task->last_run->status));
-            });
+        foreach ($notifications as $notification)
+        {
+            $notification->send();
         }
     }
 }
