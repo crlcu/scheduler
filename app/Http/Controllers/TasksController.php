@@ -11,7 +11,6 @@ use Artisan;
 
 use App\Models\Task;
 use App\Models\TaskExecution;
-use App\Models\TaskNotification;
 
 class TasksController extends Controller
 {
@@ -61,10 +60,6 @@ class TasksController extends Controller
             'Task.next_due'                 => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
             'Task.command'                  => 'required',
             'SSH.host'                      => 'required_if:Task.is_via_ssh,1',
-            'Notification[]'                => 'required_if:Task.has_notifications,1',
-            'Notification.running.email'    => 'email',
-            'Notification.failed.email'     => 'email',
-            'Notification.completed.email'  => 'email',
         ]);
 
         $task = new Task($request->input('Task'));
@@ -199,10 +194,6 @@ class TasksController extends Controller
             'Task.next_due'                 => ['required_if:Task.is_one_time_only,1', 'date_format:Y-m-d H:i:s'],
             'Task.command'                  => 'required',
             'SSH.host'                      => 'required_if:Task.is_via_ssh,1',
-            //'Notification[]'                => 'required_if:Task.has_notifications,1',
-            'Notification.running.email'    => 'email',
-            'Notification.failed.email'     => 'email',
-            'Notification.completed.email'  => 'email',
         ]);
 
         $task = Task::forCurrentUser()
@@ -217,33 +208,7 @@ class TasksController extends Controller
             ]);            
         }
 
-        $notifications = [];
-
-        if ($request->input('Task.has_notifications'))
-        {
-            foreach ($request->input('Notification') as $status => $notification)
-            {
-                if ($notification['email'])
-                {
-                    $notifications[] = TaskNotification::firstOrNew(['task_id' => $task->id, 'status' => $status, 'email' => $notification['email']]);
-                }
-                else
-                {
-                    $task->notifications()->where('status', '=', $status)
-                        ->delete();
-                }
-            }
-        }
-        else
-        {
-            $task->notifications()
-                ->delete();
-        }
-
-        if ($task->save())
-        {
-            $task->notifications()->saveMany($notifications);
-        }
+        $task->save();
 
         return redirect()->action('TasksController@show', $id);
     }

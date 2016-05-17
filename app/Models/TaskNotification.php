@@ -12,7 +12,7 @@ class TaskNotification extends Model
 {
 	use SoftDeletes;
 	
-    protected $fillable = ['type', 'status', 'to', 'slack_config_json'];
+    protected $fillable = ['task_id', 'type', 'status', 'to', 'slack_config_json'];
     protected $appends = ['is_via_slack', 'slack'];
 
 
@@ -44,21 +44,66 @@ class TaskNotification extends Model
      */
     public function send()
     {
+        $method = sprintf('sendVia%s', ucfirst($this->type));
+
+        return $this->$method();
+    }
+
+    protected function sendViaMail()
+    {
         $to = $this->to;
         $task = $this->task;
 
-        if ($this->type == 'mail')
+        switch ($this->status)
         {
-            Mail::queue('emails.tasks.running', ['task' => $task], function ($mail) use ($to, $task)
-            {
-                $mail->to($to)
-                    ->subject(sprintf('"%s" has started to run', $task->name));
-            });
+            case 'running':
+                Mail::queue('emails.tasks.running', ['task' => $task], function ($mail) use ($to, $task)
+                {
+                    $mail->to($to)
+                        ->subject(sprintf('The task "%s" has started to run', $task->name));
+                });
+
+                break;
+            case 'failed':
+                Mail::queue('emails.tasks.execution', ['task' => $task], function ($mail) use ($to, $task)
+                {
+                    $mail->to($to)
+                        ->subject(sprintf('The execution of task "%s" has failed', $task->name));
+                });
+
+                break;
+            case 'completed':
+                Mail::queue('emails.tasks.execution', ['task' => $task], function ($mail) use ($to, $task)
+                {
+                    $mail->to($to)
+                        ->subject(sprintf('The execution of task "%s" is now completed', $task->name));
+                });
+
+                break;
         }
-        else
+    }
+
+    protected function sendViaSlack()
+    {
+        $to = $this->to;
+        $task = $this->task;
+
+        $slack = new Slack($to, $this->slack);
+
+        switch ($this->status)
         {
-            $slack = new Slack($to, $this->slack);
-            $slack->send(sprintf('*%s* - has started to run', $task->name));   
+            case 'running':
+                $slack->send(sprintf('The task *%s* has started to run', $task->name));
+
+                break;
+            case 'failed':
+                $slack->send(sprintf('The execution of task *%s* has failed. ```%s```', $task->name, $task->last_run->result));
+
+                break;
+            case 'completed':
+                $slack->send(sprintf('The execution of task *%s* is now completed. ```%s```', $task->name, $task->last_run->result));
+
+                break;
         }
     }
 }

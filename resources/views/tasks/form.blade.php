@@ -129,49 +129,6 @@
     </div>
 </div>
 
-<!--
-<div class="row">
-    <div class="col s12">
-        <p>
-            {!! Form::hidden('Task[has_notifications]', 0) !!}
-            {!! Form::checkbox('Task[has_notifications]', 1, $task['has_notifications'], ['id' => 'Task[has_notifications]']) !!}
-            {!! Form::label('Task[has_notifications]', 'Send notifications') !!}
-        </p>
-    </div>
-</div>
-
-<h4 class="header notifications {{ $task['has_notifications'] || old('Task.has_notifications') ? '' : 'hide' }}">Notifications Details</h4>
-
-<div class="row notifications {{ $task['has_notifications'] || old('Task.has_notifications') ? '' : 'hide' }}">
-    <div class="input-field col s12 m6">
-        {!! Form::label('Notification[running][email]', 'When task is running send me an email at') !!}
-        {!! Form::text('Notification[running][email]', $task['running_notification']['email']) !!}
-
-        @if ($errors->has('Notification.running.email'))
-            <span class="red-text">{{ $errors->first('Notification.running.email') }}</span>
-        @endif
-    </div>
-
-    <div class="input-field col s12 m6">
-        {!! Form::label('Notification[failed][email]', 'When task failed send me an email at') !!}
-        {!! Form::text('Notification[failed][email]', $task['failed_notification']['email']) !!}
-
-        @if ($errors->has('Notification.failed.email'))
-            <span class="red-text">{{ $errors->first('Notification.failed.email') }}</span>
-        @endif
-    </div>
-
-    <div class="input-field col s12 m6">
-        {!! Form::label('Notification[completed][email]', 'When task is completed send me an email at') !!}
-        {!! Form::text('Notification[completed][email]', $task['completed_notification']['email']) !!}
-
-        @if ($errors->has('Notification.completed.email'))
-            <span class="red-text">{{ $errors->first('Notification.completed.email') }}</span>
-        @endif
-    </div>
-</div>
--->
-
 <div class="row">
     <div class="col s12">
         <button type="submit" class="btn waves-effect waves-light green right">

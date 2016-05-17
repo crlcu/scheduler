@@ -26,9 +26,14 @@ class NotificationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $notification = new TaskNotification();
+
+        return view('notifications.create', [
+            'notification'  => $notification,
+            'task_id'       => $request->input('task_id'),
+        ]);
     }
 
     /**
@@ -39,7 +44,30 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'Notification.task_id'  => 'required',
+            'Notification.type'     => 'required',
+            'Notification.status'   => 'required',
+            'Notification.to'       => 'required',
+            'Slack.username'        => 'required_if:Notification.type,slack',
+            'Slack.channel'         => 'required_if:Notification.type,slack',
+        ]);
+
+        $task = Task::forCurrentUser()
+            ->findOrFail($request->input('Notification.task_id'));
+
+        $notification = new TaskNotification($request->input('Notification'));
+
+        if ($request->input('Notification.type') == 'slack')
+        {
+            $notification->fill([
+                'slack_config_json' => json_encode($request->input('Slack'))
+            ]);            
+        }
+
+        $notification->save();
+
+        return redirect()->action('TasksController@notifications', $task->id);
     }
 
     /**
