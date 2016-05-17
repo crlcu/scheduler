@@ -5,6 +5,7 @@
             <li>
                 <a href="{{ action('TasksController@index') }}" class="waves-effect"><i class="material-icons right">content_paste</i> Tasks</a>
             </li>
+            @yield('navbar-items')
         </ul>
 
         <ul class="right">
