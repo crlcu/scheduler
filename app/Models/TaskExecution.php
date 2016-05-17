@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaskExecution extends Model
 {
+    use SoftDeletes;
+    
 	protected $dates = ['created_at', 'updated_at'];
 	protected $fillable = ['task_id', 'status', 'result'];
     protected $appends = ['duration', 'duration_for_humans', 'is_running', 'status_icon'];

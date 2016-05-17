@@ -23,4 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('tasks/{id}/enable', 'TasksController@enable');
 	Route::get('tasks/{id}/disable', 'TasksController@disable');
 	Route::get('tasks/{id}/run', 'TasksController@run');
+	Route::get('tasks/{id}/clear', 'TasksController@clear');
 });

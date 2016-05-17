@@ -89,7 +89,8 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
 
         $executions = TaskExecution::where('task_id', '=', $id)
             ->orderBy('created_at', 'desc')
@@ -109,7 +110,8 @@ class TasksController extends Controller
      */
     public function enable($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
 
         # enable
         $task->update(['is_enabled' => 1]);
@@ -125,7 +127,8 @@ class TasksController extends Controller
      */
     public function disable($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
 
         # disable
         $task->update(['is_enabled' => 0]);
@@ -141,7 +144,8 @@ class TasksController extends Controller
      */
     public function run($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
 
         Artisan::queue('run:task', ['task' => $id]);
         
@@ -156,7 +160,8 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
 
         return view('tasks.edit', [
             'task' => $task,
@@ -184,7 +189,9 @@ class TasksController extends Controller
             'Notification.completed.email'  => 'email',
         ]);
 
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
         $task->fill($request->input('Task'));
 
         if ($request->input('Task.is_via_ssh'))
@@ -233,9 +240,27 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::find($id);
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
         $task->delete();
 
         return redirect()->action('TasksController@index');
+    }
+
+    /**
+     * Remove executions for the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function clear($id)
+    {
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
+        $task->executions()->delete();
+
+        return redirect()->action('TasksController@show', $id);
     }
 }
