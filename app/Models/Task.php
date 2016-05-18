@@ -123,9 +123,10 @@ class Task extends Model
     {
         $this->running();
 
-        $stream = SSH::connect($task->ssh)->run($task->command, function($buffer)
+        $stream = SSH::connect($this->ssh)->run($this->command, function($buffer)
         {
             $this->execution->result .= $buffer;
+            $this->execution->save();
         });
 
         $this->done();
@@ -144,6 +145,7 @@ class Task extends Model
 
         $process->wait(function ($type, $buffer) {
             $this->execution->result .= $buffer;
+            $this->execution->save();
         });
 
         if (!$process->isSuccessful()) {

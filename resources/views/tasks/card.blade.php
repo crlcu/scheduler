@@ -46,7 +46,11 @@
 <script type="text/javascript">
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
+
+@if (count($executions))
 google.charts.setOnLoadCallback(drawChart);
+@endif
+
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Started at', 'Seconds'],

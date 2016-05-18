@@ -14,44 +14,54 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($executions as $execution)
-                    <tr class="{{ $execution['status'] == 'failed' ? 'red lighten-5' : '' }}">
-                        <td class="center-align">{!! $execution['status_icon'] !!}</td>
-                        <td>
-                            @if (strlen($execution['result']) > 100)
-                                <!-- Modal Trigger -->
-                                <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit($execution['result'], 100)) !!}</a>
+                @if (count($executions))
+                    @foreach ($executions as $execution)
+                        <tr class="{{ $execution['status'] == 'failed' ? 'red lighten-5' : '' }}">
+                            <td class="center-align">{!! $execution['status_icon'] !!}</td>
+                            <td>
+                                @if (strlen($execution['result']) > 100)
+                                    <!-- Modal Trigger -->
+                                    <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit($execution['result'], 100)) !!}</a>
 
-                                <!-- Modal Structure -->
-                                <div id="result{{ $execution['id'] }}" class="modal modal-fixed-footer">
-                                    <div class="modal-content">
-                                        <p>{!! nl2br($execution['result']) !!}</p>
+                                    <!-- Modal Structure -->
+                                    <div id="result{{ $execution['id'] }}" class="modal modal-fixed-footer">
+                                        <div class="modal-content">
+                                            <p>{!! nl2br($execution['result']) !!}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                                        </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
-                                    </div>
-                                </div>
-                            @else
-                                {!! nl2br($execution['result']) !!}
-                            @endif
-                        </td>
-                        <td>{{ $execution['created_at'] }}</td>
-                        <td>
-                            @if ($execution['is_running'])
-                                -
-                            @else
-                                {{ $execution['updated_at'] }}
-                            @endif
-                        </td>
-                        <td>
-                            @if ($execution['is_running'])
-                                -
-                            @else
-                                {{ $execution['duration_for_humans'] }}
-                            @endif
+                                @else
+                                    {!! nl2br($execution['result']) !!}
+                                @endif
+                            </td>
+                            <td>{{ $execution['created_at'] }}</td>
+                            <td>
+                                @if ($execution['is_running'])
+                                    -
+                                @else
+                                    {{ $execution['updated_at'] }}
+                                @endif
+                            </td>
+                            <td>
+                                @if ($execution['is_running'])
+                                    -
+                                @else
+                                    {{ $execution['duration_for_humans'] }}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td class="center-align" colspan="5">
+                            <a href="{{ action('TasksController@run', $task['id']) }}" class="btn waves-effect waves-light green" title="Run now" onclick="return confirm('Confirm?')">
+                                <i class="material-icons left">launch</i> Run now
+                            </a>
                         </td>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     </div>
