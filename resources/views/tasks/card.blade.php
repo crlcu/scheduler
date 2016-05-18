@@ -22,11 +22,13 @@
 
                 <a href="{{ action('TasksController@edit', $task['id']) }}" class="btn-floating waves-effect waves-light blue" title="Edit">
                     <i class="material-icons">edit</i>
-                </a> | 
-
-                <a href="{{ action('TasksController@notifications', $task['id']) }}" class="btn-floating waves-effect waves-light amber lighten-3" title="Notifications">
-                    <i class="material-icons">notifications</i>
                 </a>
+
+                @if (Auth::user()->group->has_role('feature-notifications'))
+                     | <a href="{{ action('TasksController@notifications', $task['id']) }}" class="btn-floating waves-effect waves-light amber lighten-3" title="Notifications">
+                        <i class="material-icons">notifications</i>
+                    </a>
+                @endif
             </div>
             <div class="right">
                 <a href="{{ action('TasksController@run', $task['id']) }}" class="btn waves-effect waves-light green" title="Run now" onclick="return confirm('Confirm?')">

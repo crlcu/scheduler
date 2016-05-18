@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Models\User;
+use App\Models\Group;
+
 class UsersController extends Controller
 {
     /**
@@ -15,7 +18,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::orderBy('name')
+            ->paginate(10);
+
+        return view('users.index', [
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -25,7 +33,13 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+        $groups = Group::all();
+
+        return view('users.create', [
+            'user'  => $user,
+            'groups' => $groups,
+        ]);
     }
 
     /**
@@ -36,7 +50,17 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'User.name'     => 'required',
+            'User.email'    => ['required', 'unique:users,email'],
+            'User.group_id' => 'required',
+        ]);
+
+        $user = new User($request->input('User'));
+        $user->password = bcrypt('password');
+        $user->save();
+
+        return redirect()->action('UsersController@index');
     }
 
     /**
@@ -58,7 +82,13 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $groups = Group::all();
+
+        return view('users.edit', [
+            'user'  => $user,
+            'groups' => $groups,
+        ]);
     }
 
     /**
@@ -70,7 +100,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'User.name'     => 'required',
+            'User.email'    => ['required', 'unique:users,email,' . $id],
+            'User.group_id' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->fill($request->input('User'));
+        $user->save();
+
+        return redirect()->action('UsersController@index');
     }
 
     /**
@@ -81,6 +121,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->action('UsersController@index');
     }
 }

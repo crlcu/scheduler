@@ -17,29 +17,39 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($tasks as $task)
-                <tr class="{{ $task['is_enabled'] ? '' : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? '' : 'This task is disabled.' }}">
-                    <td class="center-align">
-                        @if ($task['is_enabled'])
-                            <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable">
-                                <i class="material-icons">pause_circle_filled</i>
+            @if (count($tasks))
+                @foreach ($tasks as $task)
+                    <tr class="{{ $task['is_enabled'] ? '' : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? '' : 'This task is disabled.' }}">
+                        <td class="center-align">
+                            @if ($task['is_enabled'])
+                                <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable">
+                                    <i class="material-icons">pause_circle_filled</i>
+                                </a>
+                            @else
+                                <a href="{{ action('TasksController@enable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light green" title="Enable">
+                                    <i class="material-icons">play_circle_outline</i>
+                                </a>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ action('TasksController@show', $task['id']) }}" title="View history">
+                                {{ $task['name'] }}
                             </a>
-                        @else
-                            <a href="{{ action('TasksController@enable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light green" title="Enable">
-                                <i class="material-icons">play_circle_outline</i>
-                            </a>
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ action('TasksController@show', $task['id']) }}" title="View history">
-                            {{ $task['name'] }}
+                        </td>
+                        <td>{{ $task['type'] }}</td>
+                        <td>{{ $task['average'] }} seconds</td>
+                        <td>{{ $task['next_due'] }}</td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td class="center-align" colspan="5">
+                        <a href="{{ action('TasksController@create') }}" class="btn waves-effect waves-light green" title="Add">
+                            <i class="material-icons left">add</i> Add your first task
                         </a>
                     </td>
-                    <td>{{ $task['type'] }}</td>
-                    <td>{{ $task['average'] }} seconds</td>
-                    <td>{{ $task['next_due'] }}</td>
                 </tr>
-            @endforeach
+            @endif
         </tbody>
     </table>
 @endsection

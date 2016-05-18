@@ -48,14 +48,14 @@
                             </tr>
                         @endforeach
                     @else
-                    <tr>
-                        <td class="center-align" colspan="4">
-                            <a href="{{ action('NotificationsController@create', ['task_id' => $task['id']]) }}" class="btn waves-effect waves-light green" title="Add">
-                                <i class="material-icons left">add</i> Add your first notification
-                            </a>
-                        </td>
-                    </tr>
-                @endif
+                        <tr>
+                            <td class="center-align" colspan="4">
+                                <a href="{{ action('NotificationsController@create', ['task_id' => $task['id']]) }}" class="btn waves-effect waves-light green" title="Add">
+                                    <i class="material-icons left">add</i> Add your first notification
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
