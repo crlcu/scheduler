@@ -12,6 +12,13 @@
                     <span class="red-text">{{ $errors->first('Group.name') }}</span>
                 @endif
             </div>
+
+            <div class="col s12">
+                @foreach ($roles as $role)
+                    {!! Form::checkbox('Role[]', $role['id'], count($group->roles->where('name', $role['name'])), ['id' => 'Role['. $role['name'] . ']']) !!}
+                    {!! Form::label('Role['. $role['name'] . ']', $role['description']) !!}
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

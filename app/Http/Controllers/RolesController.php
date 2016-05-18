@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Models\Group;
 use App\Models\Role;
 
-class GroupsController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,10 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = Group::paginate(10);
+        $roles = Role::paginate(10);
 
-        return view('groups.index', [
-            'groups' => $groups,
+        return view('roles.index', [
+            'roles' => $roles,
         ]);
     }
 
@@ -32,12 +31,10 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        $group = new Group();
-        $roles = Role::all();
+        $role = new Role();
 
-        return view('groups.create', [
-            'group' => $group,
-            'roles' => $roles,
+        return view('roles.create', [
+            'role' => $role,
         ]);
     }
 
@@ -50,13 +47,14 @@ class GroupsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'Group.name' => ['required', 'unique:groups,name'],
+            'Role.name'         => ['required', 'unique:roles,name'],
+            'Role.description'  => 'required',
         ]);
 
-        $group = new Group($request->input('Group'));
-        $group->save();
+        $role = new Role($request->input('Role'));
+        $role->save();
 
-        return redirect()->action('GroupsController@index');
+        return redirect()->action('RolesController@index');
     }
 
     /**
@@ -78,12 +76,10 @@ class GroupsController extends Controller
      */
     public function edit($id)
     {
-        $group = Group::findOrFail($id);
-        $roles = Role::all();
+        $role = Role::findOrFail($id);
 
-        return view('groups.edit', [
-            'group' => $group,
-            'roles' => $roles,
+        return view('roles.edit', [
+            'role' => $role,
         ]);
     }
 
@@ -97,17 +93,15 @@ class GroupsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'Group.name' => ['required', 'unique:groups,name,' . $id],
+            'Role.name'         => ['required', 'unique:roles,name,' . $id],
+            'Role.description'  => 'required',
         ]);
 
-        $group = Group::findOrFail($id);
-        $group->fill($request->input('Group'));
-        $group->save();
+        $role = Role::findOrFail($id);
+        $role->fill($request->input('Role'));
+        $role->save();
 
-        $group->roles()->detach();
-        $group->roles()->attach($request->input('Role'));
-
-        return redirect()->action('GroupsController@index');
+        return redirect()->action('RolesController@index');
     }
 
     /**
@@ -118,10 +112,10 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        $group = Group::findOrFail($id);
+        $role = Role::findOrFail($id);
 
-        $group->delete();
+        $role->delete();
 
-        return redirect()->action('GroupsController@index');
+        return redirect()->action('RolesController@index');
     }
 }

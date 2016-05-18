@@ -15,7 +15,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-    	'name'
+        'name'
     ];
 
 
@@ -25,5 +25,19 @@ class Group extends Model
     public function users()
     {
         return $this->hasMany('App\Models\User');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+
+    /**
+     * Methods
+     */
+    public function has_role($role = null)
+    {
+        return ($this->roles->where('name', $role)->count() > 0);
     }
 }

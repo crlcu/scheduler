@@ -8,9 +8,21 @@
 
             @yield('navbar-items')
 
-            <li>
-                <a href="{{ action('GroupsController@index') }}" class="waves-effect"><i class="material-icons right">group</i> Groups</a>
-            </li>
+            @if (Auth::user()->group->has_role('manage-roles'))
+                <li>
+                    <a href="{{ action('RolesController@index') }}" class="waves-effect"><i class="material-icons right">settings_input_composite</i> Roles</a>
+                </li>
+            @endif
+            @if (Auth::user()->group->has_role('manage-groups'))
+                <li>
+                    <a href="{{ action('GroupsController@index') }}" class="waves-effect"><i class="material-icons right">group</i> Groups</a>
+                </li>
+            @endif
+            @if (Auth::user()->group->has_role('manage-users'))
+                <li>
+                    <a href="{{ action('UsersController@index') }}" class="waves-effect"><i class="material-icons right">person</i> Users</a>
+                </li>
+            @endif
         </ul>
 
         <ul class="right">
