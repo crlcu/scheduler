@@ -20,10 +20,24 @@ class Task extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_enabled'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_enabled'
+    ];
+    
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
     protected $appends = ['average', 'details', 'ssh', 'has_notifications'];
 
     protected $execution;
+
 
     /**
      * Accessors & Mutators
@@ -61,6 +75,7 @@ class Task extends Model
     {
         return $this->notifications->count() > 0;
     }
+
 
     /**
      * Scopes

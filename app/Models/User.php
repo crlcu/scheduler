@@ -23,4 +23,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    /**
+     * Relations
+     */
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
+    }
 }

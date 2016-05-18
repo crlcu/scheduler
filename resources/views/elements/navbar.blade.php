@@ -5,7 +5,12 @@
             <li>
                 <a href="{{ action('TasksController@index') }}" class="waves-effect"><i class="material-icons right">content_paste</i> Tasks</a>
             </li>
+
             @yield('navbar-items')
+
+            <li>
+                <a href="{{ action('GroupsController@index') }}" class="waves-effect"><i class="material-icons right">group</i> Groups</a>
+            </li>
         </ul>
 
         <ul class="right">

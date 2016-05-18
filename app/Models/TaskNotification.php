@@ -12,7 +12,18 @@ class TaskNotification extends Model
 {
 	use SoftDeletes;
 	
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['task_id', 'type', 'status', 'to', 'slack_config_json'];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
     protected $appends = ['is_via_slack', 'slack'];
 
 

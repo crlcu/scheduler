@@ -9,8 +9,27 @@ class TaskExecution extends Model
 {
     use SoftDeletes;
     
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
 	protected $dates = ['created_at', 'updated_at'];
-	protected $fillable = ['task_id', 'status', 'result'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+	protected $fillable = [
+        'task_id', 'status', 'result'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
     protected $appends = ['duration', 'duration_for_humans', 'is_running', 'status_icon'];
 
 

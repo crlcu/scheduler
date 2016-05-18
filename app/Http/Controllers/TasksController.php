@@ -27,7 +27,7 @@ class TasksController extends Controller
             ->orderBy('next_due')
             ->get();
 
-        return view('tasks.search', [
+        return view('tasks.index', [
             'tasks' => $tasks,
         ]);
     }

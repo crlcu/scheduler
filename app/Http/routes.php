@@ -27,4 +27,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('tasks/{id}/clear', 'TasksController@clear');
 
 	Route::resource('notifications', 'NotificationsController');
+	Route::resource('groups', 'GroupsController');
 });
