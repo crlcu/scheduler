@@ -25,7 +25,7 @@ class TasksController extends Controller
             ->with('executions')
             ->orderBy('is_enabled', 'desc')
             ->orderBy('next_due')
-            ->get();
+            ->paginate(10);
 
         return view('tasks.index', [
             'tasks' => $tasks,

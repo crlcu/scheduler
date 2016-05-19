@@ -1,6 +1,6 @@
 <div class="widget">
     <div class="header indigo lighten-5">
-        <span class="title">Notification Details</span>
+        <span class="title">Notification details</span>
     </div>
     <div class="content">
         <div class="row">
@@ -38,7 +38,7 @@
 
 <div id="slack" class="widget {{ $notification['is_via_slack'] || old('Notification.type') == 'slack' ? '' : 'hide' }}">
     <div class="header indigo lighten-5">
-        <span class="title">Slack Details</span>
+        <span class="title">Slack details</span>
     </div>
     <div class="content">
         <div class="row">

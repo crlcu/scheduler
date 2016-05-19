@@ -1,6 +1,6 @@
 <div class="widget">
     <div class="header indigo lighten-5">
-        <span class="title">Task Details</span>
+        <span class="title">Task details</span>
     </div>
     <div class="content">
         <div class="row">
@@ -59,7 +59,7 @@
 
 <div id="ssh" class="widget {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">
     <div class="header indigo lighten-5">
-        <span class="title">SSH Details</span>
+        <span class="title">SSH details</span>
     </div>
     <div class="content">
         <div class="row">

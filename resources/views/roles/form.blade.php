@@ -1,6 +1,6 @@
 <div class="widget">
     <div class="header indigo lighten-5">
-        <span class="title">Role Details</span>
+        <span class="title">Role details</span>
     </div>
     <div class="content">
         <div class="row">
@@ -23,12 +23,13 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-    <div class="col s12">
-        <button type="submit" class="btn waves-effect waves-light green right">
-            <i class="material-icons left">done</i> Save
-        </button>
+    <div class="footer indigo lighten-5">
+        <div class="row">
+            <div class="col s12">
+                <button type="submit" class="btn waves-effect waves-light green right">
+                    <i class="material-icons left">done</i> Save
+                </button>
+            </div>
+        </div>
     </div>
 </div>
