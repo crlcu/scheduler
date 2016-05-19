@@ -32,4 +32,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Group');
     }
+
+
+    /**
+     * Methods
+     */
+    public function hasRole($role)
+    {
+        return $this->group->hasRole($role);
+    }
 }

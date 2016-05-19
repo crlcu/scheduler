@@ -16,19 +16,29 @@ Route::auth();
 Route::any('register', 'Auth\AuthController@login');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/', 'TasksController@index');
+    Route::get('/', 'TasksController@index');
 
-	Route::resource('tasks', 'TasksController');
+    Route::resource('tasks', 'TasksController');
 
-	Route::get('tasks/{id}/notifications', 'TasksController@notifications');
-	Route::get('tasks/{id}/run', 'TasksController@run');
-	Route::get('tasks/{id}/enable', 'TasksController@enable');
-	Route::get('tasks/{id}/disable', 'TasksController@disable');
-	Route::get('tasks/{id}/clear', 'TasksController@clear');
+    Route::get('tasks/{id}/run', 'TasksController@run');
+    Route::get('tasks/{id}/enable', 'TasksController@enable');
+    Route::get('tasks/{id}/disable', 'TasksController@disable');
+    Route::get('tasks/{id}/clear', 'TasksController@clear');
+});
 
-	Route::resource('notifications', 'NotificationsController');
+Route::group(['middleware' => ['auth', 'role:manage-roles']], function () {
+    Route::resource('roles', 'RolesController');
+});
 
-	Route::resource('roles', 'RolesController');
-	Route::resource('groups', 'GroupsController');
-	Route::resource('users', 'UsersController');
+Route::group(['middleware' => ['auth', 'role:manage-groups']], function () {
+    Route::resource('groups', 'GroupsController');
+});
+
+Route::group(['middleware' => ['auth', 'role:manage-users']], function () {
+    Route::resource('users', 'UsersController');
+});
+
+Route::group(['middleware' => ['auth', 'role:feature-notifications']], function () {
+    Route::resource('notifications', 'NotificationsController');
+    Route::get('tasks/{id}/notifications', 'TasksController@notifications');
 });

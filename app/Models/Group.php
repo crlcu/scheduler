@@ -36,7 +36,7 @@ class Group extends Model
     /**
      * Methods
      */
-    public function has_role($role = null)
+    public function hasRole($role = null)
     {
         return ($this->roles->where('name', $role)->count() > 0);
     }
