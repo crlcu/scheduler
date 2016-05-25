@@ -8,7 +8,8 @@
 ## Instalation
 ```
 composer install
-php -r "copy('.env.example', '.env')"
+php -r "copy('.env.example', '.env');"
+php artisan key:generate
 ```
 Now setup ``.env``. Then
 ```
