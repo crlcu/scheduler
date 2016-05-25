@@ -20,6 +20,9 @@ php artisan view:clear
 php artisan route:cache
 ```
 
+## Crontab
+``* * * * * php <path to project>/artisan schedule:run | sed -e "s/^/$(date +'\%Y-\%m-\%d \%T') /" >> <path to project>/storage/logs/crontab-$(date +'\%Y-\%m-\%d').log 2>&1``
+
 ## Login
 
 - User: ``administrator@scheduler.com``
