@@ -164,6 +164,7 @@ return [
         Maknz\Slack\SlackServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
+        Fitztrev\QueryTracer\Providers\QueryTracerServiceProvider::class,
     ],
 
     /*

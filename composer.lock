@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69282c53661f11405cc35e0517122a1f",
-    "content-hash": "100de32fc0cf93cdddee7d834ef29843",
+    "hash": "4ffc2c1abbbc7e557bfa98ac3e32314e",
+    "content-hash": "a81fc3af89d11eff608f789b5542022f",
     "packages": [
         {
             "name": "barryvdh/laravel-async-queue",
@@ -264,6 +264,48 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "fitztrev/query-tracer",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fitztrev/query-tracer.git",
+                "reference": "351fff26cec4962e414864fd9c376923a94ace28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fitztrev/query-tracer/zipball/351fff26cec4962e414864fd9c376923a94ace28",
+                "reference": "351fff26cec4962e414864fd9c376923a94ace28",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.2",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "illuminate/database": "5.2.*",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fitztrev\\QueryTracer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Backtrace database queries",
+            "keywords": [
+                "database",
+                "debug",
+                "eloquent",
+                "laravel"
+            ],
+            "time": "2016-05-22 13:30:05"
         },
         {
             "name": "guzzlehttp/guzzle",

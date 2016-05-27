@@ -29,10 +29,12 @@ class NotificationsController extends Controller
     public function create(Request $request)
     {
         $notification = new TaskNotification();
+        $task = Task::forCurrentUser()
+            ->findOrFail($request->input('task_id'));
 
         return view('notifications.create', [
             'notification'  => $notification,
-            'task_id'       => $request->input('task_id'),
+            'task'          => $task,
         ]);
     }
 
@@ -95,7 +97,8 @@ class NotificationsController extends Controller
             ->findOrFail($notification->task_id);
 
         return view('notifications.edit', [
-            'notification' => $notification,
+            'notification'  => $notification,
+            'task'          => $task,
         ]);
     }
 
