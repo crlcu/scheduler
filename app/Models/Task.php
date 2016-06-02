@@ -44,16 +44,18 @@ class Task extends Model
      */
     public function getAverageAttribute($value)
     {
-        if (!$this->executions->count())
+        $executions = $this->executions->where('status', 'completed');
+        
+        if (!$executions->count())
         {
             return '0';
         }
 
-        $total = $this->executions->sum(function($execution) {
+        $total = $executions->sum(function($execution) {
             return $execution->updated_at->diffInSeconds($execution->created_at);
         });
 
-        return sprintf('%.2f', $total / $this->executions->count());
+        return sprintf('%.2f', $total / $executions->count());
     }
 
     public function getDetailsAttribute($value)
