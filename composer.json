@@ -13,7 +13,8 @@
         "barryvdh/laravel-async-queue": "0.4.x",
         "mtdowling/cron-expression": "^1.1",
         "jenssegers/rollbar": "^1.5",
-        "maknz/slack": "^1.7"
+        "maknz/slack": "^1.7",
+        "fitztrev/query-tracer": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
