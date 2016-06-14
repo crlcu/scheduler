@@ -27,11 +27,11 @@
                             <tr class="{{ $task['is_enabled'] ? '' : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? '' : 'This task is disabled.' }}">
                                 <td class="center-align">
                                     @if ($task['is_enabled'])
-                                        <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable">
+                                        <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable" onclick="return confirm('Disable?')">
                                             <i class="material-icons">pause_circle_filled</i>
                                         </a>
                                     @else
-                                        <a href="{{ action('TasksController@enable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light green" title="Enable">
+                                        <a href="{{ action('TasksController@enable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light green" title="Enable" onclick="return confirm('Enable?')">
                                             <i class="material-icons">play_circle_outline</i>
                                         </a>
                                     @endif
