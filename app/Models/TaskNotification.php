@@ -104,15 +104,15 @@ class TaskNotification extends Model
         switch ($this->status)
         {
             case 'running':
-                $slack->send(sprintf('The task *%s* has started to run', $task->name));
+                $slack->send(sprintf('The task *%s* has started to run.', $task->name));
 
                 break;
             case 'failed':
-                $slack->send(sprintf("The execution of task *%s* has failed. ```\n%s\n```", $task->name, $task->last_run->result));
+                $slack->send(sprintf("The execution of task *%s* has failed.\n```%s```", $task->name, $task->last_run->result));
 
                 break;
             case 'completed':
-                $slack->send(sprintf("The execution of task *%s* is now completed. ```\n%s\n```", $task->name, $task->last_run->result));
+                $slack->send(sprintf("The execution of task *%s* is now completed.\n```%s```", $task->name, $task->last_run->result));
 
                 break;
         }
