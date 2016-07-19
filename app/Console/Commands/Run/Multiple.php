@@ -21,7 +21,7 @@ class Multiple extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Run all due now tasks.';
 
     /**
      * Create a new command instance.

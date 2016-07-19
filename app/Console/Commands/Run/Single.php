@@ -20,7 +20,7 @@ class Single extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Run a single task';
 
     /**
      * Create a new command instance.
@@ -39,12 +39,7 @@ class Single extends Command
      */
     public function handle()
     {
-        $task = $this->argument('task');
-        
-        if (!is_a($task, 'App\Models\Task'))
-        {
-            $task = Task::findOrFail($this->argument('task'));
-        }
+        $task = Task::findOrFail($this->argument('task'));
 
         $this->info(sprintf('Running %s (%s)', $task->name, $task->command));
 
