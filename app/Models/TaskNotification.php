@@ -108,11 +108,11 @@ class TaskNotification extends Model
 
                 break;
             case 'failed':
-                $slack->send(sprintf('The execution of task *%s* has failed. ```%s```', $task->name, $task->last_run->result));
+                $slack->send(sprintf("The execution of task *%s* has failed. ```\n%s\n```", $task->name, $task->last_run->result));
 
                 break;
             case 'completed':
-                $slack->send(sprintf('The execution of task *%s* is now completed. ```%s```', $task->name, $task->last_run->result));
+                $slack->send(sprintf("The execution of task *%s* is now completed. ```\n%s\n```", $task->name, $task->last_run->result));
 
                 break;
         }

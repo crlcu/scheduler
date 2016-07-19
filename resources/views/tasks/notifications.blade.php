@@ -59,5 +59,6 @@
                 </tbody>
             </table>
         </div>
+        <div class="footer indigo lighten-5"></div>
     </div>
 @endsection

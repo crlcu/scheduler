@@ -15,7 +15,7 @@
         </div>
 
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m6 required">
                 {!! Form::label('Notification[status]', 'When status is') !!}
                 {!! Form::select('Notification[status]', ['running' => 'running', 'failed' => 'failed', 'completed' => 'completed'], $notification['status'], ['class' => 'browser-default','required' => true]) !!}
 
@@ -24,7 +24,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m6 required">
                 {!! Form::label('Notification[to]', 'Send a notification to') !!}
                 {!! Form::text('Notification[to]', $notification['to'], ['required' => true, 'autofocus']) !!}
 
@@ -34,6 +34,9 @@
             </div>
         </div>
     </div>
+    <div class="footer indigo lighten-5">
+        Field marked with <span class="red-text">*</span> is required.
+    </div>
 </div>
 
 <div id="slack" class="widget {{ $notification['is_via_slack'] || old('Notification.type') == 'slack' ? '' : 'hide' }}">
@@ -42,7 +45,7 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="input-field col s12 m6">
+            <div class="input-field col s12 m6 required">
                 {!! Form::label('Slack[username]', 'Username') !!}
                 {!! Form::text('Slack[username]', isset($notification['slack']['username']) ? $notification['slack']['username'] : 'deploy') !!}
 
@@ -51,7 +54,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s6">
+            <div class="input-field col s6 required">
                 {!! Form::label('Slack[channel]', 'Channel') !!}
                 {!! Form::text('Slack[channel]', isset($notification['slack']['channel']) ? $notification['slack']['channel'] : '#general') !!}
 
@@ -60,6 +63,9 @@
                 @endif
             </div>
         </div>
+    </div>
+    <div class="footer indigo lighten-5">
+        Field marked with <span class="red-text">*</span> is required.
     </div>
 </div>
 

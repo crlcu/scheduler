@@ -4,7 +4,7 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="input-field col s12 m7">
+            <div class="input-field col s12 m7 required">
                 {!! Form::label('Task[name]', 'Name') !!}
                 {!! Form::text('Task[name]', $task['name'], ['required' => true, 'autofocus']) !!}
 
@@ -13,7 +13,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s12 m3 {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? 'hide' : '' }}">
+            <div class="input-field col s12 m3 required {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? 'hide' : '' }}">
                 {!! Form::label('Task[cron_expression]', 'Cron expression') !!}
                 {!! Form::text('Task[cron_expression]', $task['cron_expression'], ['placeholder' => '* * * * * *', 'required' => true]) !!}
 
@@ -22,7 +22,7 @@
                 @endif
             </div>
             
-            <div class="input-field col s12 m3 {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? '' : 'hide' }}">
+            <div class="input-field col s12 m3 required {{ $task['is_one_time_only'] || old('Task.is_one_time_only') ? '' : 'hide' }}">
                 {!! Form::label('Task[next_due]', 'Run at') !!}
                 {!! Form::text('Task[next_due]', $task['next_due'], ['placeholder' => 'yyyy-mm-dd hh:mm:ss', 'provide' => 'datetimepicker', 'required' => true]) !!}
 
@@ -45,7 +45,7 @@
                 {!! Form::label('Task[is_enabled]', 'Enabled') !!}
             </div>
 
-            <div class="input-field col s12">
+            <div class="input-field col s12 required">
                 {!! Form::label('Task[command]', 'Command') !!}
                 {!! Form::textarea('Task[command]', $task['command'], ['rows' => 2, 'class' => 'materialize-textarea', 'required' => true]) !!}
 
@@ -55,6 +55,9 @@
             </div>
         </div>
     </div>
+    <div class="footer indigo lighten-5">
+        Field marked with <span class="red-text">*</span> is required.
+    </div>
 </div>
 
 <div id="ssh" class="widget {{ $task['is_via_ssh'] || old('Task.is_via_ssh') ? '' : 'hide' }}">
@@ -63,7 +66,7 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s12 required">
                 {!! Form::label('SSH[host]', 'Host') !!}
                 {!! Form::text('SSH[host]', isset($task['ssh']['host']) ? $task['ssh']['host'] : '') !!}
 
@@ -126,6 +129,9 @@
                 @endif
             </div>
         </div>
+    </div>
+    <div class="footer indigo lighten-5">
+        Field marked with <span class="red-text">*</span> is required.
     </div>
 </div>
 
