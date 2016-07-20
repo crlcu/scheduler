@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use App\Models\Observers\RoleObserver;
+
 class Role extends Model
 {
     use SoftDeletes, RevisionableTrait;
@@ -20,7 +22,16 @@ class Role extends Model
         'name', 'description'
     ];
 
+    /**
+     * Initialize the observer
+     * @return [RoleObserver]
+     */
+    public static function boot()
+    {
+        parent::boot();
 
+        parent::observe(new RoleObserver);
+    }
 
     /**
      * Relations

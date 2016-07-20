@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use App\Models\Observers\UserObserver;
+
 class User extends Authenticatable
 {
     use SoftDeletes, RevisionableTrait;
@@ -29,7 +31,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Initialize the observer
+     * @return [UserObserver]
+     */
+    public static function boot()
+    {
+        parent::boot();
 
+        parent::observe(new UserObserver);
+    }
+    
     /**
      * Relations
      */
@@ -38,6 +50,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Group');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task');
+    }
 
     /**
      * Methods

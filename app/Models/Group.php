@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use App\Models\Observers\GroupObserver;
+
 class Group extends Model
 {
     use SoftDeletes, RevisionableTrait;
@@ -20,6 +22,16 @@ class Group extends Model
         'name'
     ];
 
+    /**
+     * Initialize the observer
+     * @return [GroupObserver]
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        parent::observe(new GroupObserver);
+    }
 
     /**
      * Relations
