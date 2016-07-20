@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Group;
+use App\Models\Role;
+
 class GroupsTableSeeder extends Seeder
 {
     /**
@@ -11,12 +14,22 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('groups')->insert(['name' => 'Administrator']);
-        DB::table('group_role')->insert([
-        	['group_id' => 1, 'role_id' => 1],
-        	['group_id' => 1, 'role_id' => 2],
-        	['group_id' => 1, 'role_id' => 3],
-        	['group_id' => 1, 'role_id' => 4],
-        ]);
+        $groups = [
+            [ 'name' => 'Administrator' ],
+            [ 'name' => 'Users' ],
+        ];
+
+        foreach ($groups as $group)
+        {
+            Group::create($group);
+        }
+
+        $group = Group::find(1);
+
+        $roles = Role::all()
+            ->lists('id')
+            ->toArray();
+
+        $group->roles()->attach($roles);
     }
 }
