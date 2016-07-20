@@ -84,7 +84,14 @@ class Task extends Model
      */
     public function scopeForCurrentUser($query)
     {
-        return $query->where('user_id', '=', Auth::id());
+        $user = Auth::user();
+
+        if ($user->hasRole('is-admin'))
+        {
+            return $query;
+        }
+
+        return $query->where('user_id', '=', $user->id);
     }
 
     public function scopeEnabled($query)
