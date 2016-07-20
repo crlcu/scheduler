@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class User extends Authenticatable
 {
+    use SoftDeletes, RevisionableTrait;
+    
     /**
      * The attributes that are mass assignable.
      *

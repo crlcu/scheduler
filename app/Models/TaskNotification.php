@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Venturecraft\Revisionable\RevisionableTrait;
+
 use Mail;
 use Maknz\Slack\Client as Slack;
 
 class TaskNotification extends Model
 {
-	use SoftDeletes;
+	use SoftDeletes, RevisionableTrait;
 	
     /**
      * The attributes that are mass assignable.

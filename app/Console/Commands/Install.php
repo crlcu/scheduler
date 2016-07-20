@@ -37,9 +37,14 @@ class Install extends Command
      */
     public function handle()
     {
+        # apply migrations
         $this->call('migrate');
+        $this->call('migrate', ['--path' => 'vendor/venturecraft/revisionable/src/migrations/']);
+
+        # insert some data in db
         $this->call('db:seed');
 
+        # give permissions
         $this->info('Running chmod');
         shell_exec('chmod 777 resources/lang -R');
         shell_exec('chmod 777 storage -R');

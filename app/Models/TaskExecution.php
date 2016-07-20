@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Venturecraft\Revisionable\RevisionableTrait;
+
 class TaskExecution extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, RevisionableTrait;
     
     /**
      * The attributes that should be mutated to dates.
