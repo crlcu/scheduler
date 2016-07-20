@@ -7,6 +7,16 @@
         </div>
         <div class="content">
             <table class="bordered highlight condensed">
+                <caption>
+                    {!! Form::open(['method' => 'get']) !!}
+                        <div class="file-field input-field">
+                            <button class="btn-floating waves-effect waves-light red lighten-1 right" type="submit" name="action"><i class="material-icons">search</i></button>
+                            <div class="file-path-wrapper">
+                                {!! Form::text('q', $q, ['id' => 'q', 'placeholder' => 'Search ...', 'autocomplete' => 'off']) !!}
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </caption>
                 <thead>
                     <tr>
                         <th width="45px"></th>
@@ -46,6 +56,12 @@
                                 <td>{{ $task['next_due'] }}</td>
                             </tr>
                         @endforeach
+                    @elseif($q)
+                        <tr>
+                            <td class="center-align" colspan="5">
+                                No matching results found.
+                            </td>
+                        </tr>
                     @else
                         <tr>
                             <td class="center-align" colspan="5">

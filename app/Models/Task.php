@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
+use Sofa\Eloquence\Eloquence;
 
 use Auth;
 use Carbon\Carbon;
@@ -20,7 +21,7 @@ use App\Events\TaskCompleted;
 
 class Task extends Model
 {
-    use SoftDeletes, RevisionableTrait;
+    use SoftDeletes, RevisionableTrait, Eloquence;
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +41,15 @@ class Task extends Model
 
     protected $execution;
 
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'name'      => 10,
+        'next_due'  => 10,
+    ];
 
     /**
      * Accessors & Mutators

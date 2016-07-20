@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4320bb750ce790a284d31f1167ab2847",
-    "content-hash": "6e01997bb27845753bbccfe65d9f457b",
+    "hash": "ac2e21c53756641dfa79e62cf8de1964",
+    "content-hash": "6618456cab312da0cb8724aab38e5597",
     "packages": [
         {
             "name": "barryvdh/laravel-async-queue",
@@ -1668,6 +1668,108 @@
                 "monitoring"
             ],
             "time": "2016-07-05 15:50:29"
+        },
+        {
+            "name": "sofa/eloquence",
+            "version": "v5.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jarektkaczyk/eloquence.git",
+                "reference": "bb24fa9062efb645ae2e560a75d68fd4cf8572b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jarektkaczyk/eloquence/zipball/bb24fa9062efb645ae2e560a75d68fd4cf8572b7",
+                "reference": "bb24fa9062efb645ae2e560a75d68fd4cf8572b7",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2.*",
+                "php": ">=5.5.9",
+                "sofa/hookable": "5.2.*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.4",
+                "phpunit/phpunit": "4.5.0",
+                "squizlabs/php_codesniffer": "2.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sofa\\Eloquence\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jarek Tkaczyk",
+                    "email": "jarek@softonsofa.com",
+                    "homepage": "http://softonsofa.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Flexible Searchable, Mappable, Metable, Validation and more extensions for Laravel Eloquent ORM.",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "mappable",
+                "metable",
+                "mutable",
+                "searchable"
+            ],
+            "time": "2016-06-17 09:47:26"
+        },
+        {
+            "name": "sofa/hookable",
+            "version": "v5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jarektkaczyk/hookable.git",
+                "reference": "ae87508e072737a602832acdd62272867152c775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jarektkaczyk/hookable/zipball/ae87508e072737a602832acdd62272867152c775",
+                "reference": "ae87508e072737a602832acdd62272867152c775",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "crysalead/kahlan": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sofa\\Hookable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jarek Tkaczyk",
+                    "email": "jarek@softonsofa.com",
+                    "homepage": "http://softonsofa.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Eloquent hooks system.",
+            "keywords": [
+                "eloquent",
+                "laravel"
+            ],
+            "time": "2016-01-14 21:06:40"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -162,7 +162,8 @@ return [
         Barryvdh\Queue\AsyncServiceProvider::class,
         Jenssegers\Rollbar\RollbarServiceProvider::class,
         Maknz\Slack\SlackServiceProvider::class,
-
+        Sofa\Eloquence\ServiceProvider::class,
+        
         Barryvdh\Debugbar\ServiceProvider::class,
         Fitztrev\QueryTracer\Providers\QueryTracerServiceProvider::class,
     ],

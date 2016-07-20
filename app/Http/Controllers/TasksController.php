@@ -19,17 +19,21 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::forCurrentUser()
-            ->with('executions')
-            ->orderBy('is_enabled', 'desc')
+        $query = Task::forCurrentUser()
+            ->with('executions');
+
+        if ($q = $request->input('q'))
+        {
+            $query = $query->search($q, null, true, 1);
+        }
+
+        $tasks = $query->orderBy('is_enabled', 'desc')
             ->orderBy('next_due')
             ->paginate(10);
 
-        return view('tasks.index', [
-            'tasks' => $tasks,
-        ]);
+        return view('tasks.index', compact('tasks', 'q'));
     }
 
     /**
