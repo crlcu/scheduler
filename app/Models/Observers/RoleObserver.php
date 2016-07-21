@@ -8,7 +8,7 @@ class RoleObserver {
     {
         if ($model->groups())
         {
-            return $model->groups()->detach();
+            $model->groups()->detach();
         }
 
         return true;

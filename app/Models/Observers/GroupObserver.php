@@ -8,7 +8,7 @@ class GroupObserver {
     {
         if ($model->users())
         {
-            return $model->users()->delete();
+            $model->users()->delete();
         }
 
         return true;

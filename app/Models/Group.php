@@ -36,14 +36,14 @@ class Group extends Model
     /**
      * Relations
      */
-    public function users()
-    {
-        return $this->hasMany('App\Models\User');
-    }
-
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\User');
     }
 
 

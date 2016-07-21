@@ -8,7 +8,7 @@ class UserObserver {
     {
         if ($model->tasks())
         {
-            return $model->tasks()->delete();
+            $model->tasks()->delete();
         }
 
         return true;

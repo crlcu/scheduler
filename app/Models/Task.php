@@ -19,6 +19,8 @@ use App\Events\TaskRunning;
 use App\Events\TaskFailed;
 use App\Events\TaskCompleted;
 
+use App\Models\Observers\TaskObserver;
+
 class Task extends Model
 {
     use SoftDeletes, RevisionableTrait, Eloquence;
@@ -51,6 +53,17 @@ class Task extends Model
         'next_due'  => 10,
     ];
 
+    /**
+     * Initialize the observer
+     * @return [TaskObserver]
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        parent::observe(new TaskObserver);
+    }
+    
     /**
      * Accessors & Mutators
      */
@@ -120,9 +133,9 @@ class Task extends Model
     /**
      * Relations
      */
-    public function user()
+    public function executions()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->hasMany('App\Models\TaskExecution');
     }
 
     public function last_run()
@@ -130,15 +143,15 @@ class Task extends Model
         return $this->hasOne('App\Models\TaskExecution')
             ->orderBy('id', 'desc');
     }
-    
-    public function executions()
-    {
-        return $this->hasMany('App\Models\TaskExecution');
-    }
 
     public function notifications()
     {
         return $this->hasMany('App\Models\TaskNotification');
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
 
