@@ -53,7 +53,7 @@
                                     </a>
                                 </td>
                                 <td>{{ $task['type'] }}</td>
-                                <td>{{ $task['average'] }} seconds</td>
+                                <td>{{ $task['average_for_humans'] }}</td>
                                 <td>{{ $task['schedule'] }}</td>
                                 <td>{{ $task['next_due'] }}</td>
                             </tr>

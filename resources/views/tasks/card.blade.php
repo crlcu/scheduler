@@ -3,7 +3,7 @@
         <span class="title">{{ $task['name'] }}</span>
 
         <div class="right">
-            Average time {{ $task['average'] }} seconds
+            Average time {{ $task['average_for_humans'] }}
         </div>
     </div>
     <div class="content">

@@ -10,6 +10,7 @@ use Sofa\Eloquence\Eloquence;
 
 use Auth;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Cron\CronExpression;
 use Event;
 use Symfony\Component\Process\Process;
@@ -39,7 +40,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $appends = ['average', 'details', 'has_notifications', 'ssh', 'schedule'];
+    protected $appends = ['average', 'average_for_humans', 'details', 'has_notifications', 'ssh', 'schedule'];
 
     protected $execution;
 
@@ -81,6 +82,15 @@ class Task extends Model
         });
 
         return sprintf('%.2f', $total / $executions->count());
+    }
+
+    public function getAverageForHumansAttribute($value)
+    {
+        $hours = (int)($this->average / 3600);
+        $minutes = (int)(($this->average - $hours * 3600) / 60);
+        $seconds = (int)($this->average - ($hours * 3600 + $minutes * 60));
+
+        return CarbonInterval::hour($hours)->minutes($minutes)->seconds($seconds)->forHumans();
     }
 
     public function getDetailsAttribute($value)
