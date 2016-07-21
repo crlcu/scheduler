@@ -33,9 +33,7 @@ class RolesController extends Controller
     {
         $role = new Role();
 
-        return view('roles.create', [
-            'role' => $role,
-        ]);
+        return view('roles.create', compact('role'));
     }
 
     /**
@@ -78,9 +76,7 @@ class RolesController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        return view('roles.edit', [
-            'role' => $role,
-        ]);
+        return view('roles.edit', compact('role'));
     }
 
     /**

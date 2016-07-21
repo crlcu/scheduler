@@ -20,9 +20,7 @@ class GroupsController extends Controller
     {
         $groups = Group::paginate(10);
 
-        return view('groups.index', [
-            'groups' => $groups,
-        ]);
+        return view('groups.index', compact('groups'));
     }
 
     /**
@@ -35,10 +33,7 @@ class GroupsController extends Controller
         $group = new Group();
         $roles = Role::all();
 
-        return view('groups.create', [
-            'group' => $group,
-            'roles' => $roles,
-        ]);
+        return view('groups.create', compact('group', 'roles'));
     }
 
     /**
@@ -81,10 +76,7 @@ class GroupsController extends Controller
         $group = Group::findOrFail($id);
         $roles = Role::all();
 
-        return view('groups.edit', [
-            'group' => $group,
-            'roles' => $roles,
-        ]);
+        return view('groups.edit', compact('group', 'roles'));
     }
 
     /**

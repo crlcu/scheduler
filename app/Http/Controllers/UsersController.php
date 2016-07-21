@@ -21,9 +21,7 @@ class UsersController extends Controller
         $users = User::orderBy('name')
             ->paginate(10);
 
-        return view('users.index', [
-            'users' => $users,
-        ]);
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -36,10 +34,7 @@ class UsersController extends Controller
         $user = new User();
         $groups = Group::all();
 
-        return view('users.create', [
-            'user'  => $user,
-            'groups' => $groups,
-        ]);
+        return view('users.create', compact('user', 'groups'));
     }
 
     /**
@@ -85,10 +80,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $groups = Group::all();
 
-        return view('users.edit', [
-            'user'  => $user,
-            'groups' => $groups,
-        ]);
+        return view('users.edit', compact('user', 'groups'));
     }
 
     /**
