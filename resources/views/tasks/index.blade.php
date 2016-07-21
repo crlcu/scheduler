@@ -23,6 +23,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Average</th>
+                        <th>Schedule</th>
                         <th width="150px">
                             Next due
                             <a href="{{ action('TasksController@create') }}" class="btn-floating waves-effect waves-light green right" title="Add">
@@ -53,6 +54,7 @@
                                 </td>
                                 <td>{{ $task['type'] }}</td>
                                 <td>{{ $task['average'] }} seconds</td>
+                                <td>{{ $task['schedule'] }}</td>
                                 <td>{{ $task['next_due'] }}</td>
                             </tr>
                         @endforeach

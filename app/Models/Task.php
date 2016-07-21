@@ -39,7 +39,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $appends = ['average', 'details', 'ssh', 'has_notifications'];
+    protected $appends = ['average', 'details', 'has_notifications', 'ssh', 'schedule'];
 
     protected $execution;
 
@@ -88,19 +88,29 @@ class Task extends Model
         return $this->is_via_ssh ? json_decode($this->ssh_config_json, true) : ['run' => 'localy'];
     }
 
+    public function getHasNotificationsAttribute($value)
+    {
+        return $this->notifications->count() > 0;
+    }
+
     public function getSshAttribute($value)
     {
         return json_decode($this->ssh_config_json ? : '[]', true);
     }
 
+    public function getScheduleAttribute($value)
+    {
+        if ($this->is_one_time_only)
+        {
+            return 'once';
+        }
+
+        return $this->cron_expression;
+    }
+
     public function getTypeAttribute($value)
     {
         return $this->is_via_ssh ? 'ssh' : 'process';
-    }
-
-    public function getHasNotificationsAttribute($value)
-    {
-        return $this->notifications->count() > 0;
     }
 
 
