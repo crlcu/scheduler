@@ -64,6 +64,19 @@ class TaskExecution extends Model
         return $icons[$this->status];
     }
 
+    /**
+     * Scopes
+     */
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', '=', 'completed');
+    }
+
+    public function scopeFailed($query)
+    {
+        return $query->where('status', '=', 'failed');
+    }
+
 
     /**
      * Relations

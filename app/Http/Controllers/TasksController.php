@@ -45,9 +45,7 @@ class TasksController extends Controller
     {
         $task = new Task();
 
-        return view('tasks.create', [
-            'task' => $task,
-        ]);
+        return view('tasks.create', compact('task'));
     }
 
     /**
@@ -95,10 +93,10 @@ class TasksController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('tasks.show', [
-            'task'          => $task,
-            'executions'    => $executions
-        ]);
+        $completed = $task->executions()->completed()->get();
+        $failed = $task->executions()->failed()->get();
+
+        return view('tasks.show', compact('task', 'executions', 'completed', 'failed'));
     }
 
     /**
@@ -112,9 +110,7 @@ class TasksController extends Controller
         $task = Task::forCurrentUser()
             ->findOrFail($id);
 
-        return view('tasks.notifications', [
-            'task' => $task,
-        ]);
+        return view('tasks.notifications', compact('task'));
     }
 
     /**
@@ -144,9 +140,7 @@ class TasksController extends Controller
         $task = Task::forCurrentUser()
             ->findOrFail($id);
 
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        return view('tasks.edit', compact('task'));
     }
 
     /**

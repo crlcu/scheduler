@@ -49,19 +49,33 @@
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
-@if (count($task['executions']))
+@if (count($completed) || count($failed))
 google.charts.setOnLoadCallback(drawChart);
 @endif
 
 function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Started at', 'Seconds'],
-        @foreach ($task['executions'] as $execution)
-            ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
-        @endforeach
-    ]);
+    var completed = new google.visualization.DataTable();
+        completed.addColumn('string', 'Started at');
+        completed.addColumn('number', 'Seconds');
+
+        completed.addRows([
+            @foreach ($completed as $execution)
+                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
+            @endforeach
+        ]);
+
+    var failed = new google.visualization.DataTable();
+        failed.addColumn('string', 'Started at');
+        failed.addColumn('number', 'Seconds');
+
+        failed.addRows([
+            @foreach ($failed as $execution)
+                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
+            @endforeach
+        ]);
 
     var options = {
+        interpolateNulls: true,
         chartArea: {
             top: 10,
             right: 20,
@@ -71,6 +85,7 @@ function drawChart() {
         vAxis: {
             minValue: 0
         },
+        colors:['#4CAF50', '#F44336'],
         legend: 'none',
         pointSize: 5,
         pointShape: {
@@ -78,6 +93,8 @@ function drawChart() {
             rotation: 180
         }
     };
+
+    var data = google.visualization.data.join(completed, failed, 'full', [[0, 0]], [1], [1]);
 
     var chart = new google.visualization.AreaChart(document.getElementById('chart'));
     chart.draw(data, options);
