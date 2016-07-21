@@ -49,14 +49,14 @@
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
-@if (count($executions))
+@if (count($task['executions']))
 google.charts.setOnLoadCallback(drawChart);
 @endif
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Started at', 'Seconds'],
-        @foreach ($executions->reverse() as $execution)
+        @foreach ($task['executions'] as $execution)
             ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
         @endforeach
     ]);
