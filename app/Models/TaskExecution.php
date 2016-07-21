@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use Carbon\CarbonInterval;
+
 class TaskExecution extends Model
 {
     use SoftDeletes, RevisionableTrait;
@@ -45,7 +47,11 @@ class TaskExecution extends Model
 
     public function getDurationForHumansAttribute($value)
     {
-        return $this->updated_at->diffForHumans($this->created_at);
+        $hours = $this->updated_at->diffInHours($this->created_at);
+        $minutes = $this->updated_at->diffInMinutes($this->created_at) - ($hours * 60);
+        $seconds = $this->updated_at->diffInSeconds($this->created_at) - ($minutes * 60);
+
+        return CarbonInterval::hour($hours)->minutes($minutes)->seconds($seconds)->forHumans();
     }
 
     public function getIsRunningAttribute($value)
@@ -75,6 +81,11 @@ class TaskExecution extends Model
     public function scopeFailed($query)
     {
         return $query->where('status', '=', 'failed');
+    }
+
+    public function scopeRunning($query)
+    {
+        return $query->where('status', '=', 'running');
     }
 
 

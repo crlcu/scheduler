@@ -42,6 +42,23 @@ class TaskNotification extends Model
         return json_decode($this->slack_config_json ? : '[]', true);
     }
 
+    /**
+     * Scopes
+     */
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', '=', 'completed');
+    }
+
+    public function scopeFailed($query)
+    {
+        return $query->where('status', '=', 'failed');
+    }
+
+    public function scopeRunning($query)
+    {
+        return $query->where('status', '=', 'running');
+    }
 
     /**
      * Relations

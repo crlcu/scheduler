@@ -32,7 +32,7 @@ class TasksListener implements ShouldQueue
     public function onTaskRunning($event)
     {
         $task = $event->task;
-        $notifications = $task->notifications->where('status', 'running');
+        $notifications = $task->notifications()->running()->get();
 
         foreach ($notifications as $notification)
         {
@@ -46,7 +46,7 @@ class TasksListener implements ShouldQueue
     public function onTaskFailed($event)
     {
         $task = $event->task;
-        $notifications = $task->notifications->where('status', 'failed');
+        $notifications = $task->notifications()->failed()->get();
 
         foreach ($notifications as $notification)
         {
@@ -60,7 +60,7 @@ class TasksListener implements ShouldQueue
     public function onTaskCompleted($event)
     {
         $task = $event->task;
-        $notifications = $task->notifications->where('status', 'completed');
+        $notifications = $task->notifications()->completed()->get();
 
         foreach ($notifications as $notification)
         {

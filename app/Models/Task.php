@@ -69,7 +69,7 @@ class Task extends Model
      */
     public function getAverageAttribute($value)
     {
-        $executions = $this->executions->where('status', 'completed');
+        $executions = $this->executions()->completed()->get();
         
         if (!$executions->count())
         {
