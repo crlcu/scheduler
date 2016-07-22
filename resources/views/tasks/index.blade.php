@@ -21,8 +21,7 @@
                     <tr>
                         <th width="45px"></th>
                         <th>Name</th>
-                        <th>Type</th>
-                        <th>Average</th>
+                        <th>Average duration</th>
                         <th>Schedule</th>
                         <th width="150px">
                             Next due
@@ -35,7 +34,7 @@
                 <tbody>
                     @if (count($tasks))
                         @foreach ($tasks as $task)
-                            <tr class="{{ $task['is_enabled'] ? '' : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? '' : 'This task is disabled.' }}">
+                            <tr class="{{ $task['is_enabled'] ? ($task['last_run']['status'] == 'failed' ? 'red lighten-5' : '') : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? ($task['last_run']['status'] == 'failed' ? 'Last execution failed.' : '') : 'This task is disabled.' }}">
                                 <td class="center-align">
                                     @if ($task['is_enabled'])
                                         <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable" onclick="return confirm('Disable?')">
@@ -52,7 +51,6 @@
                                         {{ $task['name'] }}
                                     </a>
                                 </td>
-                                <td>{{ $task['type'] }}</td>
                                 <td>{{ $task['average_for_humans'] }}</td>
                                 <td>{{ $task['schedule'] }}</td>
                                 <td>{{ $task['next_due'] }}</td>

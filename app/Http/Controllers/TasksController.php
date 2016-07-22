@@ -22,7 +22,7 @@ class TasksController extends Controller
     public function index(Request $request)
     {
         $query = Task::forCurrentUser()
-            ->with('executions');
+            ->with('executions', 'last_run');
 
         if ($q = $request->input('q'))
         {
@@ -89,12 +89,17 @@ class TasksController extends Controller
         $task = Task::forCurrentUser()
             ->findOrFail($id);
 
-        $executions = TaskExecution::where('task_id', '=', $id)
+        $executions = $task->executions()
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        $completed = $task->executions()->completed()->get();
-        $failed = $task->executions()->failed()->get();
+        $completed = $task->executions()
+            ->completed()
+            ->get();
+
+        $failed = $task->executions()
+            ->failed()
+            ->get();
 
         return view('tasks.show', compact('task', 'executions', 'completed', 'failed'));
     }

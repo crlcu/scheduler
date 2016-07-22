@@ -74,7 +74,7 @@ class Task extends Model
         
         if (!$executions->count())
         {
-            return '0';
+            return 0;
         }
 
         $total = $executions->sum(function($execution) {
@@ -86,9 +86,11 @@ class Task extends Model
 
     public function getAverageForHumansAttribute($value)
     {
-        $hours = (int)($this->average / 3600);
-        $minutes = (int)(($this->average - $hours * 3600) / 60);
-        $seconds = (int)($this->average - ($hours * 3600 + $minutes * 60));
+        $average = $this->average;
+
+        $hours = (int)($average / 3600);
+        $minutes = (int)(($average - $hours * 3600) / 60);
+        $seconds = (int)($average - ($hours * 3600 + $minutes * 60));
 
         return CarbonInterval::hour($hours)->minutes($minutes)->seconds($seconds)->forHumans();
     }
