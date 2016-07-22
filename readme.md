@@ -13,11 +13,7 @@ php artisan key:generate
 ```
 Now setup ``.env``. Then
 ```
-php artisan migrate
-php artisan db:seed
-php artisan cache:clear
-php artisan view:clear
-php artisan route:cache
+php artisan install
 ```
 
 ## Crontab
@@ -26,4 +22,7 @@ php artisan route:cache
 ## Login
 
 - User: ``administrator@scheduler.com``
+- Password: ``password``
+
+- User: ``user@scheduler.com``
 - Password: ``password``
