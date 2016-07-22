@@ -6,6 +6,10 @@
 - Notifications can be sent via email or as a message on Slack.
 
 ## Instalation
+
+- Make sure you have PHP >= 5.5.9
+- Mare sure you have these packages installed curl php5-curl  php5-mysql
+
 ```
 composer install
 php -r "copy('.env.example', '.env');"
