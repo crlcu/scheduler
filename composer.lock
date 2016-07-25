@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ac2e21c53756641dfa79e62cf8de1964",
-    "content-hash": "6618456cab312da0cb8724aab38e5597",
+    "hash": "4d46f7b5423c9c66483cd95b26ec790e",
+    "content-hash": "0aa65ec06e928c5e2fb71cbc5e3d3a20",
     "packages": [
         {
             "name": "barryvdh/laravel-async-queue",
@@ -566,57 +566,6 @@
             "time": "2015-04-20 18:58:01"
         },
         {
-            "name": "jenssegers/rollbar",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jenssegers/laravel-rollbar.git",
-                "reference": "24d5b72017697cd9e4c2f4c60ea480bda8c50018"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/laravel-rollbar/zipball/24d5b72017697cd9e4c2f4c60ea480bda8c50018",
-                "reference": "24d5b72017697cd9e4c2f4c60ea480bda8c50018",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^4.0|^5.0",
-                "php": ">=5.4",
-                "rollbar/rollbar": "~0.15"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9",
-                "orchestra/testbench": "^3.0",
-                "satooshi/php-coveralls": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jenssegers\\Rollbar\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens Segers",
-                    "homepage": "https://jenssegers.com"
-                }
-            ],
-            "description": "Rollbar error monitoring integration for Laravel projects",
-            "homepage": "https://github.com/jenssegers/laravel-rollbar",
-            "keywords": [
-                "error",
-                "laravel",
-                "logging",
-                "monitoring",
-                "rollbar"
-            ],
-            "time": "2016-03-20 09:37:00"
-        },
-        {
             "name": "jeremeamia/SuperClosure",
             "version": "2.2.0",
             "source": {
@@ -676,16 +625,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.40",
+            "version": "5.2.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6195211140ed0881e89d79a296f893abc56987be"
+                "reference": "29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6195211140ed0881e89d79a296f893abc56987be",
-                "reference": "6195211140ed0881e89d79a296f893abc56987be",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2",
+                "reference": "29ba2e310cfeb42ab6545bcd81ff4c2ec1f6b5c2",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +751,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-07-19 19:46:25"
+            "time": "2016-07-20 13:13:06"
         },
         {
             "name": "laravelcollective/html",
@@ -1618,56 +1567,6 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
-        },
-        {
-            "name": "rollbar/rollbar",
-            "version": "v0.18.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rollbar/rollbar-php.git",
-                "reference": "fafe13f8beb669d6bba0137f3703fa808d50cbb7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/fafe13f8beb669d6bba0137f3703fa808d50cbb7",
-                "reference": "fafe13f8beb669d6bba0137f3703fa808d50cbb7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.5.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/Level.php",
-                    "src/rollbar.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rollbar, Inc.",
-                    "email": "support@rollbar.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Monitors errors and exceptions and reports them to Rollbar",
-            "homepage": "http://github.com/rollbar/rollbar-php",
-            "keywords": [
-                "debugging",
-                "errors",
-                "exceptions",
-                "logging",
-                "monitoring"
-            ],
-            "time": "2016-07-05 15:50:29"
         },
         {
             "name": "sofa/eloquence",
@@ -3368,16 +3267,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.26",
+            "version": "4.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74"
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fc1d8cd5b5de11625979125c5639347896ac2c74",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c062dddcb68e44b563f66ee319ddae2b5a322a90",
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90",
                 "shasum": ""
             },
             "require": {
@@ -3436,7 +3335,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-05-17 03:09:28"
+            "time": "2016-07-21 06:48:14"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

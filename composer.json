@@ -12,7 +12,6 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-async-queue": "0.4.x",
         "mtdowling/cron-expression": "^1.1",
-        "jenssegers/rollbar": "^1.5",
         "maknz/slack": "^1.7",
         "fitztrev/query-tracer": "^1.0",
         "venturecraft/revisionable": "1.*",

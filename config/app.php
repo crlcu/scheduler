@@ -159,7 +159,6 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Collective\Remote\RemoteServiceProvider::class,
         Barryvdh\Queue\AsyncServiceProvider::class,
-        Jenssegers\Rollbar\RollbarServiceProvider::class,
         Maknz\Slack\SlackServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         
