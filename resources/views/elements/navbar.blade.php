@@ -9,6 +9,10 @@
 
                 @yield('navbar-items')
 
+                <li>
+                    <a href="{{ action('TasksController@timeline') }}" class="waves-effect"><i class="material-icons right">timeline</i> Timeline</a>
+                </li>
+
                 @if (Auth::user()->hasRole('manage-roles'))
                     <li>
                         <a href="{{ action('RolesController@index') }}" class="waves-effect"><i class="material-icons right">settings_input_composite</i> Roles</a>
@@ -41,6 +45,10 @@
                 </li>
 
                 @yield('navbar-items')
+
+                <li>
+                    <a href="{{ action('TasksController@timeline') }}" class="waves-effect"><i class="material-icons left">timeline</i> Timeline</a>
+                </li>
 
                 @if (Auth::user()->hasRole('manage-roles'))
                     <li>

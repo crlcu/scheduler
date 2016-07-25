@@ -17,7 +17,8 @@ Route::any('register', 'Auth\AuthController@login');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'TasksController@index');
-
+    Route::get('tasks/timeline', 'TasksController@timeline');
+    
     Route::resource('tasks', 'TasksController');
 
     Route::get('tasks/{id}/run', 'TasksController@run');

@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use Auth;
 use Artisan;
+use Carbon\Carbon;
 
 use App\Models\Task;
 use App\Models\TaskExecution;
@@ -34,6 +35,35 @@ class TasksController extends Controller
             ->paginate(10);
 
         return view('tasks.index', compact('tasks', 'q'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function timeline(Request $request)
+    {
+        $query = TaskExecution::forCurrentUser()
+            ->with('task');
+
+        if ($start = $request->input('start'))
+        {
+            $query = $query->where('created_at', '>=', $start);
+        } else {
+            // Show only executions since last week
+            $query = $query->where('created_at', '>=', Carbon::today()->subWeeks(1));
+        }
+
+        if ($end = $request->input('end'))
+        {
+            $query = $query->where('updated_at', '<=', $end);
+        }
+
+        $executions = $query->orderBy('created_at', 'asc')
+            ->get();            
+
+        return view('tasks.timeline', compact('executions', 'start', 'end'));
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use Auth;
 use Carbon\CarbonInterval;
 
 class TaskExecution extends Model
@@ -73,6 +74,13 @@ class TaskExecution extends Model
     /**
      * Scopes
      */
+    public function scopeForCurrentUser($query)
+    {
+        return $query->whereHas('task', function ($query) {
+            return $query->forCurrentUser();
+        });
+    }
+
     public function scopeCompleted($query)
     {
         return $query->where('status', '=', 'completed');
