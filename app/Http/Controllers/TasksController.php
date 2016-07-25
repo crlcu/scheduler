@@ -49,15 +49,14 @@ class TasksController extends Controller
 
         if ($start = $request->input('start'))
         {
-            $query = $query->where('created_at', '>=', $start);
+            $query = $query->startingAt($start);
         } else {
-            // Show only executions since last week
-            $query = $query->where('created_at', '>=', Carbon::today()->subWeeks(1));
+            $query = $query->startingAt(new Carbon(config('charts.tasks.timeline_start')));
         }
 
         if ($end = $request->input('end'))
         {
-            $query = $query->where('updated_at', '<=', $end);
+            $query = $query->endingAt($end);
         }
 
         $executions = $query->orderBy('created_at', 'asc')
@@ -124,10 +123,12 @@ class TasksController extends Controller
             ->paginate(10);
 
         $completed = $task->executions()
+            ->startingAt(new Carbon(config('charts.tasks.details_start')))
             ->completed()
             ->get();
 
         $failed = $task->executions()
+            ->startingAt(new Carbon(config('charts.tasks.details_start')))
             ->failed()
             ->get();
 

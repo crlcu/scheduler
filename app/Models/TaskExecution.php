@@ -81,6 +81,16 @@ class TaskExecution extends Model
         });
     }
 
+    public function scopeStartingAt($query, $datetime)
+    {
+        return $query->where('created_at', '>=', $datetime);
+    }
+
+    public function scopeEndingAt($query, $datetime)
+    {
+        return $query->where('updated_at', '<=', $datetime);
+    }
+
     public function scopeCompleted($query)
     {
         return $query->where('status', '=', 'completed');
