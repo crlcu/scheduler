@@ -53,6 +53,12 @@
                     <span class="red-text">{{ $errors->first('Task.command') }}</span>
                 @endif
             </div>
+
+            <div class="col s12">
+                {!! Form::hidden('Task[is_concurrent]', 0) !!}
+                {!! Form::checkbox('Task[is_concurrent]', 1, $task['is_concurrent'], ['id' => 'Task[is_concurrent]']) !!}
+                {!! Form::label('Task[is_concurrent]', 'Run this task even if last execution is running') !!}
+            </div>
         </div>
     </div>
     <div class="footer indigo lighten-5">

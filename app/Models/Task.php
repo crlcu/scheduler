@@ -32,7 +32,7 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_enabled'
+        'name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_concurrent', 'is_enabled'
     ];
     
     /**
@@ -182,6 +182,11 @@ class Task extends Model
      */
     public function run()
     {
+        if (!$this->is_concurrent && $this->last_run['is_running'])
+        {
+            return false;
+        }
+
         if ($this->is_via_ssh)
         {
             return $this->runViaSSH();
