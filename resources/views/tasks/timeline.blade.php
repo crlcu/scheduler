@@ -50,17 +50,26 @@ function drawChart() {
     var chart = new google.visualization.Timeline(container);
     var dataTable = new google.visualization.DataTable();
 
+    dataTable.addColumn({ type: 'string', id: 'Label'});
     dataTable.addColumn({ type: 'string', id: 'Name' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
 
     dataTable.addRows([
         @foreach ($executions as $execution)
-            ['{{ $execution['task']['name'] }}', new Date({{ $execution->created_at->format('Y, m, d, H, i, s') }}), new Date({{ $execution->updated_at->format('Y, m, d, H, i, s') }})],
+            ['{{ $execution['created_at'] }}', '{{ $execution['task']['name'] }}', new Date({{ $execution->created_at->format('Y, m, d, H, i, s') }}), new Date({{ $execution->updated_at->format('Y, m, d, H, i, s') }})],
         @endforeach
     ]);
 
-    chart.draw(dataTable);
+    var rowHeight = 41;
+    var chartHeight = dataTable.getNumberOfRows() * rowHeight;
+
+
+    var options = {
+        height: chartHeight + 50,
+    };
+
+    chart.draw(dataTable, options);
 }
 </script>
 @endsection
