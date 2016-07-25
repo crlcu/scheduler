@@ -4,21 +4,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class Install extends Command
+class Refresh extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'install';
+    protected $signature = 'refresh';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install and initialize an app.';
+    protected $description = 'Refresh the app.';
 
     /**
      * Create a new command instance.
@@ -39,10 +39,6 @@ class Install extends Command
     {
         # apply migrations
         $this->call('migrate');
-        $this->call('migrate', ['--path' => 'vendor/venturecraft/revisionable/src/migrations/']);
-
-        # insert some data in db
-        $this->call('db:seed');
 
         # give permissions
         $this->info('Running chmod');
@@ -50,8 +46,11 @@ class Install extends Command
         shell_exec('chmod 777 storage -R');
         shell_exec('chmod 777 bootstrap -R');
 
-        # cache stuff
-        $this->call('route:cache');
+        # clear the cache
         $this->call('config:cache');
+        $this->call('route:cache');
+        $this->call('cache:clear');
+        $this->call('debugbar:clear');
+        $this->call('view:clear');
     }
 }
