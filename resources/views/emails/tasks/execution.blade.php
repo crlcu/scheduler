@@ -11,7 +11,9 @@
             <p><em>{!! nl2br($task['command']) !!}</em></p>
             <p>Done in <em>{{ $task['last_run']['duration_for_humans'] }}</em></p>
 
-            <p>{!! nl2br($task['last_run']['result']) !!}</p>
+            @if ($notification['with_result'])
+                <p>{!! nl2br($task['last_run']['result']) !!}</p>
+            @endif
         </td>
     </tr>
     </tbody>

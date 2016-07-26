@@ -32,6 +32,12 @@
                     <span class="red-text">{{ $errors->first('Notification.to') }}</span>
                 @endif
             </div>
+
+            <div class="col s12">
+                {!! Form::hidden('Notification[with_result]', 0) !!}
+                {!! Form::checkbox('Notification[with_result]', 1, $notification['with_result'], ['id' => 'Notification[with_result]']) !!}
+                {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}
+            </div>
         </div>
     </div>
     <div class="footer indigo lighten-5">

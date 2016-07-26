@@ -11,6 +11,10 @@
             <p><em>{!! nl2br($task['command']) !!}</em></p>
 
             <p>Started to run on {{ $task['last_run']['created_at'] }}</p>
+
+            @if ($notification['with_result'])
+                <p>{!! nl2br($task['last_run']['result']) !!}</p>
+            @endif
         </td>
     </tr>
     </tbody>
