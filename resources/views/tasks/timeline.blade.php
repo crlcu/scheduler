@@ -65,7 +65,7 @@ function drawChart() {
         @endforeach
     ]);
 
-    var rowHeight = 41;
+    var rowHeight = 33;
     var chartHeight = dataTable.getNumberOfRows() * rowHeight;
 
 
