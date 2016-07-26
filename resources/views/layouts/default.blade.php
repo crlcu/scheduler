@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Scheduler</title>
+    <title>Scheduler | @yield('page-title')</title>
 
     @section('styles')
         {!! Html::style('//fonts.googleapis.com/icon?family=Material+Icons') !!}

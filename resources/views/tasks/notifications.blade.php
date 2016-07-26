@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('page-title')
+    Tasks | {{ $task['name'] }} | Notifications
+@endsection
+
 @section('navbar-items')
     <li>
         <a href="{{ action('TasksController@show', $task['id']) }}" class="waves-effect"><i class="material-icons right">arrow_back</i> {{ $task['name'] }}</a>

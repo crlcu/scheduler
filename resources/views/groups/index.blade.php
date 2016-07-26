@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('page-title')
+    Groups
+@endsection
+
 @section('content')
     <div class="widget">
         <div class="header indigo lighten-5">
