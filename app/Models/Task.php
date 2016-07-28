@@ -20,6 +20,8 @@ use App\Events\TaskRunning;
 use App\Events\TaskFailed;
 use App\Events\TaskCompleted;
 
+use App\Util\CronSchedule;
+
 use App\Models\Observers\TaskObserver;
 
 class Task extends Model
@@ -40,7 +42,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $appends = ['average', 'average_for_humans', 'details', 'has_notifications', 'ssh', 'schedule'];
+    protected $appends = ['average', 'average_for_humans', 'cron_for_humans', 'details', 'has_notifications', 'ssh', 'schedule'];
 
     protected $execution;
 
@@ -95,6 +97,19 @@ class Task extends Model
         return CarbonInterval::hour($hours)->minutes($minutes)->seconds($seconds)->forHumans();
     }
 
+    public function getCronForHumansAttribute($value)
+    {
+        $expression = $this->next_due;
+
+        if (!$this->is_one_time_only)
+        {
+            $schedule = CronSchedule::fromCronString($this->cron_expression);
+            $expression = $schedule->asNaturalLanguage();
+        }
+
+        return $expression;
+    }
+
     public function getDetailsAttribute($value)
     {
         return $this->is_via_ssh ? json_decode($this->ssh_config_json, true) : ['run' => 'localy'];
@@ -114,7 +129,7 @@ class Task extends Model
     {
         if ($this->is_one_time_only)
         {
-            return 'once';
+            return $this->next_due;
         }
 
         return $this->cron_expression;

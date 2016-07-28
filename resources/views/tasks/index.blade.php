@@ -56,7 +56,9 @@
                                     </a>
                                 </td>
                                 <td>{{ $task['average_for_humans'] }}</td>
-                                <td>{{ $task['schedule'] }}</td>
+                                <td>
+                                    <span title="{{ $task['cron_for_humans'] }}">{{ $task['schedule'] }}</span>
+                                </td>
                                 <td>{{ $task['next_due'] }}</td>
                             </tr>
                         @endforeach
