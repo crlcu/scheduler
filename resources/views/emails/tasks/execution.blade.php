@@ -1,24 +1,20 @@
 @extends('emails.layout')
 
 @section('content')
-<div class="column-top">&nbsp;</div>
+<h1>{{ $task['name'] }}</h1>
 
-<table class="contents">
-    <tr>
-        <td class="padded">
-            <h1>{{ $task['name'] }}</h1>
+<hr>
 
-            <p><em>{!! nl2br($task['command']) !!}</em></p>
-            <p>Done in <em>{{ $task['last_run']['duration_for_humans'] }}</em></p>
+<p>
+    <em>{!! nl2br($task['command']) !!}</em><br><br>
+    Done in <em>{{ $task['last_run']['duration_for_humans'] }}</em>
+</p>
 
-            @if ($notification['with_result'])
-                <p>{!! nl2br($task['last_run']['result']) !!}</p>
-            @endif
-        </td>
-    </tr>
-    </tbody>
-</table>
+@if ($notification['with_result'])
+    <hr>
 
-<div class="column-bottom">&nbsp;</div>
+    <p><strong>Result</strong></p>
 
+    <pre>{!! nl2br($task['last_run']['result']) !!}</pre>
+@endif
 @endsection
