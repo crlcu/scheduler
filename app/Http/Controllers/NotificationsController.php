@@ -43,14 +43,25 @@ class NotificationsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'Notification.task_id'  => 'required',
             'Notification.type'     => 'required',
             'Notification.status'   => 'required',
             'Notification.to'       => 'required',
             'Slack.username'        => 'required_if:Notification.type,slack',
-            'Slack.channel'         => 'required_if:Notification.type,slack',
-        ]);
+            'Slack.channel'         => ['required_if:Notification.type,slack', 'regex:/^#.*/'],
+        ];
+
+        if ($request->input('Notification.type') == 'mail')
+        {
+            $rules['Notification.to'] = ['required', 'email'];
+        } 
+        elseif ($request->input('Notification.type') == 'slack')
+        {
+            $rules['Notification.to'] = ['required', 'regex:/http(s)?:\/\/hooks\.slack\.com\/services\//i'];
+        }
+
+        $this->validate($request, $rules);
 
         $task = Task::forCurrentUser()
             ->findOrFail($request->input('Notification.task_id'));
@@ -105,13 +116,24 @@ class NotificationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $rules = [
             'Notification.type'     => 'required',
             'Notification.status'   => 'required',
             'Notification.to'       => 'required',
             'Slack.username'        => 'required_if:Notification.type,slack',
-            'Slack.channel'         => 'required_if:Notification.type,slack',
-        ]);
+            'Slack.channel'         => ['required_if:Notification.type,slack', 'regex:/^#.*/'],
+        ];
+
+        if ($request->input('Notification.type') == 'mail')
+        {
+            $rules['Notification.to'] = ['required', 'email'];
+        } 
+        elseif ($request->input('Notification.type') == 'slack')
+        {
+            $rules['Notification.to'] = ['required', 'regex:/http(s)?:\/\/hooks\.slack\.com\/services\//i'];
+        }
+
+        $this->validate($request, $rules);
 
         $notification = TaskNotification::findOrFail($id);
 
