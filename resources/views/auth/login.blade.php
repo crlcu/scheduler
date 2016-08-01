@@ -2,9 +2,11 @@
 
 @section('content')
     <div class="row">
-        {!! Form::open(['action' => 'Auth\AuthController@login', 'class' => 'col offset-s1 s10 offset-m2 m8', 'novalidate']) !!}
+        {!! Form::open(['action' => 'Auth\AuthController@login', 'class' => 'col offset-s1 s10 offset-m2 m8 offset-l4 l4', 'novalidate']) !!}
             <div class="card-panel z-depth-1">
                 {!! csrf_field() !!}
+
+                <p class="center-align">{!! Html::image('images/logo_64x64.png', 'Tasks scheduler login') !!}</p>
 
                 <div class="row">
                     <div class="input-field col s12">
@@ -16,6 +18,7 @@
                             <span class="red-text">{{ $errors->first('email') }}</span>
                         @endif
                     </div>
+
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock_outline</i>
                         {!! Form::label('password', 'Password') !!}
@@ -25,9 +28,10 @@
                             <span class="red-text">{{ $errors->first('password') }}</span>
                         @endif
                     </div>
-                    <div class="input-field col s12">
+
+                    <div class="input-field col s12 hide">
                         <p>
-                            {!! Form::checkbox('remember', true, false, ['id' => 'remember']) !!}
+                            {!! Form::checkbox('remember', true, true, ['id' => 'remember']) !!}
                             {!! Form::label('remember', 'Remember me') !!}
                         </p>
                     </div>
