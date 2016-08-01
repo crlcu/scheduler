@@ -25,8 +25,8 @@ php artisan install
 
 ## Login
 
-- User: ``administrator@scheduler.com``
+- User: ``administrator@tasks-scheduler.com``
 - Password: ``password``
 
-- User: ``user@scheduler.com``
+- User: ``user@tasks-scheduler.com``
 - Password: ``password``
