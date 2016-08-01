@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'group_id'  => 2,
             'name'      => 'User',
-            'email'     => 'user@tasks-scheduler.co',
+            'email'     => 'user@tasks-scheduler.com',
             'password'  => bcrypt('password'),
         ]);
     }
