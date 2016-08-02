@@ -9,7 +9,10 @@
     <div class="content">
         <pre class="prettyprint">{{ $task['command'] }}</pre>
 
-        <div id="chart"></div>
+        @if (count($completed) || count($failed))
+            <div id="chart"></div>
+            <div class="right-align"><em><small>This chart includes data since {{ $start }}.</small></em></div>
+        @endif
     </div>
     <div class="footer indigo lighten-5">
         <div class="row">
@@ -43,15 +46,16 @@
 @parent
 
 {!! Html::script('//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js') !!}
+
+@if (count($completed) || count($failed))
 {!! Html::script('//www.gstatic.com/charts/loader.js') !!}
 
 <script type="text/javascript">
 // Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']});
 
-@if (count($completed) || count($failed))
 google.charts.setOnLoadCallback(drawChart);
-@endif
+
 
 function drawChart() {
     var completed = new google.visualization.DataTable();
@@ -100,4 +104,6 @@ function drawChart() {
     chart.draw(data, options);
 }
 </script>
+@endif
+
 @endsection

@@ -31,6 +31,10 @@
                     <p>Nothing to show.</p>
                 @endif
             </div>
+
+            @if (count($executions))
+                <div class="right-align"><em><small>This timeline includes data since {{ $start }}.</small></em></div>
+            @endif
         </div>
         <div class="footer indigo lighten-5"></div>
     </div>
@@ -39,15 +43,14 @@
 @section('scripts')
 @parent
 
+@if (count($executions))
 {!! Html::script('//www.gstatic.com/charts/loader.js') !!}
 
 <script type="text/javascript">
 // Load the Visualization API and the timeline package.
 google.charts.load('current', {'packages':['timeline']});
 
-@if (count($executions))
 google.charts.setOnLoadCallback(drawChart);
-@endif
 
 function drawChart() {
     var container = document.getElementById('chart');
@@ -76,4 +79,5 @@ function drawChart() {
     chart.draw(dataTable, options);
 }
 </script>
+@endif
 @endsection

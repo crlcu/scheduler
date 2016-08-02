@@ -47,12 +47,8 @@ class TasksController extends Controller
         $query = TaskExecution::forCurrentUser()
             ->with('task');
 
-        if ($start = $request->input('start'))
-        {
-            $query = $query->startingAt($start);
-        } else {
-            $query = $query->startingAt(new Carbon(config('charts.tasks.timeline_start')));
-        }
+        $start = $request->input('start', new Carbon(config('charts.tasks.timeline_start')));
+        $query = $query->startingAt($start);
 
         if ($end = $request->input('end'))
         {
@@ -122,17 +118,19 @@ class TasksController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
+        $start = new Carbon(config('charts.tasks.details_start'));
+
         $completed = $task->executions()
-            ->startingAt(new Carbon(config('charts.tasks.details_start')))
+            ->startingAt($start)
             ->completed()
             ->get();
 
         $failed = $task->executions()
-            ->startingAt(new Carbon(config('charts.tasks.details_start')))
+            ->startingAt($start)
             ->failed()
             ->get();
 
-        return view('tasks.show', compact('task', 'executions', 'completed', 'failed'));
+        return view('tasks.show', compact('task', 'executions', 'start', 'completed', 'failed'));
     }
 
     /**
