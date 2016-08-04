@@ -240,7 +240,7 @@ class Task extends Model
         });
 
         if (!$process->isSuccessful()) {
-            $this->execution->result = $process->getErrorOutput();
+            $this->execution->result .= $process->getErrorOutput();
 
             $this->done('failed');
 
