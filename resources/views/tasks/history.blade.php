@@ -38,7 +38,7 @@
                             </td>
                             <td>{{ $execution['created_at'] }}</td>
                             <td>
-                                {{ $execution['updated_at'] }}
+                                {{ $execution['is_running'] ? '-' : $execution['updated_at'] }}
                             </td>
                             <td>
                                 {{ $execution['duration_for_humans'] }}
