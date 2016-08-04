@@ -44,14 +44,14 @@ class TaskExecution extends Model
      */
     public function getDurationAttribute($value)
     {
-        $start = $this->updated_at ? : Carbon::now();
+        $start = $this->is_running ? Carbon::now() : $this->updated_at;
 
         return $start->diffInSeconds($this->created_at);
     }
 
     public function getDurationForHumansAttribute($value)
     {
-        $start = $this->updated_at ? : Carbon::now();
+        $start = $this->is_running ? Carbon::now() : $this->updated_at;
 
         $hours = $start->diffInHours($this->created_at);
         $minutes = $start->diffInMinutes($this->created_at) - ($hours * 60);
