@@ -38,18 +38,10 @@
                             </td>
                             <td>{{ $execution['created_at'] }}</td>
                             <td>
-                                @if ($execution['is_running'])
-                                    -
-                                @else
-                                    {{ $execution['updated_at'] }}
-                                @endif
+                                {{ $execution['updated_at'] }}
                             </td>
                             <td>
-                                @if ($execution['is_running'])
-                                    -
-                                @else
-                                    {{ $execution['duration_for_humans'] }}
-                                @endif
+                                {{ $execution['duration_for_humans'] }}
                             </td>
                         </tr>
                     @endforeach
