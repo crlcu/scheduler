@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col s12 m6 required">
                 {!! Form::label('Notification[status]', 'When status is') !!}
-                {!! Form::select('Notification[status]', ['running' => 'running', 'failed' => 'failed', 'completed' => 'completed'], $notification['status'], ['class' => 'browser-default','required' => true]) !!}
+                {!! Form::select('Notification[status]', ['running' => 'running', 'failed' => 'failed', 'interrupted' => 'interrupted', 'completed' => 'completed'], $notification['status'], ['class' => 'browser-default','required' => true]) !!}
 
                 @if ($errors->has('Notification.status'))
                     <span class="red-text">{{ $errors->first('Notification.status') }}</span>

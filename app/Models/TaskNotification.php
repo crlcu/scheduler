@@ -55,6 +55,11 @@ class TaskNotification extends Model
         return $query->where('status', '=', 'failed');
     }
 
+    public function scopeInterrupted($query)
+    {
+        return $query->where('status', '=', 'interrupted');
+    }
+
     public function scopeRunning($query)
     {
         return $query->where('status', '=', 'running');
@@ -99,6 +104,14 @@ class TaskNotification extends Model
                 {
                     $mail->to($to)
                         ->subject(sprintf('The execution of task "%s" has failed', $task->name));
+                });
+
+                break;
+            case 'interrupted':
+                Mail::queue('emails.tasks.execution', ['task' => $task, 'notification' => $this], function ($mail) use ($to, $task)
+                {
+                    $mail->to($to)
+                        ->subject(sprintf('The execution of task "%s" was interrupted', $task->name));
                 });
 
                 break;

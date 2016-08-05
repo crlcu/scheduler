@@ -21,6 +21,11 @@ class TasksListener implements ShouldQueue
         );
 
         $events->listen(
+            'App\Events\TaskInterrupted',
+            'App\Listeners\TasksListener@onTaskInterrupted'
+        );
+
+        $events->listen(
             'App\Events\TaskCompleted',
             'App\Listeners\TasksListener@onTaskCompleted'
         );
@@ -47,6 +52,20 @@ class TasksListener implements ShouldQueue
     {
         $task = $event->task;
         $notifications = $task->notifications()->failed()->get();
+
+        foreach ($notifications as $notification)
+        {
+            $notification->send();
+        }
+    }
+
+    /**
+     * Handle task interrupted events.
+     */ 
+    public function onTaskInterrupted($event)
+    {
+        $task = $event->task;
+        $notifications = $task->notifications()->interrupted()->get();
 
         foreach ($notifications as $notification)
         {

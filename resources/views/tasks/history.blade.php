@@ -11,12 +11,13 @@
                     <th>Started at</th>
                     <th>Done at</th>
                     <th>Duration</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @if (count($executions))
                     @foreach ($executions as $execution)
-                        <tr class="{{ $execution['status'] == 'failed' ? 'red lighten-5' : '' }}">
+                        <tr class="{{ $execution['status_class'] }}" title="{{ $execution['status_title'] }}">
                             <td class="center-align">{!! $execution['status_icon'] !!}</td>
                             <td>
                                 @if (strlen($execution['result']) > 100)
@@ -43,6 +44,13 @@
                             <td>
                                 {{ $execution['duration_for_humans'] }}
                             </td>
+                            <th>
+                                @if ($execution['is_running'])
+                                    <a href="{{ action('TaskExecutionsController@stop', $execution['id']) }}" class="waves-effect waves-light" title="Stop" onclick="return confirm('Confirm?')">
+                                        <i class="material-icons red-text">report</i>
+                                    </a>
+                                @endif
+                            </th>
                         </tr>
                     @endforeach
                 @else

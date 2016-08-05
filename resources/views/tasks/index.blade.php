@@ -38,7 +38,7 @@
                 <tbody>
                     @if (count($tasks))
                         @foreach ($tasks as $task)
-                            <tr class="{{ $task['is_enabled'] ? ($task['last_run']['status'] == 'failed' ? 'red lighten-5' : '') : 'grey lighten-4' }}" title="{{ $task['is_enabled'] ? ($task['last_run']['status'] == 'failed' ? 'Last execution failed.' : '') : 'This task is disabled.' }}">
+                            <tr class="{{ $task['status_class'] }}" title="{{ $task['last_run']['status_title'] }}">
                                 <td class="center-align">
                                     @if ($task['is_enabled'])
                                         <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable" onclick="return confirm('Disable?')">

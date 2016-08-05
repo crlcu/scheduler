@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('tasks/{id}/enable', 'TasksController@enable');
     Route::get('tasks/{id}/disable', 'TasksController@disable');
     Route::get('tasks/{id}/clear', 'TasksController@clear');
+
+    Route::get('execution/{id}/stop', 'TaskExecutionsController@stop');
 });
 
 Route::group(['middleware' => ['auth', 'role:manage-roles']], function () {

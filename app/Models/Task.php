@@ -17,8 +17,6 @@ use Symfony\Component\Process\Process;
 use SSH;
 
 use App\Events\TaskRunning;
-use App\Events\TaskFailed;
-use App\Events\TaskCompleted;
 
 use App\Util\CronSchedule;
 
@@ -42,7 +40,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $appends = ['average', 'average_for_humans', 'cron_for_humans', 'details', 'has_notifications', 'ssh', 'schedule'];
+    protected $appends = ['average', 'average_for_humans', 'cron_for_humans', 'details', 'has_notifications', 'status_class', 'ssh', 'schedule'];
 
     protected $execution;
 
@@ -118,6 +116,11 @@ class Task extends Model
     public function getHasNotificationsAttribute($value)
     {
         return $this->notifications->count() > 0;
+    }
+
+    public function getStatusClassAttribute($value)
+    {
+        return $this->is_enabled ? $this->last_run->status_class : 'grey lighten-4';
     }
 
     public function getSshAttribute($value)
@@ -202,37 +205,42 @@ class Task extends Model
             return false;
         }
 
-        if ($this->is_via_ssh)
-        {
-            return $this->runViaSSH();
-        }
+        // Mark task execution as running
+        $this->running();
 
-        return $this->runViaProcess();
+        // Start task execution 
+        $ok = $this->is_via_ssh ? $this->runViaSSH() : $this->runViaProcess();
+
+        // Mark task execution as done
+        $this->execution->done($ok ? 'completed' : 'failed');
+
+        return $ok;
     }
 
     protected function runViaSSH()
     {
-        $this->running();
-
-        $stream = SSH::connect($this->ssh)->run($this->command, function($buffer)
-        {
-            $this->execution->result .= $buffer;
-            $this->execution->save();
-        });
-
-        $this->done();
+        try {
+            $stream = SSH::connect($this->ssh)->run($this->command, function($buffer)
+            {
+                $this->execution->result .= $buffer;
+                $this->execution->save();
+            });
+        } catch(\Exception $e) {
+            $this->execution->result .= $e->getMessage();
+            return false;
+        }
 
         return true;
     }
 
     protected function runViaProcess()
     {
-        $this->running();
-
         $process = new Process($this->command);
         $process->setTimeout(3600);
         
         $process->start();
+
+        $this->storePid($process->getPid());
 
         $process->wait(function ($type, $buffer) {
             $this->execution->result .= $buffer;
@@ -242,14 +250,16 @@ class Task extends Model
         if (!$process->isSuccessful()) {
             $this->execution->result .= $process->getErrorOutput();
 
-            $this->done('failed');
-
             return false;
         }
 
-        $this->done();
-
         return true;
+    }
+
+    protected function storePid($pid)
+    {
+        $this->execution->pid = $pid;
+        $this->execution->save();
     }
 
     protected function running()
@@ -271,19 +281,4 @@ class Task extends Model
         Event::fire(new TaskRunning($this));
     }
 
-    protected function done($status = 'completed')
-    {
-        $this->execution->update([
-            'status' => $status,
-        ]);
-
-        if ($status == 'completed')
-        {
-            Event::fire(new TaskCompleted($this));
-        }
-        else
-        {
-            Event::fire(new TaskFailed($this));
-        }
-    }
 }

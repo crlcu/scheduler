@@ -18,7 +18,7 @@ class CreateTaskNotificationsTable extends Migration
             $table->integer('task_id')->unsigned();
             $table->foreign('task_id')->references('id')->on('tasks');
 
-            $table->enum('status', ['pending', 'running', 'completed', 'failed']);
+            $table->string('status');
             $table->string('email');
 
             $table->timestamps();
