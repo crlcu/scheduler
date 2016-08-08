@@ -145,6 +145,10 @@ class TaskNotification extends Model
                 $slack->send(sprintf("The execution of task *%s* has failed.%s", $task->name, $result));
 
                 break;
+            case 'interrupted':
+                $slack->send(sprintf("The execution of task *%s* was interrupted.%s", $task->name, $result));
+
+                break;
             case 'completed':
                 $slack->send(sprintf("The execution of task *%s* is now completed.%s", $task->name, $result));
 
