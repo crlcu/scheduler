@@ -45,7 +45,7 @@
                                 {{ $execution['duration_for_humans'] }}
                             </td>
                             <th>
-                                @if ($execution['is_running'])
+                                @if ($execution['is_running'] && $execution['pid'])
                                     <a href="{{ action('TaskExecutionsController@stop', $execution['id']) }}" class="waves-effect waves-light" title="Stop" onclick="return confirm('Confirm?')">
                                         <i class="material-icons red-text">report</i>
                                     </a>

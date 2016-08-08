@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Cron\CronExpression;
 use Event;
+use Exception;
 use Symfony\Component\Process\Process;
 use SSH;
 
@@ -220,12 +221,12 @@ class Task extends Model
     protected function runViaSSH()
     {
         try {
-            $stream = SSH::connect($this->ssh)->run($this->command, function($buffer)
+            $stream = SSH::connect($this->ssh)->run($this->command, function($buffer, $connection)
             {
                 $this->execution->result .= $buffer;
                 $this->execution->save();
             });
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             $this->execution->result .= $e->getMessage();
             return false;
         }
