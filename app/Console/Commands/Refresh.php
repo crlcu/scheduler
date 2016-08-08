@@ -37,6 +37,9 @@ class Refresh extends Command
      */
     public function handle()
     {
+        # install dependencies
+        shell_exec('composer install');
+
         # apply migrations
         $this->call('migrate');
 
