@@ -4,13 +4,17 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="col s6">
+            <div class="col s4">
                 {!! Form::radio('Notification[type]', 'mail', $notification['type'] == 'mail' || !$notification['type'], ['id' => 'Notification[type][mail]']) !!}
                 {!! Form::label('Notification[type][mail]', 'Mail') !!}
             </div>
-            <div class="col s6">
+            <div class="col s4">
                 {!! Form::radio('Notification[type]', 'slack', $notification['type'] == 'slack', ['id' => 'Notification[type][slack]']) !!}
                 {!! Form::label('Notification[type][slack]', 'Slack') !!}
+            </div>
+            <div class="col s4">
+                {!! Form::radio('Notification[type]', 'sms', $notification['type'] == 'sms', ['id' => 'Notification[type][sms]']) !!}
+                {!! Form::label('Notification[type][sms]', 'SMS') !!}
             </div>
         </div>
 

@@ -42,6 +42,6 @@ Route::group(['middleware' => ['auth', 'role:manage-users']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:feature-notifications']], function () {
-    Route::resource('notifications', 'NotificationsController');
+    Route::resource('notifications', 'TaskNotificationsController');
     Route::get('tasks/{id}/notifications', 'TasksController@notifications');
 });

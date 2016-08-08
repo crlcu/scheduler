@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Models\Task;
 use App\Models\TaskNotification;
 
-class NotificationsController extends Controller
+class TaskNotificationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class NotificationsController extends Controller
         $task = Task::forCurrentUser()
             ->findOrFail($request->input('task_id'));
 
-        return view('notifications.create', compact('notification', 'task'));
+        return view('task_notifications.create', compact('notification', 'task'));
     }
 
     /**
@@ -59,6 +59,10 @@ class NotificationsController extends Controller
         elseif ($request->input('Notification.type') == 'slack')
         {
             $rules['Notification.to'] = ['required', 'regex:/http(s)?:\/\/hooks\.slack\.com\/services\//i'];
+        } 
+        elseif ($request->input('Notification.type') == 'sms')
+        {
+            $rules['Notification.to'] = ['required', 'regex:/^\+(?:[0-9]?){6,14}[0-9]$/i'];
         }
 
         $this->validate($request, $rules);
@@ -104,7 +108,7 @@ class NotificationsController extends Controller
         $task = Task::forCurrentUser()
             ->findOrFail($notification->task_id);
 
-        return view('notifications.edit', compact('notification', 'task'));
+        return view('task_notifications.edit', compact('notification', 'task'));
     }
 
     /**
@@ -116,14 +120,6 @@ class NotificationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = [
-            'Notification.type'     => 'required',
-            'Notification.status'   => 'required',
-            'Notification.to'       => 'required',
-            'Slack.username'        => 'required_if:Notification.type,slack',
-            'Slack.channel'         => ['required_if:Notification.type,slack', 'regex:/^#.*/'],
-        ];
-
         if ($request->input('Notification.type') == 'mail')
         {
             $rules['Notification.to'] = ['required', 'email'];
@@ -131,6 +127,10 @@ class NotificationsController extends Controller
         elseif ($request->input('Notification.type') == 'slack')
         {
             $rules['Notification.to'] = ['required', 'regex:/http(s)?:\/\/hooks\.slack\.com\/services\//i'];
+        } 
+        elseif ($request->input('Notification.type') == 'sms')
+        {
+            $rules['Notification.to'] = ['required', 'regex:/^\+(?:[0-9]?){6,14}[0-9]$/i'];
         }
 
         $this->validate($request, $rules);

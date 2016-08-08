@@ -159,6 +159,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Collective\Remote\RemoteServiceProvider::class,
         Barryvdh\Queue\AsyncServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
         Maknz\Slack\SlackServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         
@@ -214,6 +215,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'SSH'       => Collective\Remote\RemoteFacade::class,
 
+        'Nexmo'     => Nexmo\Laravel\Facade\Nexmo::class,
         'Slack'     => Maknz\Slack\Facades\Slack::class,
 
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,

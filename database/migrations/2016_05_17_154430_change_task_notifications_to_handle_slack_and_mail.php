@@ -13,7 +13,7 @@ class ChangeTaskNotificationsToHandleSlackAndMail extends Migration
     public function up()
     {
         Schema::table('task_notifications', function (Blueprint $table) {
-            $table->enum('type', ['mail', 'slack'])->after('task_id');
+            $table->string('type');
             $table->text('to')->after('status');
             $table->text('slack_config_json')->after('to');
 

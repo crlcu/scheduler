@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    {!! Form::model($notification, ['action' => ['NotificationsController@update', $notification['id']], 'method' => 'put', 'novalidate']) !!}
-        @include('notifications.form')
+    {!! Form::model($notification, ['action' => ['TaskNotificationsController@update', $notification['id']], 'method' => 'put', 'novalidate']) !!}
+        @include('task_notifications.form')
     {!! Form::close() !!}
 @endsection

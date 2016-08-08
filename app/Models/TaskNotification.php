@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 use Mail;
+use Nexmo;
 use Maknz\Slack\Client as Slack;
 
 class TaskNotification extends Model
@@ -128,31 +129,46 @@ class TaskNotification extends Model
 
     protected function sendViaSlack()
     {
-        $to = $this->to;
-        $task = $this->task;
+        $slack = new Slack($this->to, $this->slack);
+        $slack->sent($this->__message());
+    }
 
-        $slack = new Slack($to, $this->slack);
-        
-        $result = $this->with_result ? sprintf("\n```%s```", $task->last_run->result) : '';
+    protected function sendViaSms()
+    {
+        $result = $this->with_result ? sprintf("\n```%s```", $this->task->last_run->result) : '';
+
+        $response = Nexmo::message()->send([
+            'from'  => config('nexmo.from'),
+            'to'    => $this->to,
+            'text'  => $this->__message(),
+        ]);
+    }
+
+    private function __message()
+    {
+        $message = '';
+        $result = $this->with_result ? sprintf("\n```%s```", $this->task->last_run->result) : '';
 
         switch ($this->status)
         {
             case 'running':
-                $slack->send(sprintf('The task *%s* has started to run.%s', $task->name, $result));
+                $message = sprintf('The task *%s* has started to run.%s', $this->task->name, $result);
 
                 break;
             case 'failed':
-                $slack->send(sprintf("The execution of task *%s* has failed.%s", $task->name, $result));
+                $message = sprintf("The execution of task *%s* has failed.%s", $this->task->name, $result);
 
                 break;
             case 'interrupted':
-                $slack->send(sprintf("The execution of task *%s* was interrupted.%s", $task->name, $result));
+                $message = sprintf("The execution of task *%s* was interrupted.%s", $this->task->name, $result);
 
                 break;
             case 'completed':
-                $slack->send(sprintf("The execution of task *%s* is now completed.%s", $task->name, $result));
+                $message = sprintf("The execution of task *%s* is now completed.%s", $this->task->name, $result);
 
                 break;
         }
+
+        return $message;
     }
 }

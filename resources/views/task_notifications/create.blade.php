@@ -11,9 +11,9 @@
 @endsection
 
 @section('content')
-	{!! Form::open(['action' => 'NotificationsController@store', 'novalidate']) !!}
+	{!! Form::open(['action' => 'TaskNotificationsController@store', 'novalidate']) !!}
 		{!! Form::hidden('Notification[task_id]', $task['id']) !!}
 
-        @include('notifications.form')
+        @include('task_notifications.form')
     {!! Form::close() !!}
 @endsection

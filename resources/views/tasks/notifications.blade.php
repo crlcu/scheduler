@@ -23,7 +23,7 @@
                         <th>Status</th>
                         <th>To</th>
                         <th width="90px">
-                            <a href="{{ action('NotificationsController@create', ['task_id' => $task['id']]) }}" class="btn-floating waves-effect waves-light green right" title="Add">
+                            <a href="{{ action('TaskNotificationsController@create', ['task_id' => $task['id']]) }}" class="btn-floating waves-effect waves-light green right" title="Add">
                                 <i class="material-icons">add</i>
                             </a>
                         </th>
@@ -39,13 +39,13 @@
                                     {{ $notification['to'] }}
                                 </td>
                                 <td>
-                                    {!! Form::model($task, ['action' => ['NotificationsController@destroy', $notification['id']], 'method' => 'delete', 'class' => 'delete']) !!}
+                                    {!! Form::model($task, ['action' => ['TaskNotificationsController@destroy', $notification['id']], 'method' => 'delete', 'class' => 'delete']) !!}
                                         <button type="submit" class="btn-floating waves-effect waves-light red" title="Remove" onclick="return confirm('Confirm?')">
                                             <i class="material-icons">delete</i>
                                         </button>
                                     {!! Form::close() !!}
 
-                                    <a href="{{ action('NotificationsController@edit', $notification['id']) }}" class="btn-floating waves-effect waves-light blue" title="Edit">
+                                    <a href="{{ action('TaskNotificationsController@edit', $notification['id']) }}" class="btn-floating waves-effect waves-light blue" title="Edit">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </td>
@@ -54,7 +54,7 @@
                     @else
                         <tr>
                             <td class="center-align" colspan="4">
-                                <a href="{{ action('NotificationsController@create', ['task_id' => $task['id']]) }}" class="btn waves-effect waves-light green" title="Add">
+                                <a href="{{ action('TaskNotificationsController@create', ['task_id' => $task['id']]) }}" class="btn waves-effect waves-light green" title="Add">
                                     <i class="material-icons left">add</i> Add your first notification
                                 </a>
                             </td>
