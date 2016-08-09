@@ -64,7 +64,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s6 required">
+            <div class="input-field col s12 m6 required">
                 {!! Form::label('Slack[channel]', 'Channel') !!}
                 {!! Form::text('Slack[channel]', isset($notification['slack']['channel']) ? $notification['slack']['channel'] : '#general') !!}
 

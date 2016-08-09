@@ -130,7 +130,7 @@ class TaskNotification extends Model
     protected function sendViaSlack()
     {
         $slack = new Slack($this->to, $this->slack);
-        $slack->sent($this->__message());
+        $slack->send($this->__message());
     }
 
     protected function sendViaSms()
