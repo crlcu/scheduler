@@ -121,7 +121,7 @@ class Task extends Model
 
     public function getStatusClassAttribute($value)
     {
-        return $this->is_enabled ? $this->last_run->status_class : 'grey lighten-4';
+        return $this->is_enabled ? $this->last_run && $this->last_run->status_class : 'grey lighten-4';
     }
 
     public function getSshAttribute($value)
