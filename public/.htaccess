@@ -20,7 +20,7 @@
 </IfModule>
 
 <IfModule pagespeed_module>
-    ModPagespeed off
+    ModPagespeed on
 
     ModPagespeedEnableFilters combine_javascript
     ModPagespeedEnableFilters combine_css

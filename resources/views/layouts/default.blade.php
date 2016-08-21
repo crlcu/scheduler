@@ -16,7 +16,7 @@
     {!! Html::style('css/style.min.css') !!}
 </head>
 <body>
-    <div class="page-wrap">
+    <main>
         @if (Auth::user())
             @include('elements.navbar')
         @endif
@@ -26,7 +26,9 @@
         </div>
 
         <div class="push"><!--//--></div>
-    </div>
+    </main>
+
+    @include('elements.footer')
 
     @section('scripts')
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
