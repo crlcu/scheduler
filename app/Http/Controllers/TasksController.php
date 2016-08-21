@@ -178,40 +178,6 @@ class TasksController extends Controller
     }
 
     /**
-     * Enable the task.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function enable($id)
-    {
-        $task = Task::forCurrentUser()
-            ->findOrFail($id);
-
-        # enable
-        $task->update(['is_enabled' => 1]);
-        
-        return redirect()->action('TasksController@index');
-    }
-
-    /**
-     * Disable the task.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function disable($id)
-    {
-        $task = Task::forCurrentUser()
-            ->findOrFail($id);
-
-        # disable
-        $task->update(['is_enabled' => 0]);
-        
-        return redirect()->action('TasksController@index');
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -243,6 +209,23 @@ class TasksController extends Controller
         $task->save();
 
         return redirect()->action('TasksController@show', $id);
+    }
+
+    /**
+     * Enable/Disable the task.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function onoff(Request $request, $id)
+    {
+        $task = Task::forCurrentUser()
+            ->findOrFail($id);
+
+        $task->update(['is_enabled' => $request->input('Task.is_enabled')]);
+        
+        return redirect()->action('TasksController@index');
     }
 
     /**

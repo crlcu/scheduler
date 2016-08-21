@@ -23,12 +23,11 @@
                 </caption>
                 <thead>
                     <tr>
-                        <th width="45px"></th>
                         <th>Name</th>
                         <th>Average duration</th>
                         <th>Schedule</th>
-                        <th width="150px">
-                            Next due
+                        <th width="150px">Next due</th>
+                        <th width="120px">
                             <a href="{{ action('TasksController@create') }}" class="btn-floating waves-effect waves-light green right" title="Add">
                                 <i class="material-icons">add</i>
                             </a>
@@ -39,17 +38,6 @@
                     @if (count($tasks))
                         @foreach ($tasks as $task)
                             <tr class="{{ $task['status_class'] }}" title="{{ $task['last_run']['status_title'] }}">
-                                <td class="center-align">
-                                    @if ($task['is_enabled'])
-                                        <a href="{{ action('TasksController@disable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light red" title="Disable" onclick="return confirm('Disable?')">
-                                            <i class="material-icons">pause_circle_filled</i>
-                                        </a>
-                                    @else
-                                        <a href="{{ action('TasksController@enable', $task['id']) }}" class="btn-floating btn-small waves-effect waves-light green" title="Enable" onclick="return confirm('Enable?')">
-                                            <i class="material-icons">play_circle_outline</i>
-                                        </a>
-                                    @endif
-                                </td>
                                 <td>
                                     <a href="{{ action('TasksController@show', $task['id']) }}" title="View history">
                                         {{ $task['name'] }}
@@ -60,6 +48,20 @@
                                     <span title="{{ $task['cron_for_humans'] }}">{{ $task['schedule'] }}</span>
                                 </td>
                                 <td>{{ $task['next_due'] }}</td>
+                                <td>
+                                    {!! Form::model($task, ['action' => ['TasksController@onoff', $task['id']], 'method' => 'put', 'novalidate']) !!}
+                                        <!-- Switch -->
+                                        <div class="switch">
+                                            <label>
+                                                Off
+                                                {!! Form::hidden('Task[is_enabled]', 0) !!}
+                                                {!! Form::checkbox('Task[is_enabled]', 1, $task['is_enabled']) !!}
+                                                <span class="lever"></span>
+                                                On
+                                            </label>
+                                        </div>
+                                    {!! Form::close() !!}
+                                </td>
                             </tr>
                         @endforeach
                     @elseif($q)
@@ -84,4 +86,15 @@
             {!! $tasks->links() !!}
         </div>
     </div>
+@endsection
+
+@section('scripts')
+@parent
+<script type="text/javascript">
+$(document).ready(function($) {
+    $('[name="Task[is_enabled]"]').on('change', function(e) {
+        $(this).closest('form').submit();
+    });
+});
+</script>
 @endsection

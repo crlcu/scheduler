@@ -32,6 +32,17 @@
             </div>
 
             <div class="col s12 m2">
+                <!-- Switch -->
+                <div class="switch">
+                    <label>
+                        Off
+                        {!! Form::hidden('Task[is_enabled]', 0) !!}
+                        {!! Form::checkbox('Task[is_enabled]', 1, $task['is_enabled'], ['id' => 'Task[is_enabled]']) !!}
+                        <span class="lever"></span>
+                        On
+                    </label>
+                </div>
+
                 {!! Form::hidden('Task[is_one_time_only]', 0) !!}
                 {!! Form::checkbox('Task[is_one_time_only]', 1, $task['is_one_time_only'], ['id' => 'Task[is_one_time_only]']) !!}
                 {!! Form::label('Task[is_one_time_only]', 'One time only') !!}
@@ -39,10 +50,6 @@
                 {!! Form::hidden('Task[is_via_ssh]', 0) !!}
                 {!! Form::checkbox('Task[is_via_ssh]', 1, $task['is_via_ssh'], ['id' => 'Task[is_via_ssh]']) !!}
                 {!! Form::label('Task[is_via_ssh]', 'Via SSH') !!}
-
-                {!! Form::hidden('Task[is_enabled]', 0) !!}
-                {!! Form::checkbox('Task[is_enabled]', 1, $task['is_enabled'], ['id' => 'Task[is_enabled]']) !!}
-                {!! Form::label('Task[is_enabled]', 'Enabled') !!}
             </div>
 
             <div class="input-field col s12 required">
