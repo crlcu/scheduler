@@ -61,8 +61,11 @@ $(document).ready(function() {
 });
 
 function repositioning( $element ) {
-    if ( (window.innerHeight - $element.innerHeight()) / 2 > 0 ) {
-        $element.animate({'margin-top': (window.innerHeight - $element.innerHeight()) / 2}, 1);
+    var screenHeight = $('main').innerHeight();
+    var elementHeight = $element.innerHeight();
+    
+    if ( (screenHeight - elementHeight) / 2 > 0 ) {
+        $element.animate({'margin-top': (screenHeight - elementHeight) / 2}, 1);
     }
 }
 </script>
