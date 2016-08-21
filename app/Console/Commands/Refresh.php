@@ -47,13 +47,17 @@ class Refresh extends Command
         $this->info('Running chmod');
         shell_exec('chmod 777 resources/lang -R');
         shell_exec('chmod 777 storage -R');
-        shell_exec('chmod 777 bootstrap -R');
+        shell_exec('chmod 777 bootstrap/cache -R');
 
         # clear the cache
-        $this->call('config:cache');
-        $this->call('route:cache');
+        $this->info('Clearing the cache');
         $this->call('cache:clear');
         $this->call('debugbar:clear');
         $this->call('view:clear');
+
+        # cache config and routes
+        $this->info('Caching config and routes');
+        $this->call('config:cache');
+        $this->call('route:cache');
     }
 }
