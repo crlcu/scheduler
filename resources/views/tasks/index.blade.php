@@ -51,7 +51,7 @@
                                 <td>
                                     {!! Form::model($task, ['action' => ['TasksController@onoff', $task['id']], 'method' => 'put', 'novalidate']) !!}
                                         <!-- Switch -->
-                                        <div class="switch">
+                                        <div class="switch" title="{{ $task['is_enabled'] ? 'This task is enabled' : 'This task is disabled' }}">
                                             <label>
                                                 Off
                                                 {!! Form::hidden('Task[is_enabled]', 0) !!}
