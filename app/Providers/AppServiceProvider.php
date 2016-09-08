@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 use Validator;
 use Cron\CronExpression;
+
+use App\Pagination\MaterializePresenter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Paginator::presenter(function($paginator)
+        {
+                return new MaterializePresenter($paginator);
+        });
     }
 }
