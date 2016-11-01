@@ -166,6 +166,7 @@ return [
         
         Barryvdh\Debugbar\ServiceProvider::class,
         Fitztrev\QueryTracer\Providers\QueryTracerServiceProvider::class,
+        F2m2\Apidocs\ApidocsServiceProvider::class,
     ],
 
     /*
