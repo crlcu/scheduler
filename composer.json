@@ -12,12 +12,13 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "barryvdh/laravel-async-queue": "0.4.x",
         "mtdowling/cron-expression": "^1.1",
-        "nexmo/client": "dev-master as 1.0",
+        "nexmo/client": "1.0.0-beta3",
         "nexmo/laravel": "dev-master as 1.0",
         "maknz/slack": "^1.7",
         "fitztrev/query-tracer": "^1.0",
         "venturecraft/revisionable": "1.*",
-        "sofa/eloquence": "^5.2"
+        "sofa/eloquence": "^5.2",
+        "ircop/antiflood": "^0.1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

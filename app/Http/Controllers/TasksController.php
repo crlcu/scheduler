@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Auth;
 use Artisan;
 use Carbon\Carbon;
 

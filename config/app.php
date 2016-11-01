@@ -162,6 +162,7 @@ return [
         Nexmo\Laravel\NexmoServiceProvider::class,
         Maknz\Slack\SlackServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
+        Ircop\Antiflood\AntifloodServiceProvider::class,
         
         Barryvdh\Debugbar\ServiceProvider::class,
         Fitztrev\QueryTracer\Providers\QueryTracerServiceProvider::class,
@@ -217,6 +218,7 @@ return [
 
         'Nexmo'     => Nexmo\Laravel\Facade\Nexmo::class,
         'Slack'     => Maknz\Slack\Facades\Slack::class,
+        'Antiflood' => Ircop\Antiflood\Facade\Antiflood::class,
 
         'Debugbar'  => Barryvdh\Debugbar\Facade::class,
     ],

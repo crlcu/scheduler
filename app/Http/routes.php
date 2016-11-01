@@ -11,9 +11,10 @@
 |
 */
 
-Route::auth();
-
-Route::any('register', 'Auth\AuthController@login');
+Route::group(['middleware' => 'firewall'], function () {
+    Route::auth();
+    Route::any('register', 'Auth\AuthController@login');
+});
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'TasksController@index');
@@ -43,4 +44,8 @@ Route::group(['middleware' => ['auth', 'role:manage-users']], function () {
 Route::group(['middleware' => ['auth', 'role:feature-notifications']], function () {
     Route::resource('notifications', 'TaskNotificationsController');
     Route::get('tasks/{id}/notifications', 'TasksController@notifications');
+});
+
+Route::group(['middleware' => ['auth', 'firewall'], 'namespace' => 'Api', 'prefix' => 'api'], function () {
+    Route::get('tasks/{id}/run', 'TasksController@run');
 });
