@@ -45,9 +45,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if ($e instanceof ModelNotFoundException)
+        if ($request->ajax())
         {
-            if ($request->ajax())
+            if ($e instanceof ModelNotFoundException)
             {
                 return response()->json([
                     'success'   => false,
@@ -56,6 +56,17 @@ class Handler extends ExceptionHandler
                         'code'      => 404
                     ],
                 ], 404);
+            }
+            
+            if ($e instanceof HttpException)
+            {
+                return response()->json([
+                    'success'   => false,
+                    'error'     => [
+                        'message'   => $e->getMessage(),
+                        'code'      => $e->getStatusCode()
+                    ],
+                ], $e->getStatusCode());
             }
         }
 
