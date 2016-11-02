@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@section('page-title')
+    Login
+@endsection
+
 @section('content')
     <div class="row">
         {!! Form::open(['action' => 'Auth\AuthController@login', 'class' => 'col offset-s1 s10 offset-m2 m8 offset-l4 l4', 'novalidate']) !!}
