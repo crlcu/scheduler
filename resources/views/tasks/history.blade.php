@@ -22,7 +22,7 @@
                             <td>
                                 @if (strlen($execution['result']) > 100)
                                     <!-- Modal Trigger -->
-                                    <a class="modal-trigger" href="#result{{ $execution['id'] }}">{{ str_limit($execution['result'], 100) }}</a>
+                                    <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit($execution['result'], 100)) !!}</a>
 
                                     <!-- Modal Structure -->
                                     <div id="result{{ $execution['id'] }}" class="modal modal-fixed-footer">
