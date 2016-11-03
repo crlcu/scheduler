@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth', 'role:feature-notifications']], function 
 
 Route::get('api/docs', 'PagesController@docs');
 
-Route::group(['middleware' => ['auth', 'firewall'], 'namespace' => 'Api', 'prefix' => 'api'], function () {
+Route::group(['middleware' => ['auth.basic', 'firewall'], 'namespace' => 'Api', 'prefix' => 'api'], function () {
     Route::put('tasks/{id}/onoff', 'TasksController@onoff');
     Route::get('tasks/{id}/run', 'TasksController@run');
 });
