@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\Install::class,
         Commands\Refresh::class,
+        Commands\Clear::class,
         Commands\User::class,
         Commands\Run\Single::class,
         Commands\Run\Multiple::class,
