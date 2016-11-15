@@ -19,7 +19,7 @@ class CreateTaskExecutions extends Migration
             $table->foreign('task_id')->references('id')->on('tasks');
 
             $table->string('status');
-            $table->text('result');
+            $table->longText('result');
 
             $table->timestamps();
         });
