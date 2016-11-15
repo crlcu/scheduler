@@ -3,7 +3,7 @@
 - Scheduler is a tool for easily managing cron like tasks.
 - Inside Scheduler you can have repetitive tasks as well as one time only tasks which can run locally or via SSH.
 - Scheduler also alows you to define notifications regarding task execution.
-- Notifications can be sent via email or as a message on Slack.
+- Notifications can be sent via email, sms or as a message on Slack.
 
 ## Instalation
 
