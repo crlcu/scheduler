@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group([/*'middleware' => ['auth:api'], */'namespace' => 'Api'], function () {
+    // Controllers Within The "App\Http\Controllers\Api" Namespace
+
+    Route::resource('roles', 'RolesController');
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');

@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost tasks-scheduler.com:80>
     ServerName tasks-scheduler.com
     ServerAlias tasks-scheduler.com www.tasks-scheduler.com
 

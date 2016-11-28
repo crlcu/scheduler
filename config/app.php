@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        TasksScheduler\Providers\AppServiceProvider::class,
+        TasksScheduler\Providers\AuthServiceProvider::class,
+        // TasksScheduler\Providers\BroadcastServiceProvider::class,
+        TasksScheduler\Providers\EventServiceProvider::class,
+        TasksScheduler\Providers\RouteServiceProvider::class,
 
     ],
 
