@@ -16,7 +16,8 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        $paginator = Role::paginate(15);
+        $paginator = Role::with('groups')
+            ->paginate(15);
         
         return response()
             ->json($paginator)

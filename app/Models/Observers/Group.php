@@ -2,13 +2,13 @@
 
 namespace App\Models\Observers;
 
-class Role {
+class Group {
 
     public function deleting($model)
     {
-        if ($model->groups())
+        if ($model->users())
         {
-            $model->groups()->detach();
+            $model->users()->delete();
         }
 
         return true;
