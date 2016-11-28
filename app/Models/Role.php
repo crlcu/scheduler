@@ -1,13 +1,13 @@
 <?php
 
-namespace TasksScheduler\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
-use TasksScheduler\Models\Observers\RoleObserver;
+use App\Models\Observers\RoleObserver;
 
 class Role extends Model
 {
@@ -39,6 +39,6 @@ class Role extends Model
      */
     public function groups()
     {
-        return $this->belongsToMany('TasksScheduler\Models\Group');
+        return $this->belongsToMany('App\Models\Group');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace TasksScheduler\Http\Controllers\Api;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use TasksScheduler\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
-use TasksScheduler\Models\Role;
+use App\Models\Role;
 
 class RolesController extends Controller
 {

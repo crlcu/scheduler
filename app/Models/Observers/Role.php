@@ -1,6 +1,6 @@
 <?php
 
-namespace TasksScheduler\Models\Observers;
+namespace App\Models\Observers;
 
 class RoleObserver {
 

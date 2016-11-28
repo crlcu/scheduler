@@ -1,10 +1,10 @@
 <?php
 
-namespace TasksScheduler\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use TasksScheduler\Models\User;
+use App\Models\User;
 use Validator;
-use TasksScheduler\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
