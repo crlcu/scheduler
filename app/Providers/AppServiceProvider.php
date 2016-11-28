@@ -3,12 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator;
-
-use Validator;
-use Cron\CronExpression;
-
-use App\Pagination\MaterializePresenter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,15 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('cron_expression', function($attribute, $value, $parameters, $validator) {
-            try {
-                CronExpression::factory($value);
-            } catch (\InvalidArgumentException $e) {
-                return false;
-            }
-
-            return true;
-        });
+        //
     }
 
     /**
@@ -37,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Paginator::presenter(function($paginator)
-        {
-                return new MaterializePresenter($paginator);
-        });
+        //
     }
 }

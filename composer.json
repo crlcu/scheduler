@@ -1,32 +1,19 @@
 {
-    "name": "crlcu/scheduler",
-    "description": "Php job scheduler.",
-    "keywords": ["cron", "job", "scheduler"],
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-        "laravelcollective/html": "5.2.*",
-        "laravelcollective/remote": "5.2.x-dev",
-        "barryvdh/laravel-debugbar": "^2.2",
-        "barryvdh/laravel-async-queue": "0.4.x",
-        "mtdowling/cron-expression": "^1.1",
-        "nexmo/client": "1.0.0-beta3",
-        "nexmo/laravel": "dev-master as 1.0",
-        "maknz/slack": "^1.7",
-        "fitztrev/query-tracer": "^1.0",
-        "venturecraft/revisionable": "1.*",
-        "sofa/eloquence": "^5.2",
-        "ircop/antiflood": "^0.1.2"
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*",
-        "f2m2/apidocs": "dev-master"
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*"
     },
     "autoload": {
         "classmap": [
@@ -39,14 +26,11 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php"
-        ],
-        "psr-4": {
-            "App\\": "app/"
-        }
+        ]
     },
     "scripts": {
         "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"

@@ -1,32 +1,27 @@
-# Scheduler
+# Laravel PHP Framework
 
-- Scheduler is a tool for easily managing cron like tasks.
-- Inside Scheduler you can have repetitive tasks as well as one time only tasks which can run locally or via SSH.
-- Scheduler also alows you to define notifications regarding task execution.
-- Notifications can be sent via email, sms or as a message on Slack.
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-## Instalation
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-- Make sure you have PHP >= 5.5.9
-- Mare sure you have these packages installed curl php5-curl  php5-mysql
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-```
-composer install
-php -r "copy('.env.example', '.env');"
-php artisan key:generate
-```
-Now setup ``.env``. Then
-```
-php artisan install
-```
+## Official Documentation
 
-## Crontab
-``* * * * * php <path to project>/artisan schedule:run | sed -e "s/^/$(date +'\%Y-\%m-\%d \%T') /" >> <path to project>/storage/logs/crontab-$(date +'\%Y-\%m-\%d').log 2>&1``
+Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-## Login
+## Contributing
 
-- User: ``administrator@tasks-scheduler.com``
-- Password: ``password``
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-- User: ``user@tasks-scheduler.com``
-- Password: ``password``
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
