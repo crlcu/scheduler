@@ -1,0 +1,58 @@
+@import 'widget';
+@import 'form';
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+    background-color: #f9f9f9;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#page {
+    margin-top: 10px;
+}
+
+table.condensed td {
+    padding: 3px;
+}
+
+form.delete {
+    float: left;
+    margin-right: 0.5rem;
+}
+
+.btn-floating.btn-small {
+    width: 27px;
+    height: 27px;
+    line-height: 27px;
+}
+
+.btn-floating.btn-small i {
+    font-size: 1.3rem;
+    line-height: 27px;
+}
+
+.material-icons {
+    &.animate-spin {
+        -moz-animation: spin 2s infinite linear;
+        -o-animation: spin 2s infinite linear;
+        -webkit-animation: spin 2s infinite linear;
+        animation: spin 2s infinite linear;
+    }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+footer {
+    &.page-footer {
+        margin-top: 0;
+        padding-top: 0;
+    }
+}
