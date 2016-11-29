@@ -16,7 +16,17 @@ class TasksController extends Controller
      */
     public function index(Request $request)
     {
-        $paginator = Task::paginate(15);
+        $query = Task::forCurrentUser();
+            //->with('executions', 'last_run');
+
+        if ($search = $request->input('search'))
+        {
+            $query = $query->search($search, null, true, 1);
+        }
+
+        $paginator = $query->orderBy('is_enabled', 'desc')
+            ->orderBy('next_due')
+            ->paginate(10);
         
         return response()
             ->json($paginator)

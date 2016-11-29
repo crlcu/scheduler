@@ -168,6 +168,7 @@ return [
          */
 
         Collective\Html\HtmlServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class,
 
         /*
          * Application Service Providers...

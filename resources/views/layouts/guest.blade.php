@@ -9,7 +9,7 @@
 
     @section('styles')
         {!! Html::style('//fonts.googleapis.com/icon?family=Material+Icons') !!}
-        {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css') !!}
+        {!! Html::style('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css') !!}
     @show
 
     {!! Html::style('css/style.min.css') !!}
@@ -34,7 +34,7 @@
         <![endif]-->
         
         {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js') !!}
-        {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js') !!}
+        {!! Html::script('//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js') !!}
     @show
 </body>
 </html>

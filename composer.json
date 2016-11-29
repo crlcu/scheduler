@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "venturecraft/revisionable": "^1.28",
         "laravelcollective/html": "^5.3",
-        "mtdowling/cron-expression": "^1.1"
+        "mtdowling/cron-expression": "^1.1",
+        "sofa/eloquence": "^5.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
