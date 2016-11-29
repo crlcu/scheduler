@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Task;
+
 class TasksController extends Controller
 {
     /**
@@ -12,9 +14,13 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $paginator = Task::paginate(15);
+        
+        return response()
+            ->json($paginator)
+            ->withCallback($request->input('callback'));
     }
 
     /**

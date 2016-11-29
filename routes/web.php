@@ -14,11 +14,9 @@
 Auth::routes();
 
 # Get route for logout
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('logout', 'Auth\LoginController@logout');
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/', 'TasksController@search');
 });

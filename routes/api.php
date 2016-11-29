@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['auth.basic'], 'namespace' => 'Api'], function () {
     // Controllers Within The "App\Http\Controllers\Api" Namespace
 
+    Route::resource('tasks', 'TasksController');
+
     Route::group(['middleware' => 'role:manage-roles'], function () {
         Route::resource('roles', 'RolesController');
     });
