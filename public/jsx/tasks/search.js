@@ -1,10 +1,10 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from'react'
+import ReactDOM from'react-dom'
 
-import {Button, Input, Pagination, ProgressBar} from 'react-materialize';
+import {Button, Input, Pagination, ProgressBar} from 'react-materialize'
 
 var TasksRow = React.createClass({
-    render: function() {
+    render() {
         var task = this.props.task;
 
         return (
@@ -26,7 +26,7 @@ var TasksRow = React.createClass({
 });
 
 var TasksTableBody = React.createClass({
-    render: function() {
+    render() {
         var rows = this.props.tasks.map(task => {
             return <TasksRow task={ task } key={ task.id } />;
         });
@@ -40,7 +40,7 @@ var TasksTableBody = React.createClass({
 });
 
 var TasksSearch = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
             loading:        true,
             tasks:          [],
@@ -50,16 +50,20 @@ var TasksSearch = React.createClass({
         };
     },
 
-    componentWillMount: function() {
+    componentWillMount() {
         this.loadTasks();
     },
 
-    loadTasks: function(page, search) {
+    loadTasks(page, search) {
         var self = this;
 
         self.setState({ loading: true });
 
-        $.ajax({
+        if (self.latestXHR) {
+            self.latestXHR.abort();
+        }
+
+        self.latestXHR = $.ajax({
             url:        '/api/tasks',
             data:       {
                 page:   page,
@@ -78,11 +82,11 @@ var TasksSearch = React.createClass({
         });
     },
 
-    search: function(e) {
+    search(e) {
         this.loadTasks(1, e.target.value);
     },
 
-    render: function() {
+    render() {
         return (
             <div className="widget">
                 <div className="header indigo lighten-5">
@@ -91,12 +95,8 @@ var TasksSearch = React.createClass({
                 <div className="content">
                     <table className="bordered highlight condensed">
                         <caption>
-                            <div className="file-field input-field">                                
-                                <Button floating waves="light" icon="search" className="red lighten-1 right"  />
-
-                                <div className="file-path-wrapper">
-                                    <Input name="q" s={12} onChange={ this.search } placeholder="Search ..." autoComplete="off" />
-                                </div>
+                            <div className="file-path-wrapper">
+                                <Input name="q" s={12} onChange={ this.search } placeholder="Search ..." autoComplete="off" />
                             </div>
                         </caption>
 

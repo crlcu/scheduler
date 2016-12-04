@@ -30,7 +30,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('browserify', function() {
-    browserify('public/js/jsx/tasks/search.jsx')
+    browserify('public/jsx/tasks/search.js')
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('public/js/tasks/search.js'))
