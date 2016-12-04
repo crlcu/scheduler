@@ -21,7 +21,8 @@ class TasksController extends Controller
 
         if ($search = $request->input('search'))
         {
-            $query = $query->search($search, null, true, 1);
+           // $query = $query->search($search, null, true, 1);
+            $query = $query->where('name', 'like', '%' . $search . '%');
         }
 
         $paginator = $query->orderBy('is_enabled', 'desc')

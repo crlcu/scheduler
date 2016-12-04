@@ -3,9 +3,9 @@ import ReactDOM from'react-dom'
 
 import {Button, Input, Pagination, ProgressBar} from 'react-materialize'
 
-var TasksRow = React.createClass({
+class TasksRow extends React.Component {
     render() {
-        var task = this.props.task;
+        const task = this.props.task;
 
         return (
             <tr>
@@ -21,38 +21,29 @@ var TasksRow = React.createClass({
                     
                 </td>
             </tr>
-        );
+        )
     }
-});
+}
 
-var TasksTableBody = React.createClass({
-    render() {
-        var rows = this.props.tasks.map(task => {
-            return <TasksRow task={ task } key={ task.id } />;
-        });
-
-        return (
-            <tbody>
-                { rows }
-            </tbody>
-        );
-    }
-});
-
-var TasksSearch = React.createClass({
-    getInitialState() {
-        return {
+class TasksSearch extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
             loading:        true,
             tasks:          [],
             current_page:   1,
             total:          1,
             per_page:       10,
         };
-    },
+
+        this.loadTasks = this.loadTasks.bind(this);
+        this.search = this.search.bind(this);
+    }
 
     componentWillMount() {
         this.loadTasks();
-    },
+    }
 
     loadTasks(page, search) {
         var self = this;
@@ -80,13 +71,17 @@ var TasksSearch = React.createClass({
                 });
             }
         });
-    },
+    }
 
     search(e) {
         this.loadTasks(1, e.target.value);
-    },
+    }
 
     render() {
+        var rows = this.state.tasks.map((task, i) =>
+            <TasksRow task={ task } key={ i } />
+        );
+
         return (
             <div className="widget">
                 <div className="header indigo lighten-5">
@@ -113,7 +108,9 @@ var TasksSearch = React.createClass({
                                 </th>
                             </tr>
                         </thead>
-                        <TasksTableBody tasks={ this.state.tasks } />
+                        <tbody>
+                            {rows}
+                        </tbody>
                     </table>
 
                     { this.state.loading ?
@@ -126,9 +123,9 @@ var TasksSearch = React.createClass({
                     <Pagination items={ Math.ceil(this.state.total / this.state.per_page) } activePage={ this.state.current_page } maxButtons={5} href={''} onSelect={ this.loadTasks } />
                 </div>
             </div>
-        );
+        )
     }
-});
+}
 
 var app = ReactDOM.render(
     <TasksSearch />,
