@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e8494ecb22d8799c2b7f9e8f83f493f9",
-    "content-hash": "8d3ee1ee5079630746b9d875b8a67284",
+    "hash": "bd2477123a267c507e30f843097ade4e",
+    "content-hash": "15129659f4d313d681f0dedab8b3254e",
     "packages": [
         {
             "name": "barryvdh/laravel-async-queue",

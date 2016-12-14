@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Venturecraft\Revisionable\RevisionableTrait;
 
+use GuzzleHttp\Client as Http;
 use Mail;
 use Nexmo;
 use Maknz\Slack\Client as Slack;
@@ -141,6 +142,18 @@ class TaskNotification extends Model
             'from'  => config('nexmo.from'),
             'to'    => $this->to,
             'text'  => $this->__message(),
+        ]);
+    }
+
+    protected function sendViaPing()
+    {
+        // Create a client with a base URI
+        $client = new Http();
+        $client->post($this->to, [
+            'headers' => [
+                'User-Agent' => 'Tasks Scheduler/1.0',
+            ],
+            'form_params' => $this->task->last_run->toArray(),
         ]);
     }
 

@@ -18,7 +18,8 @@
         "fitztrev/query-tracer": "^1.0",
         "venturecraft/revisionable": "1.*",
         "sofa/eloquence": "^5.2",
-        "ircop/antiflood": "^0.1.2"
+        "ircop/antiflood": "^0.1.2",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

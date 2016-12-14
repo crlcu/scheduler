@@ -64,6 +64,10 @@ class TaskNotificationsController extends Controller
         {
             $rules['Notification.to'] = ['required', 'regex:/^\+(?:[0-9]?){6,14}[0-9]$/i'];
         }
+        elseif ($request->input('Notification.type') == 'ping')
+        {
+            $rules['Notification.to'] = ['required', 'url'];
+        }
 
         $this->validate($request, $rules);
 
@@ -131,6 +135,10 @@ class TaskNotificationsController extends Controller
         elseif ($request->input('Notification.type') == 'sms')
         {
             $rules['Notification.to'] = ['required', 'regex:/^\+(?:[0-9]?){6,14}[0-9]$/i'];
+        }
+        elseif ($request->input('Notification.type') == 'ping')
+        {
+            $rules['Notification.to'] = ['required', 'url'];
         }
 
         $this->validate($request, $rules);
