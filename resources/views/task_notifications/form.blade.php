@@ -41,10 +41,16 @@
                 @endif
             </div>
 
-            <div class="col s12">
+            <div class="col s12 m6">
                 {!! Form::hidden('Notification[with_result]', 0) !!}
                 {!! Form::checkbox('Notification[with_result]', 1, $notification['with_result'], ['id' => 'Notification[with_result]']) !!}
                 {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}
+            </div>
+            
+            <div class="col s12 m6">
+                {!! Form::hidden('Notification[only_result]', 0) !!}
+                {!! Form::checkbox('Notification[only_result]', 1, $notification['only_result'], ['id' => 'Notification[only_result]']) !!}
+                {!! Form::label('Notification[only_result]', 'Send only the result when sending this notification') !!}
             </div>
         </div>
     </div>

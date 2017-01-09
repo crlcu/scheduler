@@ -21,7 +21,7 @@ class TaskNotification extends Model
      *
      * @var array
      */
-    protected $fillable = ['task_id', 'type', 'status', 'with_result', 'to', 'slack_config_json'];
+    protected $fillable = ['task_id', 'type', 'status', 'with_result', 'only_result', 'to', 'slack_config_json'];
 
     /**
      * The accessors to append to the model's array form.
