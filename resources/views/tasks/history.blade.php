@@ -22,7 +22,7 @@
                             <td>
                                 @if (strlen($execution['result']) > 100)
                                     <!-- Modal Trigger -->
-                                    <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit($execution['result'], 100)) !!}</a>
+                                    <a class="modal-trigger" href="#result{{ $execution['id'] }}">{!! nl2br(str_limit(strip_tags($execution['result']), 100)) !!}</a>
 
                                     <!-- Modal Structure -->
                                     <div id="result{{ $execution['id'] }}" class="modal modal-fixed-footer">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    {!! nl2br($execution['result']) !!}
+                                    {!! nl2br(strip_tags($execution['result'])) !!}
                                 @endif
                             </td>
                             <td>{{ $execution['created_at'] }}</td>
