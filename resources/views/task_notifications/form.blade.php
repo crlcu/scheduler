@@ -47,11 +47,22 @@
                 {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}
             </div>
             
-            <div class="col s12 m6">
-                {!! Form::hidden('Notification[only_result]', 0) !!}
-                {!! Form::checkbox('Notification[only_result]', 1, $notification['only_result'], ['id' => 'Notification[only_result]']) !!}
-                {!! Form::label('Notification[only_result]', 'Send only the result when sending this notification') !!}
-            </div>
+            @if (Auth::user()->hasRole('manage-users'))
+                <div class="col s12 m6">
+                    {!! Form::hidden('Notification[only_result]', 0) !!}
+                    {!! Form::checkbox('Notification[only_result]', 1, $notification['only_result'], ['id' => 'Notification[only_result]']) !!}
+                    {!! Form::label('Notification[only_result]', 'Send only the result when sending this notification') !!}
+                </div>
+
+                <div id="subject" class="input-field col s12 {{ $notification['only_result'] || old('Notification.only_result') ? '' : 'hide' }}">
+                    {!! Form::label('Notification[subject]', 'Subject') !!}
+                    {!! Form::text('Notification[subject]', $notification['subject']) !!}
+
+                    @if ($errors->has('Notification.subject'))
+                        <span class="red-text">{{ $errors->first('Notification.subject') }}</span>
+                    @endif
+                </div>
+            @endif
         </div>
     </div>
     <div class="footer indigo lighten-5">
@@ -104,12 +115,20 @@ $(document).ready(function($) {
     var $slack = $('#slack');
 
     $('[name="Notification[type]"]').on('change', function() {
-        console.log(this.value == 'slack');
-
         if (this.value == 'slack') {
             $slack.removeClass('hide');
         } else {
             $slack.addClass('hide');
+        }
+    });
+
+    var $subject = $('#subject');
+
+    $('[name="Notification[only_result]"]').on('change', function() {
+        if (this.checked) {
+            $subject.removeClass('hide');
+        } else {
+            $subject.addClass('hide');
         }
     });
 });

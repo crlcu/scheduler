@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddOnlyResultToTaskNotifications extends Migration
+class AddSubjectToTaskNotifications extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddOnlyResultToTaskNotifications extends Migration
     public function up()
     {
         Schema::table('task_notifications', function (Blueprint $table) {
-            $table->tinyInteger('only_result')
-                ->default(0)
-                ->after('with_result');
+            $table->string('subject')
+                ->nullable()
+                ->after('status');
         });
     }
 
@@ -27,7 +27,7 @@ class AddOnlyResultToTaskNotifications extends Migration
     public function down()
     {
         Schema::table('task_notifications', function (Blueprint $table) {
-            $table->dropColumn('only_result');
+            $table->dropColumn('subject');
         });
     }
 }

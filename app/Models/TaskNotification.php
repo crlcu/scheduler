@@ -21,7 +21,7 @@ class TaskNotification extends Model
      *
      * @var array
      */
-    protected $fillable = ['task_id', 'type', 'status', 'with_result', 'only_result', 'to', 'slack_config_json'];
+    protected $fillable = ['task_id', 'type', 'status', 'subject', 'with_result', 'only_result', 'to', 'slack_config_json'];
 
     /**
      * The accessors to append to the model's array form.
@@ -34,6 +34,36 @@ class TaskNotification extends Model
     /**
      * Accessors & Mutators
      */
+    public function getSubjectAttribute($value)
+    {
+        if ($value)
+        {
+            return $value;
+        }
+        
+        switch ($this->status)
+        {
+            case 'running':
+                return sprintf('The task "%s" has started to run', $this->task->name);
+
+                break;
+            case 'failed':
+                return sprintf('The execution of task "%s" has failed', $this->task->name);
+
+                break;
+            case 'interrupted':
+                return sprintf('The execution of task "%s" was interrupted', $this->task->name);
+
+                break;
+            case 'completed':
+                return sprintf('The execution of task "%s" is now completed', $this->task->name);
+
+                break;
+        }
+
+        return "Notification";
+    }
+
     public function getIsViaSlackAttribute($value)
     {
         return $this->type == 'slack';
@@ -97,7 +127,7 @@ class TaskNotification extends Model
                 Mail::queue('emails.tasks.running', ['task' => $task, 'notification' => $this], function ($mail) use ($to, $task)
                 {
                     $mail->to($to)
-                        ->subject(sprintf('The task "%s" has started to run', $task->name));
+                        ->subject($this->subject);
                 });
 
                 break;
@@ -105,7 +135,7 @@ class TaskNotification extends Model
                 Mail::queue('emails.tasks.execution', ['task' => $task, 'notification' => $this], function ($mail) use ($to, $task)
                 {
                     $mail->to($to)
-                        ->subject(sprintf('The execution of task "%s" has failed', $task->name));
+                        ->subject($this->subject);
                 });
 
                 break;
@@ -113,7 +143,7 @@ class TaskNotification extends Model
                 Mail::queue('emails.tasks.execution', ['task' => $task, 'notification' => $this], function ($mail) use ($to, $task)
                 {
                     $mail->to($to)
-                        ->subject(sprintf('The execution of task "%s" was interrupted', $task->name));
+                        ->subject($this->subject);
                 });
 
                 break;
@@ -121,7 +151,7 @@ class TaskNotification extends Model
                 Mail::queue('emails.tasks.execution', ['task' => $task, 'notification' => $this], function ($mail) use ($to, $task)
                 {
                     $mail->to($to)
-                        ->subject(sprintf('The execution of task "%s" is now completed', $task->name));
+                        ->subject($this->subject);
                 });
 
                 break;
