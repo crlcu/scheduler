@@ -47,7 +47,7 @@
                 {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}
             </div>
             
-            @if (Auth::user()->hasRole('manage-users'))
+            @if (Auth::user()->hasRole('custom-notification'))
                 <div class="col s12 m6">
                     {!! Form::hidden('Notification[only_result]', 0) !!}
                     {!! Form::checkbox('Notification[only_result]', 1, $notification['only_result'], ['id' => 'Notification[only_result]']) !!}
