@@ -83,7 +83,7 @@
             padding:10px;
         }
         .templateContainer{
-            max-width:600px !important;
+            /*max-width:600px !important;*/
         }
         a.mcnButton{
             display:block;
@@ -189,40 +189,6 @@
             /*@editable*/text-align:left;
         }
     /*
-    @tab Preheader
-    @csssection Preheader Style
-    @tip Set the background color and borders for your email's preheader area.
-    */
-        #templatePreheader{
-            /*@editable*/background-color:#FAFAFA;
-            /*@editable*/border-top:0;
-            /*@editable*/border-bottom:0;
-            /*@editable*/padding-top:9px;
-            /*@editable*/padding-bottom:9px;
-        }
-    /*
-    @tab Preheader
-    @csssection Preheader Text
-    @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
-    */
-        #templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
-            /*@editable*/color:#656565;
-            /*@editable*/font-family:Helvetica;
-            /*@editable*/font-size:12px;
-            /*@editable*/line-height:150%;
-            /*@editable*/text-align:left;
-        }
-    /*
-    @tab Preheader
-    @csssection Preheader Link
-    @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
-    */
-        #templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p a{
-            /*@editable*/color:#656565;
-            /*@editable*/font-weight:normal;
-            /*@editable*/text-decoration:underline;
-        }
-    /*
     @tab Header
     @csssection Header Style
     @tip Set the background color and borders for your email's header area.
@@ -326,7 +292,7 @@
         }
     @media only screen and (min-width:768px){
         .templateContainer{
-            width:600px !important;
+            /*width:600px !important;*/
         }
 
 }   @media only screen and (max-width: 480px){
@@ -470,27 +436,6 @@
 }   @media only screen and (max-width: 480px){
     /*
     @tab Mobile Styles
-    @csssection Preheader Visibility
-    @tip Set the visibility of the email's preheader on small screens. You can hide it to save space.
-    */
-        #templatePreheader{
-            /*@editable*/display:block !important;
-        }
-
-}   @media only screen and (max-width: 480px){
-    /*
-    @tab Mobile Styles
-    @csssection Preheader Text
-    @tip Make the preheader text larger in size for better readability on small screens.
-    */
-        #templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
-            /*@editable*/font-size:14px !important;
-            /*@editable*/line-height:150% !important;
-        }
-
-}   @media only screen and (max-width: 480px){
-    /*
-    @tab Mobile Styles
     @csssection Header Text
     @tip Make the header text larger in size for better readability on small screens.
     */
@@ -534,9 +479,6 @@
                         <td align="center" valign="top" width="600" style="width:600px;">
                         <![endif]-->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
-                            <tr>
-                                <td valign="top" id="templatePreheader"></td>
-                            </tr>
                             <tr>
                                 <td valign="top" id="templateHeader"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
     <tbody class="mcnImageBlockOuter">
@@ -591,6 +533,13 @@
         </tr>
     </tbody>
 </table></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" id="templateFooter">
+                                    <em>
+                                        If you do not wish to receive further emails like this, please click <a href="{{ action('TaskNotificationsController@unsubscribe', ['id' => $notification['id'], 'key' => $notification['unsubscribe_id']]) }}">here</a> to unsubscribe.
+                                    </em>
+                                </td>
                             </tr>
                         </table>
                         <!--[if gte mso 9]>

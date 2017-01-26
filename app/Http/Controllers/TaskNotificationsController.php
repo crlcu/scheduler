@@ -24,6 +24,7 @@ class TaskNotificationsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -178,5 +179,25 @@ class TaskNotificationsController extends Controller
         $notification->delete();
 
         return redirect()->action('TasksController@notifications', $task->id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function unsubscribe(Request $request, $id)
+    {
+        $notification = TaskNotification::findOrFail($id);
+
+        if ($request->input('key') == $notification->unsubscribe_id)
+        {
+            $notification->delete();
+            return 'Unsubscribed';
+        }
+
+        return 'Invalid key';
     }
 }

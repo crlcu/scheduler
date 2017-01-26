@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth', 'role:feature-notifications']], function 
     Route::get('tasks/{id}/notifications', 'TasksController@notifications');
 });
 
+Route::get('unsubscribe/{id}', 'TaskNotificationsController@unsubscribe');
 Route::get('api/docs', 'PagesController@docs');
 
 Route::group(['middleware' => ['auth.basic', 'firewall'], 'namespace' => 'Api', 'prefix' => 'api'], function () {

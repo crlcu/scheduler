@@ -28,7 +28,7 @@ class TaskNotification extends Model
      *
      * @var array
      */
-    protected $appends = ['is_via_slack', 'slack'];
+    protected $appends = ['is_via_slack', 'slack', 'unsubscribe_id'];
 
 
     /**
@@ -72,6 +72,11 @@ class TaskNotification extends Model
     public function getSlackAttribute($value)
     {
         return json_decode($this->slack_config_json ? : '[]', true);
+    }
+
+    public function getUnsubscribeIdAttribute($value)
+    {
+        return md5(sprintf('%s:%s:%s', $this->id, $this->type, $this->created_at));
     }
 
     /**
