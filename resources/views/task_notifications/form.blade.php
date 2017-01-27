@@ -42,6 +42,12 @@
             </div>
 
             <div class="col s12 m6">
+                {!! Form::hidden('Notification[accept_unsubscribe]', 0) !!}
+                {!! Form::checkbox('Notification[accept_unsubscribe]', 1, $notification['accept_unsubscribe'], ['id' => 'Notification[accept_unsubscribe]']) !!}
+                {!! Form::label('Notification[accept_unsubscribe]', 'Append unsubscribe link') !!}
+            </div>
+
+            <div class="col s12 m6">
                 {!! Form::hidden('Notification[with_result]', 0) !!}
                 {!! Form::checkbox('Notification[with_result]', 1, $notification['with_result'], ['id' => 'Notification[with_result]']) !!}
                 {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}

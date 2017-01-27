@@ -534,13 +534,15 @@
     </tbody>
 </table></td>
                             </tr>
-                            <tr>
-                                <td valign="top" id="templateFooter">
-                                    <em>
-                                        If you do not wish to receive further emails like this, please click <a href="{{ action('TaskNotificationsController@unsubscribe', ['id' => $notification['id'], 'key' => $notification['unsubscribe_id']]) }}">here</a> to unsubscribe.
-                                    </em>
-                                </td>
-                            </tr>
+                            @if ($notification['accept_unsubscribe'])
+                                <tr>
+                                    <td valign="top" id="templateFooter">
+                                        <em>
+                                            If you do not wish to receive further emails like this, please click <a href="{{ action('TaskNotificationsController@unsubscribe', ['id' => $notification['id'], 'key' => $notification['unsubscribe_id']]) }}">here</a> to unsubscribe.
+                                        </em>
+                                    </td>
+                                </tr>
+                            @endif
                         </table>
                         <!--[if gte mso 9]>
                         </td>

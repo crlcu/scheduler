@@ -21,7 +21,7 @@ class TaskNotification extends Model
      *
      * @var array
      */
-    protected $fillable = ['task_id', 'type', 'status', 'subject', 'with_result', 'only_result', 'to', 'slack_config_json'];
+    protected $fillable = ['task_id', 'type', 'status', 'subject', 'with_result', 'only_result', 'to', 'slack_config_json', 'accept_unsubscribe'];
 
     /**
      * The accessors to append to the model's array form.
@@ -76,7 +76,7 @@ class TaskNotification extends Model
 
     public function getUnsubscribeIdAttribute($value)
     {
-        return md5(sprintf('%s:%s:%s', $this->id, $this->type, $this->created_at));
+        return $this->accept_unsubscribe ? md5(sprintf('%s:%s:%s', $this->id, $this->type, $this->created_at)) : null;
     }
 
     /**
