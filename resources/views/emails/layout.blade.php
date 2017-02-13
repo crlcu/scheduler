@@ -472,12 +472,6 @@
             <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
                 <tr>
                     <td align="center" valign="top" id="bodyCell">
-                        <!-- BEGIN TEMPLATE // -->
-                        <!--[if gte mso 9]>
-                        <table align="center" border="0" cellspacing="0" cellpadding="0" width="600" style="width:600px;">
-                        <tr>
-                        <td align="center" valign="top" width="600" style="width:600px;">
-                        <![endif]-->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                             <tr>
                                 <td valign="top" id="templateHeader"><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageBlock" style="min-width:100%;">
@@ -505,14 +499,6 @@
     <tbody class="mcnTextBlockOuter">
         <tr>
             <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-                <!--[if mso]>
-                <table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-                <tr>
-                <![endif]-->
-                
-                <!--[if mso]>
-                <td valign="top" width="600" style="width:600px;">
-                <![endif]-->
                 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
                     <tbody><tr>
                         
@@ -521,14 +507,6 @@
                     </td>
                     </tr>
                 </tbody></table>
-                <!--[if mso]>
-                </td>
-                <![endif]-->
-                
-                <!--[if mso]>
-                </tr>
-                </table>
-                <![endif]-->
             </td>
         </tr>
     </tbody>
@@ -544,12 +522,6 @@
                                 </tr>
                             @endif
                         </table>
-                        <!--[if gte mso 9]>
-                        </td>
-                        </tr>
-                        </table>
-                        <![endif]-->
-                        <!-- // END TEMPLATE -->
                     </td>
                 </tr>
             </table>
