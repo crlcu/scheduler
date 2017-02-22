@@ -13,9 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Install::class,
-        Commands\Refresh::class,
-        Commands\Clear::class,
+        Commands\App\Clear::class,
+        Commands\App\Install::class,
+        Commands\App\Refresh::class,
         Commands\User::class,
         Commands\Run\Single::class,
         Commands\Run\Multiple::class,

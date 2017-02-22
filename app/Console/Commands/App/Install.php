@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\App;
 
 use Illuminate\Console\Command;
 
-class Refresh extends Command
+class Install extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'refresh';
+    protected $signature = 'app:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Refresh the app.';
+    protected $description = 'Install and initialize an app.';
 
     /**
      * Create a new command instance.
@@ -37,11 +37,12 @@ class Refresh extends Command
      */
     public function handle()
     {
-        # install dependencies
-        shell_exec('composer install');
-
         # apply migrations
         $this->call('migrate');
+        $this->call('migrate', ['--path' => 'vendor/venturecraft/revisionable/src/migrations/']);
+
+        # insert some data in db
+        $this->call('db:seed');
 
         # give permissions
         $this->info('Running chmod');
