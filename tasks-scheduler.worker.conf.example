@@ -1,0 +1,9 @@
+[program:tasks-scheduler-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /location/to/root/of/application/artisan queue:work --sleep=2 --tries=1 --daemon
+autostart=true
+autorestart=true
+user=root
+numprocs=4
+redirect_stderr=true
+stdout_logfile=/var/log/tasks-scheduler/worker.log
