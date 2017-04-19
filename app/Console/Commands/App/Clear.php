@@ -40,7 +40,9 @@ class Clear extends Command
         # clear the cache
         $this->info('Clearing the cache');
         $this->call('cache:clear');
+        $this->call('config:clear');
         $this->call('debugbar:clear');
+        $this->call('route:clear');
         $this->call('view:clear');
     }
 }
