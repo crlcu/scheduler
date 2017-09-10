@@ -34,6 +34,14 @@ class RolesTableSeeder extends Seeder
                 'name'          => 'feature-notifications',
                 'description'   => 'Notifications feature.',
             ],
+            [
+                'name'          => 'custom-notifications',
+                'description'   => 'Custom notifications feature.',
+            ],
+            [
+                'name'          => 'advanced-notifications',
+                'description'   => 'Advanced notifications feature.',
+            ],
         ];
 
         foreach ($roles as $role)

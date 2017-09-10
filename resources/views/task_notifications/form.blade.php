@@ -32,7 +32,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s12 m6 required">
+            <div class="col s12 m6 required">
                 {!! Form::label('Notification[to]', 'Send a notification to') !!}
                 {!! Form::text('Notification[to]', $notification['to'], ['required' => true, 'autofocus']) !!}
 
@@ -53,20 +53,50 @@
                 {!! Form::label('Notification[with_result]', 'Append the result when sending this notification') !!}
             </div>
             
-            @if (Auth::user()->hasRole('custom-notification'))
+            @if (Auth::user()->hasRole('custom-notifications'))
                 <div class="col s12 m6">
                     {!! Form::hidden('Notification[only_result]', 0) !!}
                     {!! Form::checkbox('Notification[only_result]', 1, $notification['only_result'], ['id' => 'Notification[only_result]']) !!}
                     {!! Form::label('Notification[only_result]', 'Send only the result when sending this notification') !!}
                 </div>
 
-                <div id="subject" class="input-field col s12 {{ $notification['only_result'] || old('Notification.only_result') ? '' : 'hide' }}">
+                <div id="subject" class="col s12 m6 {{ $notification['only_result'] || old('Notification.only_result') ? '' : 'hide' }}">
                     {!! Form::label('Notification[subject]', 'Subject') !!}
                     {!! Form::text('Notification[subject]', $notification['subject']) !!}
 
                     @if ($errors->has('Notification.subject'))
                         <span class="red-text">{{ $errors->first('Notification.subject') }}</span>
                     @endif
+                </div>
+            @endif
+
+            @if (Auth::user()->hasRole('advanced-notifications'))
+                <div class="col s12 m6">
+                    {!! Form::hidden('Notification[send_if]', 0) !!}
+                    {!! Form::checkbox('Notification[send_if]', 1, $notification['condition'] != null, ['id' => 'Notification[send_if]']) !!}
+                    {!! Form::label('Notification[send_if]', 'Send this notification if') !!}
+                </div>
+
+                <div id="sendif" class="col s12 m6 {{ $notification['condition'] || old('Notification.condition') ? '' : 'hide' }}">
+                    <div class="row">
+                        <div class="col s12 m6 required">
+                            {!! Form::label('Notification[condition]', 'Condition') !!}
+                            {!! Form::select('Notification[condition]', ['lt' => 'Less than', 'gt' => 'Great than', 'margin' => 'Margin'], $notification['condition'], ['class' => 'browser-default', 'required' => true]) !!}
+
+                            @if ($errors->has('Notification.status'))
+                                <span class="red-text">{{ $errors->first('Notification.status') }}</span>
+                            @endif
+                        </div>
+
+                        <div class="col s12 m6 required">
+                            {!! Form::label('Notification[value]', 'Value') !!}
+                            {!! Form::text('Notification[value]', $notification['value'], ['required' => true]) !!}
+
+                            @if ($errors->has('Notification.value'))
+                                <span class="red-text">{{ $errors->first('Notification.value') }}</span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>
@@ -82,7 +112,7 @@
     </div>
     <div class="content">
         <div class="row">
-            <div class="input-field col s12 m6 required">
+            <div class="col s12 m6 required">
                 {!! Form::label('Slack[username]', 'Username') !!}
                 {!! Form::text('Slack[username]', isset($notification['slack']['username']) ? $notification['slack']['username'] : 'deploy') !!}
 
@@ -91,7 +121,7 @@
                 @endif
             </div>
 
-            <div class="input-field col s12 m6 required">
+            <div class="col s12 m6 required">
                 {!! Form::label('Slack[channel]', 'Channel') !!}
                 {!! Form::text('Slack[channel]', isset($notification['slack']['channel']) ? $notification['slack']['channel'] : '#general') !!}
 
@@ -135,6 +165,16 @@ $(document).ready(function($) {
             $subject.removeClass('hide');
         } else {
             $subject.addClass('hide');
+        }
+    });
+
+    var $sendIf = $('#sendif');
+
+    $('[name="Notification[send_if]"]').on('change', function() {
+        if (this.checked) {
+            $sendIf.removeClass('hide');
+        } else {
+            $sendIf.addClass('hide');
         }
     });
 });

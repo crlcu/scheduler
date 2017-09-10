@@ -21,7 +21,7 @@ class TaskNotification extends Model
      *
      * @var array
      */
-    protected $fillable = ['task_id', 'type', 'status', 'subject', 'with_result', 'only_result', 'to', 'slack_config_json', 'accept_unsubscribe'];
+    protected $fillable = ['task_id', 'type', 'status', 'subject', 'with_result', 'only_result', 'to', 'slack_config_json', 'accept_unsubscribe', 'condition', 'value'];
 
     /**
      * The accessors to append to the model's array form.
@@ -116,6 +116,13 @@ class TaskNotification extends Model
      */
     public function send()
     {
+        $condition = sprintf('__%s', $this->condition);
+
+        if ($this->condition && !$this->$condition())
+        {
+            return false;
+        }
+
         $method = sprintf('sendVia%s', ucfirst($this->type));
 
         return $this->$method();
@@ -190,6 +197,25 @@ class TaskNotification extends Model
             ],
             'form_params' => $this->task->last_run->toArray(),
         ]);
+    }
+
+    private function __lt()
+    {
+        return $this->task->last_run->result < $this->value;
+    }
+
+    private function __gt()
+    {
+        return $this->task->last_run->result > $this->value;
+    }
+
+    private function __margin()
+    {
+        list($min, $max) = explode(',', $this->value);
+
+        $result = $this->task->last_run->result;
+
+        return $result < $min || $result > $max;
     }
 
     private function __message()

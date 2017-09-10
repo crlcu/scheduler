@@ -142,6 +142,9 @@ class TaskNotificationsController extends Controller
             $rules['Notification.to'] = ['required', 'url'];
         }
 
+        $rules['Notification.condition'] = ['required_if:Notification.send_if,1'];
+        $rules['Notification.value'] = ['required_if:Notification.send_if,1'];
+
         $this->validate($request, $rules);
 
         $notification = TaskNotification::findOrFail($id);
