@@ -199,6 +199,16 @@ class TaskNotification extends Model
         ]);
     }
 
+    private function __eq()
+    {
+        return $this->task->last_run->result == $this->value;
+    }
+
+    private function __ne()
+    {
+        return $this->task->last_run->result != $this->value;
+    }
+
     private function __lt()
     {
         return $this->task->last_run->result < $this->value;
@@ -207,6 +217,11 @@ class TaskNotification extends Model
     private function __gt()
     {
         return $this->task->last_run->result > $this->value;
+    }
+
+    private function __contains()
+    {
+        return strpos($this->task->last_run->result, $this->value) !== false;
     }
 
     private function __margin()

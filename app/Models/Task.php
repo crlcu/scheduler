@@ -248,8 +248,11 @@ class Task extends Model
             $this->execution->save();
         });
 
+        # Remove trailing newline
+        $this->execution->update([ 'result' => rtrim($this->execution->result)]);
+
         if (!$process->isSuccessful()) {
-            $this->execution->result .= $process->getErrorOutput();
+            // $this->execution->result .= $process->getErrorOutput();
 
             return false;
         }

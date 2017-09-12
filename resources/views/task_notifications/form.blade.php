@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="col s12 m6 required">
                             {!! Form::label('Notification[condition]', 'Condition') !!}
-                            {!! Form::select('Notification[condition]', ['lt' => 'Less than', 'gt' => 'Great than', 'margin' => 'Margin'], $notification['condition'], ['class' => 'browser-default', 'required' => true]) !!}
+                            {!! Form::select('Notification[condition]', ['eq' => 'Equal', 'ne' => 'Not Equal', 'lt' => 'Less than', 'gt' => 'Great than', 'contains' => 'Contains', 'margin' => 'Margin'], $notification['condition'], ['class' => 'browser-default', 'required' => true]) !!}
 
                             @if ($errors->has('Notification.status'))
                                 <span class="red-text">{{ $errors->first('Notification.status') }}</span>
