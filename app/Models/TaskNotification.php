@@ -14,8 +14,8 @@ use Maknz\Slack\Client as Slack;
 
 class TaskNotification extends Model
 {
-	use SoftDeletes, RevisionableTrait;
-	
+    use SoftDeletes, RevisionableTrait;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -40,28 +40,24 @@ class TaskNotification extends Model
         {
             return $value;
         }
+
+        $name = sprintf('"%s"', $this->task->name);
         
-        switch ($this->status)
-        {
-            case 'running':
-                return sprintf('The task "%s" has started to run', $this->task->name);
-
-                break;
-            case 'failed':
-                return sprintf('The execution of task "%s" has failed', $this->task->name);
-
-                break;
-            case 'interrupted':
-                return sprintf('The execution of task "%s" was interrupted', $this->task->name);
-
-                break;
-            case 'completed':
-                return sprintf('The execution of task "%s" is now completed', $this->task->name);
-
-                break;
+        if ($this->is_via_slack) {
+            $name = sprintf('*%s*', $this->task->name);
         }
 
-        return "Notification";
+        if ($this->status == 'running') {
+            return sprintf('The task %s has started to run', $name);
+        } elseif ($this->status == 'failed') {
+            return sprintf('The execution of task %s has failed', $name);
+        } elseif ($this->status == 'interrupted') {
+            return sprintf('The execution of task %s was interrupted', $name);
+        } elseif ($this->status == 'completed') {
+            return sprintf('The execution of task %s is now completed', $name);
+        }
+
+        return 'Notification';
     }
 
     public function getIsViaSlackAttribute($value)
@@ -117,7 +113,7 @@ class TaskNotification extends Model
     public function send()
     {
         $condition = sprintf('__%s', $this->condition);
-        
+
         if ($this->condition && !$this->$condition())
         {
             return false;
@@ -245,29 +241,8 @@ class TaskNotification extends Model
 
     private function __message()
     {
-        $message = '';
         $result = $this->with_result ? sprintf("\n```%s```", $this->task->last_run->result) : '';
 
-        switch ($this->status)
-        {
-            case 'running':
-                $message = sprintf('The task *%s* has started to run.%s', $this->task->name, $result);
-
-                break;
-            case 'failed':
-                $message = sprintf("The execution of task *%s* has failed.%s", $this->task->name, $result);
-
-                break;
-            case 'interrupted':
-                $message = sprintf("The execution of task *%s* was interrupted.%s", $this->task->name, $result);
-
-                break;
-            case 'completed':
-                $message = sprintf("The execution of task *%s* is now completed.%s", $this->task->name, $result);
-
-                break;
-        }
-
-        return $message;
+        return sprintf('%s.%s', $this->subject, $result);
     }
 }
