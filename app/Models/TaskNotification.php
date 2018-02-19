@@ -117,7 +117,7 @@ class TaskNotification extends Model
     public function send()
     {
         $condition = sprintf('__%s', $this->condition);
-
+        
         if ($this->condition && !$this->$condition())
         {
             return false;
@@ -214,9 +214,19 @@ class TaskNotification extends Model
         return $this->task->last_run->result < $this->value;
     }
 
+    private function __lt_number()
+    {
+        return (float)$this->task->last_run->result < (float)$this->value;
+    }
+
     private function __gt()
     {
         return $this->task->last_run->result > $this->value;
+    }
+
+    private function __gt_number()
+    {
+        return (float)$this->task->last_run->result > (float)$this->value;
     }
 
     private function __contains()

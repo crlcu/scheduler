@@ -44,6 +44,10 @@ class User extends Command
      */
     public function handle()
     {
+        \App\Models\TaskNotification::find(38)->send();
+
+        exit;
+
         $action = $this->argument('action');
         $ok = $this->$action();
 
