@@ -41,6 +41,11 @@ class TaskNotification extends Model
             return $value;
         }
 
+        if (!$this->exists)
+        {
+            return null;
+        }
+
         $name = sprintf('"%s"', $this->task->name);
         
         if ($this->is_via_slack) {
@@ -57,7 +62,7 @@ class TaskNotification extends Model
             return sprintf('The execution of task %s is now completed', $name);
         }
 
-        return 'Notification';
+        return null;
     }
 
     public function getIsViaSlackAttribute($value)
