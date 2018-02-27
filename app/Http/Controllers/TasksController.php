@@ -174,8 +174,8 @@ class TasksController extends Controller
     public function ping(Request $request, $id)
     {
         $task = Task::findOrFail($id);
-
-        if ($request->input('token') != $task->ping_url)
+        
+        if ($request->input('token') != $task->token)
         {
             return response()
                 ->json(['reason' => 'Invalid token.'])

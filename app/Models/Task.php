@@ -122,7 +122,7 @@ class Task extends Model
 
     public function getPingUrlAttribute()
     {
-        return sprintf('%s?token=%s', action('TasksController@ping', $this->id), md5($this->id . $this->created_at));
+        return sprintf('%s?token=%s', action('TasksController@ping', $this->id), $this->token);
     }
 
     public function getStatusClassAttribute($value)
@@ -143,6 +143,11 @@ class Task extends Model
         }
 
         return $this->cron_expression;
+    }
+
+    public function getTokenAttribute()
+    {
+        return md5($this->id . $this->created_at);
     }
 
     public function getTypeAttribute($value)
