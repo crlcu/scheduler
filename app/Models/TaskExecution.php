@@ -47,6 +47,13 @@ class TaskExecution extends Model
     /**
      * Accessors & Mutators
      */
+    public function getChartYAttribute()
+    {
+        $field = $this->task->chart_y;
+
+        return $this->$field;
+    }
+
     public function getDurationAttribute($value)
     {
         $start = $this->is_running ? Carbon::now() : $this->updated_at;

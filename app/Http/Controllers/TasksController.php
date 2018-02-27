@@ -120,11 +120,13 @@ class TasksController extends Controller
         $start = new Carbon(config('charts.tasks.details_start'));
 
         $completed = $task->executions()
+            ->with('task')
             ->startingAt($start)
             ->completed()
             ->get();
 
         $failed = $task->executions()
+            ->with('task')
             ->startingAt($start)
             ->failed()
             ->get();

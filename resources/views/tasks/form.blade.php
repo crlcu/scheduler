@@ -61,10 +61,16 @@
                 @endif
             </div>
 
-            <div class="col s12">
+            <div class="col s6">
                 {!! Form::hidden('Task[is_concurrent]', 0) !!}
                 {!! Form::checkbox('Task[is_concurrent]', 1, $task['is_concurrent'], ['id' => 'Task[is_concurrent]']) !!}
                 {!! Form::label('Task[is_concurrent]', 'Run this task even if last execution is running') !!}
+            </div>
+
+            <div class="col s6">
+                {!! Form::hidden('Task[chart_y]', 'duration') !!}
+                {!! Form::checkbox('Task[chart_y]', 'result', null, ['id' => 'Task[chart_y]']) !!}
+                {!! Form::label('Task[chart_y]', 'Chart based on result') !!}
             </div>
         </div>
     </div>

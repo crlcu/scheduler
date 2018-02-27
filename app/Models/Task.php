@@ -33,7 +33,8 @@ class Task extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_concurrent', 'is_enabled'
+        'name', 'command', 'cron_expression', 'next_due', 'is_one_time_only', 'is_via_ssh', 'ssh_config_json', 'is_concurrent', 'is_enabled',
+        'chart_y',
     ];
     
     /**

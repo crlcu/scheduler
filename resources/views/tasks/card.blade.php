@@ -64,7 +64,7 @@ function drawChart() {
 
         completed.addRows([
             @foreach ($completed as $execution)
-                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
+                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['chart_y'] }}],
             @endforeach
         ]);
 
@@ -74,7 +74,7 @@ function drawChart() {
 
         failed.addRows([
             @foreach ($failed as $execution)
-                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['duration'] }}],
+                ['{{ $execution->created_at->format("jS M H:i:s") }}', {{ $execution['chart_y'] }}],
             @endforeach
         ]);
 
