@@ -13,6 +13,8 @@
             <div id="chart"></div>
             <div class="right-align"><em><small>This chart includes data since {{ $start }}.</small></em></div>
         @endif
+
+        <p class="hide">{{ $task['ping_url'] }}</p>
     </div>
     <div class="footer indigo lighten-5">
         <div class="row">

@@ -120,6 +120,11 @@ class Task extends Model
         return $this->notifications->count() > 0;
     }
 
+    public function getPingUrlAttribute()
+    {
+        return sprintf('%s?token=%s', action('TasksController@ping', $this->id), md5($this->id . $this->created_at));
+    }
+
     public function getStatusClassAttribute($value)
     {
         return $this->is_enabled ? $this->last_run && $this->last_run->status_class : 'grey lighten-4';

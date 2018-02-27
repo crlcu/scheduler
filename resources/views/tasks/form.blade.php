@@ -69,7 +69,7 @@
 
             <div class="col s6">
                 {!! Form::hidden('Task[chart_y]', 'duration') !!}
-                {!! Form::checkbox('Task[chart_y]', 'result', null, ['id' => 'Task[chart_y]']) !!}
+                {!! Form::checkbox('Task[chart_y]', 'result', $task['chart_y'] == 'result', ['id' => 'Task[chart_y]']) !!}
                 {!! Form::label('Task[chart_y]', 'Chart based on result') !!}
             </div>
         </div>

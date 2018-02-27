@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tasks', 'TasksController');
 
     Route::get('tasks/{id}/run', 'TasksController@run');
+    Route::get('tasks/{id}/ping', 'TasksController@ping');
     Route::put('tasks/{id}/onoff', 'TasksController@onoff');
     Route::get('tasks/{id}/clear', 'TasksController@clear');
 

@@ -165,6 +165,32 @@ class TasksController extends Controller
     }
 
     /**
+     * Run the task if token match.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function ping(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        if ($request->input('token') != $task->ping_url)
+        {
+            return response()
+                ->json(['reason' => 'Invalid token.'])
+                ->setStatusCode(401)
+                ->setCallback($request->input('callback'));
+        }
+
+        Artisan::queue('run:task', ['task' => $id]);
+        
+        return response()
+                ->json(['message' => 'Task was sent to the queue.'])
+                ->setCallback($request->input('callback'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
