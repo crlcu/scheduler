@@ -263,7 +263,7 @@ class Task extends Model
         $this->execution->update([ 'result' => rtrim($this->execution->result)]);
 
         if (!$process->isSuccessful()) {
-            // $this->execution->result .= $process->getErrorOutput();
+            $this->execution->result .= $process->getErrorOutput();
 
             return false;
         }
