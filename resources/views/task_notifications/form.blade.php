@@ -173,10 +173,12 @@ $(document).ready(function($) {
     $('[name="Notification[send_if]"]').on('change', function() {
         if (this.checked) {
             $sendIf.removeClass('hide');
+            $sendIf.find(':input').attr('disabled', false);
         } else {
             $sendIf.addClass('hide');
+            $sendIf.find(':input').attr('disabled', true);
         }
-    });
+    }).trigger('change');
 });
 </script>
 @endsection
